@@ -9,3 +9,7 @@ Author: Xurxo Legaspi
 License: GPLv3
 */
 
+add_action('init', 'hello_world');
+function hello_world() {
+    echo "Hello world";
+}
