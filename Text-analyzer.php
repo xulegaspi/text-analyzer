@@ -16,13 +16,14 @@ register_activation_hook(__FILE__, 'hello_world_install');
 register_deactivation_hook(__FILE__, 'hello_world_remove');
 
 function hello_world_install() {
-    $page_title = 'TextAnalyzer Settings';
-    $menu_title = 'Menu';
-    $capability = 'read';
-    $menu_slug  = 'Slug';
+//    $page_title = 'TextAnalyzer Settings';
+//    $menu_title = 'Menu';
+//    $capability = 'read';
+//    $menu_slug  = 'Slug';
+//    add_dashboard_page($page_title, $menu_title, $capability, $menu_slug);
+
     /* Creates new database field */
     add_option('hello_world_data', 'Default', '', 'yes');
-    add_dashboard_page($page_title, $menu_title, $capability, $menu_slug);
 }
 
 function hello_world_remove() {
@@ -35,15 +36,21 @@ function hello_world() {
     echo "Hello world";
 }
 
-if ( is_admin() ) {
+add_action('admin_menu', 'my_plugin_menu');
 
-    /* Call the html code */
-    add_action('admin_menu', 'hello_world_admin_menu');
+function my_plugin_menu() {
 
-    function hello_world_admin_menu() {
-        add_options_page('Hello World', 'Hello World', 'administrator',
-            'hello-world', 'hello_world_html_page');
+    add_options_page( 'My Plugin Options', 'Text Analyzer', 'manage_options', 'text-analyzer-settings', 'my_plugin_options' );
+
+}
+
+function my_plugin_options() {
+    if ( !current_user_can( 'manage_options' ) )  {
+        wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     }
+    echo '<div class="wrap">';
+    echo '<p>Here is where the form would go if I actually had options.</p>';
+    echo '</div>';
 }
 
 
