@@ -50,6 +50,11 @@ function my_plugin_options() {
     }
     echo '<div class="wrap">';
     echo '<p>Here is where the form would go if I actually had options.</p>';
+//    echo '<form action="/wordpress/wp-admin/options-general.php?page=text-analyzer-settings">';
+    echo '<form action="/wordpress/wp-content/plugins/TextAnalyzer/xml-parser.php">';
+    echo '<input type="file" name="File">';
+    echo '<input type="submit" value="Upload">';
+    echo '</form>';
     echo '</div>';
 }
 
