@@ -8,10 +8,9 @@
     <div class="wrap">
     <p>Choose the file that contains the urls to crawl.</p>
         <!--<form action="/wordpress/wp-content/plugins/TextAnalyzer/xml-parser.php">-->
-        <form id="featured_upload" method="POST" action="#" enctype="multipart/form-data">
+        <form id="featured_upload" method="POST" action="/wordpress/wp-content/plugins/TextAnalyzer/xml-parser.php" enctype="multipart/form-data">
             <input type="file" name="my_file" id="my_file_upload" multiple="false" />
             <input type="hidden" name="post_id" id="post_id" value="55" />
-            <?php wp_nonce_field( 'my_file_upload', 'my_file_upload_nonce' ); ?>
             <input id="submit_my_file" name="submit_my_file" type="submit" value="Upload" />
             </form>
         </div>
