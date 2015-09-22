@@ -19,19 +19,32 @@ if(isset($_POST["submit_my_file"])) {
 		$uploadOk = 1;
 	} else {
 		echo "File is not an image.";
-		foreach ($_FILES as $key => $value) {
-			echo '<p>'.$key.'</p>';
-			foreach($value as $k => $v)
-			{
-				echo '<p>'.$k.'</p>';
-				echo '<p>'.$v.'</p>';
-				echo '<hr />';
+
+//		$file = file_get_contents($_FILES['my_file']['tmp_name']);
+		$xml = simplexml_load_file($_FILES['my_file']['tmp_name']) or die("Error: Cannot create object");
+
+//		echo $xml->map->markers;
+		echo "<br />";
+//		print_r($xml->children()->children());
+
+		$ii = 0;
+		foreach($xml->children()->children() as $marker) {
+			$ii++;
+//			echo $marker->children()->DetailsHTML;
+//			echo $marker->DetailsHTML;
+			if($ii==9) {
+//			echo $ii;
+//			echo $marker['DetailsHTML'];
+//			echo "<br />";
+//			echo "<hr />";
+				print_r($marker->children());
 			}
 
 		}
-//		echo file_get_contents($_FILES['my_file']['tmp_name']);
-		echo file($_FILES['my_file']['tmp_name']);
-//		echo $_FILES;
+
+//		$xml=simplexml_load_file("note.xml") or die("Error: Cannot create object");
+//		print_r($xml);
+//		echo $xml->getName();
 		$uploadOk = 0;
 	}
 }
