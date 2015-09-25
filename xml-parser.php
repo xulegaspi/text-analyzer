@@ -10,7 +10,10 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["my_file"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-//$file = $_POST["my_file"]["tmp_name"];
+
+$mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
+//echo $c;
+
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit_my_file"])) {
 	$check = getimagesize($_FILES["my_file"]["tmp_name"]);
@@ -19,28 +22,61 @@ if(isset($_POST["submit_my_file"])) {
 		$uploadOk = 1;
 	} else {
 		echo "File is not an image.";
-
-//		$file = file_get_contents($_FILES['my_file']['tmp_name']);
 		$xml = simplexml_load_file($_FILES['my_file']['tmp_name']) or die("Error: Cannot create object");
 
-//		echo $xml->map->markers;
 		echo "<br />";
-//		print_r($xml->children()->children());
 
-		$ii = 0;
+
+        $query = "SELECT * FROM markers";
+        $result = $mysqli->query($query);
+
+        $row = $result->fetch_array(MYSQLI_NUM);
+        printf ("%s (%s)\n", $row[0], $row[1]);
+
+
+
+        echo "<br />";
+        echo "<hr />";
+
+
+        $ii = 0;
 		foreach($xml->children()->children() as $marker) {
 			$ii++;
-//			echo $marker->children()->DetailsHTML;
-//			echo $marker->DetailsHTML;
 			if($ii==9) {
-//			echo $ii;
-//			echo $marker['DetailsHTML'];
-//			echo "<br />";
-//			echo "<hr />";
-				print_r($marker->children());
+                foreach($marker->children() as $mark) {
+                    //print_r($mark);
+//                    echo "<br /><======><br />";
+
+                    $values = "";
+                    foreach($mark->children() as $node) {
+
+                        if($values != "") {
+                            $values = $values . ", ";
+                        }
+//                        $query = "INSERT INTO markers VALUES " . $node->asXML;
+
+                        $values = $values . "'" . $node->asXML() . "'";
+
+                    }
+                    //echo $values;
+                    $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $values . ")";
+                    echo $query;
+                    echo "<hr />";
+                    $result = $mysqli->query($query);
+                    echo $result;
+                    echo "<br />";
+                }
+
 			}
 
 		}
+
+
+        $query = "SELECT * FROM markers";
+        $result = $mysqli->query($query);
+
+        $row = $result->fetch_array(MYSQLI_NUM);
+        printf ("%s (%s)\n", $row[0], $row[1]);
 
 //		$xml=simplexml_load_file("note.xml") or die("Error: Cannot create object");
 //		print_r($xml);
