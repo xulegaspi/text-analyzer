@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/settings.html" afterPath="$PROJECT_DIR$/templates/settings.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml-parser.php" afterPath="$PROJECT_DIR$/xml-parser.php" />
     </list>
@@ -28,14 +27,14 @@
     <favorites_list name="TextAnalyzer" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5127932">
+    <splitter split-orientation="horizontal" split-proportion="0.66257995">
       <split-first>
         <leaf>
           <file leaf-file-name="Text-analyzer.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="2482">
-                  <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+                <state vertical-scroll-proportion="-17.653847" vertical-offset="1547" max-vertical-offset="2482">
+                  <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
                   <folding>
                     <element signature="e#7#192#0#PHP" expanded="true" />
                   </folding>
@@ -46,17 +45,14 @@
           <file leaf-file-name="xml-parser.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/xml-parser.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.74212366" vertical-offset="197" max-vertical-offset="1411">
-                  <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+                <state vertical-scroll-proportion="0.43333334" vertical-offset="609" max-vertical-offset="1479">
+                  <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
                   <folding>
-                    <element signature="e#483#2314#0#PHP" expanded="false" />
-                    <marker date="1443114975116" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
-                    <marker date="1443114975116" expanded="true" signature="1466:1492" placeholder="INSERT INTO ..." />
-                    <marker date="1443114975116" expanded="true" signature="1466:1493" placeholder="INSERT INTO ..." />
-                    <marker date="1443114975116" expanded="true" signature="1673:1740" placeholder="INSERT INTO ..." />
-                    <marker date="1443114975116" expanded="true" signature="1673:1746" placeholder="INSERT INTO ..." />
-                    <marker date="1443114975116" expanded="true" signature="1673:1762" placeholder="INSERT INTO ..." />
-                    <marker date="1443114975116" expanded="true" signature="2005:2026" placeholder="SELECT * FRO..markers..." />
+                    <marker date="1443200035403" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
+                    <marker date="1443200035403" expanded="true" signature="1828:1895" placeholder="INSERT INTO ..." />
+                    <marker date="1443200035403" expanded="true" signature="1828:1901" placeholder="INSERT INTO ..." />
+                    <marker date="1443200035403" expanded="true" signature="1828:1918" placeholder="INSERT INTO ..." />
+                    <marker date="1443200035403" expanded="true" signature="2060:2081" placeholder="SELECT * FRO..markers..." />
                   </folding>
                 </state>
               </provider>
@@ -81,8 +77,8 @@
           <file leaf-file-name="settings.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.37689614" vertical-offset="0" max-vertical-offset="857">
-                  <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.21820304" vertical-offset="0" max-vertical-offset="857">
+                  <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
                   <folding />
                 </state>
               </provider>
@@ -252,7 +248,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -261,7 +257,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14552239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14872068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -314,17 +310,114 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xml-parser.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="197" max-vertical-offset="1411">
+          <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
+          <folding>
+            <marker date="1443200035403" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1895" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1901" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1918" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="2060:2081" placeholder="SELECT * FRO..markers..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/wordpress/wp-content/plugins/wp-rss-multi-importer/wp-rss-multi-importer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="665" max-vertical-offset="9877">
+          <caret line="30" column="88" selection-start-line="30" selection-start-column="88" selection-end-line="30" selection-end-column="88" />
+          <folding>
+            <element signature="e#6#419#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/settings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="255">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="2482">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#7#192#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xml-parser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="197" max-vertical-offset="1411">
+          <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+          <folding>
+            <marker date="1443200035403" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1895" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1901" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1918" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="2060:2081" placeholder="SELECT * FRO..markers..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/wordpress/wp-content/plugins/wp-rss-multi-importer/wp-rss-multi-importer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="665" max-vertical-offset="9877">
+          <caret line="30" column="88" selection-start-line="30" selection-start-column="88" selection-end-line="30" selection-end-column="88" />
+          <folding>
+            <element signature="e#6#419#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/settings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="255">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="2482">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#7#192#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xml-parser.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="935">
           <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
           <folding>
-            <element signature="e#483#2314#0#PHP" expanded="false" />
-            <marker date="1443114975116" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443114975116" expanded="true" signature="1466:1492" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1466:1493" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1740" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1746" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1762" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="2005:2026" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1895" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1901" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1918" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="2060:2081" placeholder="SELECT * FRO..markers..." />
           </folding>
         </state>
       </provider>
@@ -375,16 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="2482">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#7#192#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="255">
@@ -393,27 +476,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.653847" vertical-offset="1547" max-vertical-offset="2482">
+          <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
+          <folding>
+            <element signature="e#7#192#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37689614" vertical-offset="0" max-vertical-offset="857">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.21820304" vertical-offset="0" max-vertical-offset="857">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xml-parser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74212366" vertical-offset="197" max-vertical-offset="1411">
-          <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+        <state vertical-scroll-proportion="0.43333334" vertical-offset="609" max-vertical-offset="1479">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
           <folding>
-            <element signature="e#483#2314#0#PHP" expanded="false" />
-            <marker date="1443114975116" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443114975116" expanded="true" signature="1466:1492" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1466:1493" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1740" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1746" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="1673:1762" placeholder="INSERT INTO ..." />
-            <marker date="1443114975116" expanded="true" signature="2005:2026" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="false" signature="756:777" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1895" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1901" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="1828:1918" placeholder="INSERT INTO ..." />
+            <marker date="1443200035403" expanded="true" signature="2060:2081" placeholder="SELECT * FRO..markers..." />
           </folding>
         </state>
       </provider>

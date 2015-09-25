@@ -31,7 +31,7 @@ if(isset($_POST["submit_my_file"])) {
         $result = $mysqli->query($query);
 
         $row = $result->fetch_array(MYSQLI_NUM);
-        printf ("%s (%s)\n", $row[0], $row[1]);
+//        printf ("%s (%s)\n", $row[0], $row[1]);
 
 
 
@@ -47,24 +47,25 @@ if(isset($_POST["submit_my_file"])) {
                     //print_r($mark);
 //                    echo "<br /><======><br />";
 
-                    $values = "";
-                    foreach($mark->children() as $node) {
 
-                        if($values != "") {
-                            $values = $values . ", ";
-                        }
-//                        $query = "INSERT INTO markers VALUES " . $node->asXML;
-
-                        $values = $values . "'" . $node->asXML() . "'";
-
-                    }
-                    //echo $values;
-                    $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $values . ")";
-                    echo $query;
-                    echo "<hr />";
-                    $result = $mysqli->query($query);
-                    echo $result;
+//                    echo $mark->LatLong;
+//                    echo "<br />";
+//                    echo $mark->Title;
+//                    echo "<br />";
+//                    echo $mark->PinImage;
+//                    echo "<br />";
+                    echo urldecode($mark->DetailsHTML);
+                    $urls = urldecode($mark->DetailsHTML);
                     echo "<br />";
+                    echo "<hr />";
+
+                    $inserts = "'" . $mark->LatLong . "'" . ", " . "'" .$mark->Title . "'" . ", " . "'" .$mark->PinImage . "'" . ", " . "'" . $urls . "'";
+
+
+                    $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $inserts . ")";
+                    echo $query;
+                    $result = $mysqli->query($query);
+
                 }
 
 			}
@@ -72,11 +73,11 @@ if(isset($_POST["submit_my_file"])) {
 		}
 
 
-        $query = "SELECT * FROM markers";
-        $result = $mysqli->query($query);
-
-        $row = $result->fetch_array(MYSQLI_NUM);
-        printf ("%s (%s)\n", $row[0], $row[1]);
+//        $query = "SELECT * FROM markers";
+//        $result = $mysqli->query($query);
+//
+//        $row = $result->fetch_array(MYSQLI_NUM);
+//        printf ("%s (%s)\n", $row[0], $row[1]);
 
 //		$xml=simplexml_load_file("note.xml") or die("Error: Cannot create object");
 //		print_r($xml);
