@@ -55,21 +55,23 @@ if(isset($_POST["submit_my_file"])) {
                     echo $mark->PinImage;
                     echo "<br />";*/
 
+                    // Decode the DetailsHTML TODO some can't be decode, probably @ mailsto
                     $urls = urldecode($mark->DetailsHTML);
 
                     /*echo $urls;
                     echo "<br />";*/
 
                     $pos = strpos($urls, 'href="');
-
-//                    echo $pos;
-
                     $array_urls = explode("<", $urls);
+
+                    // Initialize variables
                     $ii = 0;
                     $jj = 0;
                     $titles = [];
                     $links = [];
                     $final_link = [];
+
+                    // Parse titles and urls
                     foreach($array_urls as $node) {
                         /*echo $node;
                         echo "<br />";*/
@@ -106,32 +108,56 @@ if(isset($_POST["submit_my_file"])) {
 
                     // TODO check if they're already in database
 
-                    echo "<br />";
-                    echo "<hr />";
-
-                    // Insert into markers
-                    $inserts = "'" . $mark->LatLong . "'" . ", " . "'" . $mark->Title . "'" . ", " . "'" . $mark->PinImage . "'" . ", " . "'" . $urls . "'";
-                    $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $inserts . ")";
-//                    echo $query;
+                    $query = "SELECT * FROM markers WHERE Title='" . $mark->Title . "'";
                     $result = $mysqli->query($query);
+                    if(!$result->fetch_assoc()) {
 
-                    // Insert into URLs
-                    $query2 = "SELECT Id FROM markers WHERE Title='" . $mark->Title . "'";
-                    $result = $mysqli->query($query2);
+                        echo "<br />";
+                        echo "<hr />";
+
+                        // Insert into markers TODO enter creation_date, delete DetailsHTML
+                        $inserts = "'" . $mark->LatLong . "'" . ", " . "'" . $mark->Title . "'" . ", " . "'" . $mark->PinImage . "'" . ", " . "'" . $urls . "'";
+                        $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $inserts . ")";
+//                    echo $query;
+                        if (!$result = $mysqli->query($query)) {
+                            die('Error running query into markers: [' . $mysqli->error . ']');
+                        }
+//                    $result->free();
+
+                        // Insert into URLs
+                        $query2 = "SELECT Id FROM markers WHERE Title='" . $mark->Title . "'";
+                        if (!$result = $mysqli->query($query2)) {
+                            die('Error running query into URLs: [' . $mysqli->error . ']');
+                        }
 
 //                    echo "<br />";
 //                    print_r($result->fetch_assoc());
-                    $id_marker = $result->fetch_assoc()['Id'];
+                        $id_marker = $result->fetch_assoc()['Id'];
+                        $result->free();
 
-                    $kk = 0;
-                    foreach($titles as $entry) {
-                        $inserts = "'" . $result . "'" . ", " . "'" . $entry . "'" . ", " . "'" . $final_link[$kk] . "'";
-                        $query3 = "INSERT INTO urls (Id_marker, Title_URL, URL) VALUES " . "(" . "";
+                        $kk = 0;
+                        foreach ($titles as $entry) {
 
-                        $kk++;
+                            // Checking that the url is not in the database already
+                            $query = "SELECT * FROM urls WHERE URL='" . $final_link[$kk] . "'";
+                            $result = $mysqli->query($query);
+                            if (!$result->fetch_assoc()) {
+
+                                // Inserting values
+                                $inserts = "'" . $id_marker . "'" . ", " . "'" . $entry . "'" . ", " . "'" . $final_link[$kk] . "'";
+                                $query3 = "INSERT INTO urls (Id_marker, Title_URL, URL) VALUES " . "(" . $inserts . ")";
+                                if (!$result = $mysqli->query($query3)) {
+                                    die('Error running query into URLs: [' . $mysqli->error . ']');
+                                }
+
+                            }
+
+                            $kk++;
+                        }
+
+                    } else {
+
                     }
-
-
 
                 } // end foreach marker
 
