@@ -165,16 +165,6 @@ if(isset($_POST["submit_my_file"])) {
 
 		}
 
-
-//        $query = "SELECT * FROM markers";
-//        $result = $mysqli->query($query);
-//
-//        $row = $result->fetch_array(MYSQLI_NUM);
-//        printf ("%s (%s)\n", $row[0], $row[1]);
-
-//		$xml=simplexml_load_file("note.xml") or die("Error: Cannot create object");
-//		print_r($xml);
-//		echo $xml->getName();
 		$uploadOk = 0;
 	}
 }
