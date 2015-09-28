@@ -29,8 +29,10 @@ echo "<br />";
 
 $ii = 0;
 for($ii=0; $ii < $num_rows; $ii++) {
+
     // Access each row
     $data = $result->fetch_array();
+    $result->free();
 //    print_r($data);
     echo $data['URL'];
     echo "<br /><hr />";
@@ -41,7 +43,12 @@ for($ii=0; $ii < $num_rows; $ii++) {
     $xml = simplexml_load_file($url . "/feed") or die("Error: Cannot create object");
 //    file_put_contents("Tmpfile.xml", fopen($url . "/feed", 'r'));
 
-    echo $xml->asXML();
+    $query = "UPDATE urls SET Raw_page='$xml->asXML()' WHERE Id='$id_url'";
+    $result = $mysqli->query($query) or die("Error: Query");
+
+    echo "Page $ii added<br />";
+
+//    echo $xml->asXML();
 }
 
 
