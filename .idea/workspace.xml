@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crawler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/settings.html" afterPath="$PROJECT_DIR$/templates/settings.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml-parser.php" afterPath="$PROJECT_DIR$/xml-parser.php" />
     </list>
     <ignored path="TextAnalyzer.iws" />
@@ -26,13 +29,13 @@
     <favorites_list name="TextAnalyzer" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.66257995">
+    <splitter split-orientation="horizontal" split-proportion="0.6280526">
       <split-first>
         <leaf>
           <file leaf-file-name="Text-analyzer.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-17.653847" vertical-offset="1547" max-vertical-offset="2482">
+                <state vertical-scroll-proportion="-15.153846" vertical-offset="1612" max-vertical-offset="2482">
                   <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
                   <folding>
                     <element signature="e#7#192#0#PHP" expanded="true" />
@@ -41,29 +44,39 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="xml-parser.php" pinned="false" current-in-tab="true">
+          <file leaf-file-name="xml-parser.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/xml-parser.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-1.9896551" vertical-offset="1884" max-vertical-offset="2754">
-                  <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+                <state vertical-scroll-proportion="48.115383" vertical-offset="1999" max-vertical-offset="2856">
+                  <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
                   <folding>
-                    <element signature="e#1264#1474#0#PHP" expanded="false" />
-                    <element signature="e#2297#2514#0#PHP" expanded="false" />
-                    <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-                    <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-                    <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-                    <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-                    <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-                    <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-                    <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-                    <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-                    <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+                    <element signature="e#1266#1476#0#PHP" expanded="false" />
+                    <element signature="e#2299#2516#0#PHP" expanded="false" />
+                    <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+                    <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+                    <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+                    <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+                    <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+                    <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+                    <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+                    <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+                    <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="crawler.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/crawler.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.11724138" vertical-offset="0" max-vertical-offset="870">
+                  <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -87,8 +100,8 @@
           <file leaf-file-name="settings.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.37689614" vertical-offset="0" max-vertical-offset="857">
-                  <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.5157526" vertical-offset="0" max-vertical-offset="857">
+                  <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -97,7 +110,7 @@
           <file leaf-file-name="text-analyzer.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="255">
+                <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
                   <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
                   <folding />
                 </state>
@@ -122,8 +135,8 @@
         <option value="$PROJECT_DIR$/settings.html" />
         <option value="$PROJECT_DIR$/templates/text-analyzer.html" />
         <option value="$PROJECT_DIR$/Text-analyzer.php" />
-        <option value="$PROJECT_DIR$/templates/settings.html" />
         <option value="$PROJECT_DIR$/xml-parser.php" />
+        <option value="$PROJECT_DIR$/templates/settings.html" />
       </list>
     </option>
   </component>
@@ -180,20 +193,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TextAnalyzer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TextAnalyzer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TextAnalyzer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -267,7 +266,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14872068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14872068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -323,22 +322,22 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="2142">
           <caret line="79" column="46" selection-start-line="79" selection-start-column="46" selection-end-line="79" selection-end-column="46" />
           <folding>
-            <element signature="e#1264#1474#0#PHP" expanded="false" />
-            <element signature="e#2297#2514#0#PHP" expanded="false" />
-            <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+            <element signature="e#1266#1476#0#PHP" expanded="false" />
+            <element signature="e#2299#2516#0#PHP" expanded="false" />
+            <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -384,22 +383,22 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="197" max-vertical-offset="1411">
           <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
           <folding>
-            <element signature="e#1264#1474#0#PHP" expanded="false" />
-            <element signature="e#2297#2514#0#PHP" expanded="false" />
-            <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+            <element signature="e#1266#1476#0#PHP" expanded="false" />
+            <element signature="e#2299#2516#0#PHP" expanded="false" />
+            <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -445,22 +444,22 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="197" max-vertical-offset="1411">
           <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
           <folding>
-            <element signature="e#1264#1474#0#PHP" expanded="false" />
-            <element signature="e#2297#2514#0#PHP" expanded="false" />
-            <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+            <element signature="e#1266#1476#0#PHP" expanded="false" />
+            <element signature="e#2299#2516#0#PHP" expanded="false" />
+            <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -506,22 +505,22 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="935">
           <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
           <folding>
-            <element signature="e#1264#1474#0#PHP" expanded="false" />
-            <element signature="e#2297#2514#0#PHP" expanded="false" />
-            <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+            <element signature="e#1266#1476#0#PHP" expanded="false" />
+            <element signature="e#2299#2516#0#PHP" expanded="false" />
+            <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -572,25 +571,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="255">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37689614" vertical-offset="0" max-vertical-offset="857">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.653847" vertical-offset="1547" max-vertical-offset="2482">
+        <state vertical-scroll-proportion="-15.153846" vertical-offset="1612" max-vertical-offset="2482">
           <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
           <folding>
             <element signature="e#7#192#0#PHP" expanded="true" />
@@ -600,26 +583,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xml-parser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9896551" vertical-offset="1884" max-vertical-offset="2754">
-          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        <state vertical-scroll-proportion="48.115383" vertical-offset="1999" max-vertical-offset="2856">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <element signature="e#1264#1474#0#PHP" expanded="false" />
-            <element signature="e#2297#2514#0#PHP" expanded="false" />
-            <marker date="1443397759313" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3461" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3426:3482" placeholder="SELECT * FRO..markers..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4023" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4029" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="3956:4046" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4425" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="4389:4446" placeholder="SELECT Id FR..markers..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5075" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5045:5100" placeholder="SELECT * FRO..urls..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5504" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5511" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5453:5528" placeholder="INSERT INTO ..." />
-            <marker date="1443397759313" expanded="true" signature="5832:5938" placeholder="INSERT INTO ..." />
+            <element signature="e#1266#1476#0#PHP" expanded="false" />
+            <element signature="e#2299#2516#0#PHP" expanded="false" />
+            <marker date="1443398915812" expanded="true" signature="758:779" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3467" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3432:3488" placeholder="SELECT * FRO..markers..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4033" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4039" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="3966:4056" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4435" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="4399:4456" placeholder="SELECT Id FR..markers..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5085" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5055:5110" placeholder="SELECT * FRO..urls..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5514" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5521" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5463:5538" placeholder="INSERT INTO ..." />
+            <marker date="1443398915812" expanded="true" signature="5842:5948" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/text-analyzer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/settings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5157526" vertical-offset="0" max-vertical-offset="857">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11724138" vertical-offset="0" max-vertical-offset="870">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>

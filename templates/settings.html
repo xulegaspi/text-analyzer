@@ -12,8 +12,15 @@
             <input type="file" name="my_file" id="my_file_upload" multiple="false" />
             <input type="hidden" name="post_id" id="post_id" value="55" />
             <input id="submit_my_file" name="submit_my_file" type="submit" value="Upload" />
-            </form>
-        </div>
+        </form>
+    </div>
+    <br />
+    <div class="wrap">
+        <p>Start the Crawling.</p>
+        <form id="crawl" method="POST" action="/wordpress/wp-content/plugins/TextAnalyzer/crawler.php">
+            <input id="crawl_submit" name="crawl_submit" type="submit" value="Crawl" />
+        </form>
+    </div>
 </body>
 </html>
 

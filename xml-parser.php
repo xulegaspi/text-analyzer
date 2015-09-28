@@ -46,7 +46,7 @@ if(isset($_POST["submit_my_file"])) {
 			if($ii==9) {
                 foreach($marker->children() as $mark) {
                     //print_r($mark);
-                    echo "<br /><======><br />";
+//                    echo "<br /><======><br />";
 
                     /*echo $mark->LatLong;
                     echo "<br />";
@@ -102,8 +102,8 @@ if(isset($_POST["submit_my_file"])) {
                         }
 
                     }
-                    print_r($titles);
-                    print_r($final_link);
+//                    print_r($titles);
+//                    print_r($final_link);
 
 
                     // TODO check if they're already in database
@@ -112,8 +112,8 @@ if(isset($_POST["submit_my_file"])) {
                     $result = $mysqli->query($query);
                     if(!$result->fetch_assoc()) {
 
-                        echo "<br />";
-                        echo "<hr />";
+//                        echo "<br />";
+//                        echo "<hr />";
 
                         // Insert into markers TODO enter creation_date, delete DetailsHTML
                         $inserts = "'" . $mark->LatLong . "'" . ", " . "'" . $mark->Title . "'" . ", " . "'" . $mark->PinImage . "'" . ", " . "'" . $urls . "'";
@@ -166,5 +166,11 @@ if(isset($_POST["submit_my_file"])) {
 		}
 
 		$uploadOk = 0;
+
+        echo $_SERVER['HTTP_REFERER'];
+        echo "<script>window.location = '" . $_SERVER['HTTP_REFERER'] . "';</script>";
+//        header('Location: ' . $_SERVER['HTTP_REFERER']);
+//        http_redirect("http://127.0.0.1/wordpress/wp-admin/options-general.php?page=text-analyzer-settings");
+//        header("Location: http://127.0.0.1/wordpress/wp-admin/options-general.php?page=text-analyzer-settings");
 	}
 }
