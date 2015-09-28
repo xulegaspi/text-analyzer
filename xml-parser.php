@@ -167,6 +167,7 @@ if(isset($_POST["submit_my_file"])) {
 
 		$uploadOk = 0;
 
+        $mysqli->close();
         echo $_SERVER['HTTP_REFERER'];
         echo "<script>window.location = '" . $_SERVER['HTTP_REFERER'] . "';</script>";
 //        header('Location: ' . $_SERVER['HTTP_REFERER']);
