@@ -6,16 +6,6 @@
  * Time: 1:53
  */
 
-//file_put_contents("Tmpfile.zip", fopen("http://someurl/file.zip", 'r'));
-
-/*
- * $html = new simple_html_dom();
-            $url = 'http://www.maticono.com/es/evento/' . $i . '/';
-
-
-            $html->load_file($url);
- */
-
 $target_dir = "uploads/";
 set_time_limit(300);
 $mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
@@ -25,15 +15,12 @@ $result = $mysqli->query($query);
 
 echo "Number of entries: " . $result->num_rows;
 $num_rows = $result->num_rows;
-//echo "<br />";
 
 $ii = 0;
     for($ii=0; $ii < $num_rows; $ii++) {
 
         // Access each row
         $data = $result->fetch_array();
-//    $result->free();
-//    print_r($data);
         echo $data['URL'];
         echo "<br /><hr />";
 
@@ -43,6 +30,7 @@ $ii = 0;
         echo "Trying to get ---> " . $url . "<br />";
         $xml = simplexml_load_file($url . "/feed");
 
+        // Throws error if the page is not valid (as an email)
         if ($xml) {
 
             // Extract the information
@@ -68,9 +56,7 @@ $ii = 0;
                 // import it into simplexml:
                 $html = simplexml_import_dom($htmlParser);
 
-                //            print_r($html->body->p);
-                //            echo $html->body->asXML();
-                //            $postContent = $html->body->p->asXML();
+                // Throws error if the post is not in a proper format
                 try {
                     if ($html) {
                         $postContent = $html->body->asXML();
@@ -99,24 +85,7 @@ $ii = 0;
             echo "ERROR LOADING ----> " . $url;
         }
 
-
-//    file_put_contents("Tmpfile.xml", fopen($url . "/feed", 'r'));
-
-//    echo "ID = " . $id_url . "<br />";
-
-//        $query = "UPDATE urls SET Raw_page='" . $xml . "' WHERE Id='" . $id_url . "'";
-    //    $query = "UPDATE urls SET Raw_page='$ii' WHERE Id='$id_url'";
-    //    echo "$query<br />";
-//        $result2 = $mysqli->query($query) or die("Error: Query: " . $mysqli->error);
-
         echo "Page $ii added<br />";
         echo "Going to page $url";
 
-//    echo $xml->asXML();
 }
-
-
-//foreach($data as $url) {
-//    echo $url['URL'];
-//    echo "<br />";
-//}
