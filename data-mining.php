@@ -24,11 +24,27 @@ for($ii=0; $ii < $num_rows; $ii++) {
     $data = $result->fetch_array();
 
     $post = $data['Post'];
+    $post_id = $data['Id'];
+    $url_id = $data['Id_URL'];
+
+    $post_xml = simplexml_load_string($post);
+    $dom = new DOMDocument();
+    $dom->loadHTML($post);
+    foreach($dom->getElementsByTagName('a') as $node) {
+
+        $inserts = "'" . $url_id . "'" . ", " . "'" . $dom->saveHTML($node) . "'";
+        $query2 = "INSERT INTO media (Id_Post, Media_URL) VALUES (" . $inserts . ")";
+        $result2 = $mysqli->query($query2);
+        echo $dom->saveHTML($node), PHP_EOL;
+    }
+
     $post2 = strip_tags($post);
     $post2 = utf8_decode(utf8_decode($post2));
 
-    echo $post2;
-
+//    print_r($post_xml->children());
+//    print_r($post_dom);
+//    echo "<br />";
+//    echo $post2;
 //    echo $data['Post_URL'];
     echo "<br />";
     echo "<hr />";
