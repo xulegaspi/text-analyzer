@@ -24,7 +24,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
     $form = <<<FORM
     <form id="post" method="post" action="/wordpress/wp-content/plugins/TextAnalyzer/vis_post.php">
         <input id="url" type="hidden" name="url" value="$post_url" />
-        <input id="post_submit" name="post_submit" type="submit" value="POST" />
+        <input id="post_submit" name="post_submit" type="submit" value="Go to Post" />
     </form>
 FORM;
     echo $id_url . " ---> <a href='" . $post_url . "'>" . $post_url . "</a> . $form . <br />";
