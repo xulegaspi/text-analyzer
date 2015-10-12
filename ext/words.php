@@ -384,7 +384,7 @@ namn
 ekonyheter
 steg
 kommit
-helst ihop
+helstihop
 liksom
 nilsson
 amerikanska
@@ -411,7 +411,8 @@ meter
 all
 nev
 regi
-hus sitter
+hus
+sitter
 form
 lilla
 barnen

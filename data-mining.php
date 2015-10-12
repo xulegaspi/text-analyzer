@@ -10,31 +10,34 @@ require_once('/ext/words.php');
 set_time_limit(300);
 $mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
 
-$query = "SELECT * FROM posts";
-$result = $mysqli->query($query);
+$query_posts = "SELECT * FROM posts";
+$result_posts = $mysqli->query($query_posts);
 
-echo "Number of entries: " . $result->num_rows . "<br />";
-$num_rows = $result->num_rows;
+echo "Number of entries: " . $result_posts->num_rows . "<br />";
+$num_rows = $result_posts->num_rows;
 
 $ii = 0;
 echo $words;
+echo "<br /><hr />";
+var_dump(explode(PHP_EOL, $words));
 echo "<br /><hr />";
 
 for($ii=0; $ii < $num_rows; $ii++) {
 
     // Access each row
-    $data = $result->fetch_array();
+    $data_posts = $result_posts->fetch_array();
 
-    $post = $data['Post'];
-    $post_id = $data['Id'];
-    $url_id = $data['Id_URL'];
-    $url = $data['Post_URL'];
+    $post = $data_posts['Post'];
+    $post_id = $data_posts['Id'];
+    $url_id = $data_posts['Id_URL'];
+    $url = $data_posts['Post_URL'];
 
     $clean_post = strip_tags($post);
     $clean_post = utf8_decode(utf8_decode($clean_post));
 
 //    echo "<br /><hr />" . $clean_post . "<br />";
 
+    // Processing media
     $dom = new DOMDocument();
     $dom->loadHTML($post);
     foreach($dom->getElementsByTagName('a') as $node) {
@@ -43,7 +46,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
         $result_check = $mysqli->query($query_check);
         $media_url = $dom->saveHTML($node);
 
-        // Delete this url from the clean_post
+        // TODO Delete this url from the clean_post
 //        echo $media_url . "<br />";
 //        echo strip_tags(utf8_decode($media_url)) . "<br />";
 //        str_replace($media_url, "", $clean_post);
@@ -58,6 +61,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
         } else {
 
+            // TODO do sth
 //            echo "Already on the DB. <br />";
 
         }
@@ -69,13 +73,15 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
     // Explode the posts
     $words_array = explode(" ", $clean_post);
+//    print_r(explode(" ", $words));
+//    var_dump(explode(PHP_EOL, $words));
+//    echo "<br />";
 
     foreach($words_array as $single_word) {
 
-
-
         // Check that this word is not among the most used Swedish words
-        if(!array_search($single_word, explode(" ", $words))) {
+        echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
+        if(!array_search($single_word, explode(PHP_EOL, $words))) {
 
 //            echo "______ " . array_search($single_word, explode(" ", $words)) . " _______";
             // Check that this word is not already stored
