@@ -7,9 +7,15 @@
  */
 
 require_once('/ext/words.php');
+require_once('/ext/Levenshtein_SQL.php');
 
 set_time_limit(300);
 $mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
+
+//echo $levenshtein_sql . "<br />";
+
+//$result_function = $mysqli->query($levenshtein_sql);
+//var_dump($result_function);
 
 $query_posts = "SELECT * FROM posts";
 $result_posts = $mysqli->query($query_posts);
@@ -18,10 +24,15 @@ echo "Number of entries: " . $result_posts->num_rows . "<br />";
 $num_rows = $result_posts->num_rows;
 
 $ii = 0;
-echo $words;
-echo "<br /><hr />";
-var_dump(explode(PHP_EOL, $words));
-echo "<br /><hr />";
+//echo $words;
+//echo "<br /><hr />";
+//var_dump(explode(PHP_EOL, $words));
+//echo "<br /><hr />";
+
+/**
+ *
+ *
+ */
 
 for($ii=0; $ii < $num_rows; $ii++) {
 
@@ -37,19 +48,17 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
     $date_p = new DateTime($pubDate);
     $date_m = new DateTime($minedDate);
+    $yesterday = new DateTime();
     $today = new DateTime();
 
-    $date_p->format('Y-m-d H:i:s');
-    $date_m->format('Y-m-d H:i:s');
-    $today->format('Y-m-d H:i:s');
+    $yesterday->modify('-1 day');
 
-    $yesterday = $today->modify('-1 day');
+    echo "Mod: " . $date_m->format('Y-m-d H:i:s') . " <-----> " . $yesterday->format('Y-m-d H:i:s') . "<br />";
 
     // TODO check if the post was already mined
     if($date_m > $yesterday) {
 
         echo "1: Modified recently ==> " . $date_m->format('Y-m-d H:i:s') . "<br />";
-
 
     } else {
 
@@ -59,6 +68,10 @@ for($ii=0; $ii < $num_rows; $ii++) {
         $result_date = $mysqli->query($query_date);
 
         //echo $data_posts['pubDate'];
+
+        // Delete the old data
+        $query_delete = "DELETE FROM words_freq WHERE Id_post='" . $post_id . "'";
+        $result_delete = $mysqli->query($query_delete);
 
         $clean_post = strip_tags($post);
         $clean_post = utf8_decode(utf8_decode($clean_post));
@@ -93,7 +106,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
 //            echo "Already on the DB. <br />";
 
             }
-//        echo $dom->saveHTML($node), PHP_EOL;
+
         }
 
         // Processing words
@@ -110,8 +123,11 @@ for($ii=0; $ii < $num_rows; $ii++) {
             if(!array_search($single_word, explode(PHP_EOL, $words))) {
 
                 // Check that this word is not already stored
-                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
-                $result1 = $mysqli->query($query1);
+//                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
+                $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word . "', Term) BETWEEN 0 AND 3";
+                $result1 = $mysqli->query($query_levenshtein);
+
+                var_dump($result1);
 
                 if($result1->num_rows == 0) {
 //                echo "N";
