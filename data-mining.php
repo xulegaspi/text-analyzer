@@ -5,6 +5,7 @@
  * Date: 07/10/2015
  * Time: 19:26
  */
+
 require_once('/ext/words.php');
 
 set_time_limit(300);
@@ -31,111 +32,137 @@ for($ii=0; $ii < $num_rows; $ii++) {
     $post_id = $data_posts['Id'];
     $url_id = $data_posts['Id_URL'];
     $url = $data_posts['Post_URL'];
+    $pubDate = $data_posts['pubDate'];
+    $minedDate = $data_posts['Mined'];
 
-    $clean_post = strip_tags($post);
-    $clean_post = utf8_decode(utf8_decode($clean_post));
+    $date_p = new DateTime($pubDate);
+    $date_m = new DateTime($minedDate);
+    $today = new DateTime();
+
+    $date_p->format('Y-m-d H:i:s');
+    $date_m->format('Y-m-d H:i:s');
+    $today->format('Y-m-d H:i:s');
+
+    $yesterday = $today->modify('-1 day');
+
+    // TODO check if the post was already mined
+    if($date_m > $yesterday) {
+
+        echo "1: Modified recently ==> " . $date_m->format('Y-m-d H:i:s') . "<br />";
+
+
+    } else {
+
+        echo "2: Modifying date ==> " . $today->format('Y-m-d H:i:s') . "<br />";
+
+        $query_date = "UPDATE posts SET Mined='" . $today->format('Y-m-d H:i:s') . "' WHERE Id='" . $post_id . "'";
+        $result_date = $mysqli->query($query_date);
+
+        //echo $data_posts['pubDate'];
+
+        $clean_post = strip_tags($post);
+        $clean_post = utf8_decode(utf8_decode($clean_post));
 
 //    echo "<br /><hr />" . $clean_post . "<br />";
 
-    // Processing media
-    $dom = new DOMDocument();
-    $dom->loadHTML($post);
-    foreach($dom->getElementsByTagName('a') as $node) {
+        // Processing media
+        $dom = new DOMDocument();
+        $dom->loadHTML($post);
+        foreach($dom->getElementsByTagName('a') as $node) {
 
-        $query_check = "SELECT * FROM media WHERE Media_URL='" . $dom->saveHTML($node) . "'";
-        $result_check = $mysqli->query($query_check);
-        $media_url = $dom->saveHTML($node);
+            $query_check = "SELECT * FROM media WHERE Media_URL='" . $dom->saveHTML($node) . "'";
+            $result_check = $mysqli->query($query_check);
+            $media_url = $dom->saveHTML($node);
 
-        // TODO Delete this url from the clean_post
+            // TODO Delete this url from the clean_post
 //        echo $media_url . "<br />";
 //        echo strip_tags(utf8_decode($media_url)) . "<br />";
 //        str_replace($media_url, "", $clean_post);
 
-        // Check if it's already in the db.
-        if($result_check->num_rows == 0) {
+            // Check if it's already in the db.
+            if($result_check->num_rows == 0) {
 
-            // Insert the media
-            $inserts = "'" . $url_id . "'" . ", " . "'" . $media_url . "'";
-            $query2 = "INSERT INTO media (Id_Post, Media_URL) VALUES (" . $inserts . ")";
-            $result2 = $mysqli->query($query2);
-
-        } else {
-
-            // TODO do sth
-//            echo "Already on the DB. <br />";
-
-        }
-//        echo $dom->saveHTML($node), PHP_EOL;
-    }
-
-    // Processing words
-    $word_count = str_word_count($clean_post);
-
-    // Explode the posts
-    $words_array = explode(" ", $clean_post);
-//    print_r(explode(" ", $words));
-//    var_dump(explode(PHP_EOL, $words));
-//    echo "<br />";
-
-    foreach($words_array as $single_word) {
-
-        // Check that this word is not among the most used Swedish words
-        echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
-        if(!array_search($single_word, explode(PHP_EOL, $words))) {
-
-//            echo "______ " . array_search($single_word, explode(" ", $words)) . " _______";
-            // Check that this word is not already stored
-            $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
-            $result1 = $mysqli->query($query1);
-
-            if($result1->num_rows == 0) {
-//                echo "N";
-
-//                echo "<br />==============>" . $single_word . "<br />";
-
-                // If the keyword is not stored
-                $query1 = "INSERT INTO keywords (Term) VALUES ('" . $single_word . "')";
-                $r1 = $mysqli->query($query1);
+                // Insert the media
+                $inserts = "'" . $url_id . "'" . ", " . "'" . $media_url . "'";
+                $query2 = "INSERT INTO media (Id_Post, Media_URL) VALUES (" . $inserts . ")";
+                $result2 = $mysqli->query($query2);
 
             } else {
 
-                // If the keyword already exists
-                $data2 = $result1->fetch_assoc();
-                $id_keyword = $data2['Id'];
-                $query1 = "SELECT * FROM words_freq WHERE Id_keyword='" . $id_keyword . "' AND Id_post='" . $post_id . "'";
-                $r2 = $mysqli->query($query1);
+                // TODO do sth
+//            echo "Already on the DB. <br />";
 
-                if($r2->num_rows == 0) {
-//                    echo "A";
+            }
+//        echo $dom->saveHTML($node), PHP_EOL;
+        }
 
-                    // If it's the first time the keyword appears in this post
-                    $inserts = "'" . $post_id . "', '" . $id_keyword . "', '1'";
-                    $q1 = "INSERT INTO words_freq (Id_post, Id_keyword, Frequency) VALUES (" . $inserts . ")";
-                    $r3 = $mysqli->query($q1);
+        // Processing words
+        $word_count = str_word_count($clean_post);
+
+        // Explode the posts
+        $words_array = explode(" ", $clean_post);
+
+
+        foreach($words_array as $single_word) {
+
+            // Check that this word is not among the most used Swedish words
+            // echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
+            if(!array_search($single_word, explode(PHP_EOL, $words))) {
+
+                // Check that this word is not already stored
+                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
+                $result1 = $mysqli->query($query1);
+
+                if($result1->num_rows == 0) {
+//                echo "N";
+
+                    // If the keyword is not stored
+                    $query1 = "INSERT INTO keywords (Term) VALUES ('" . $single_word . "')";
+                    $r1 = $mysqli->query($query1);
 
                 } else {
+
+                    // If the keyword already exists
+                    $data2 = $result1->fetch_assoc();
+                    $id_keyword = $data2['Id'];
+                    $query1 = "SELECT * FROM words_freq WHERE Id_keyword='" . $id_keyword . "' AND Id_post='" . $post_id . "'";
+                    $r2 = $mysqli->query($query1);
+
+                    if($r2->num_rows == 0) {
+//                    echo "A";
+
+                        // If it's the first time the keyword appears in this post
+                        $inserts = "'" . $post_id . "', '" . $id_keyword . "', '1'";
+                        $q1 = "INSERT INTO words_freq (Id_post, Id_keyword, Frequency) VALUES (" . $inserts . ")";
+                        $r3 = $mysqli->query($q1);
+
+                    } else {
 //                    echo "+";
 
-                    // If the keyword already appeared in this post
-                    $d1 = $r2->fetch_assoc();
-                    $freq_old = $d1['Frequency'];
-                    $freq_new = $freq_old + 1;
-//                    echo "FREQ: " . $freq_old . "^^^^^^^^^^" . $freq_new;
-                    // Update the frequency +1
-                    $q1 = "UPDATE words_freq SET Frequency='" . $freq_new . "' WHERE Id='" . $d1['Id'] . "'";
-                    $r3 = $mysqli->query($q1);
+                        // If the keyword already appeared in this post
+                        $d1 = $r2->fetch_assoc();
+                        $freq_old = $d1['Frequency'];
+                        $freq_new = $freq_old + 1;
+
+                        // Update the frequency +1
+                        $q1 = "UPDATE words_freq SET Frequency='" . $freq_new . "' WHERE Id='" . $d1['Id'] . "'";
+                        $r3 = $mysqli->query($q1);
+                    }
                 }
-            }
 //        $keywords = $result1->fetch_assoc();
 
-            // Levenshtein
+                // Levenshtein
 
-        } else {
-            // Nothing
-            echo "E";
+            } else {
+                // Nothing
+                // echo "E";
+            }
+
         }
 
     }
+
+
 
 //    echo "<br />WORD COUNT: " . $word_count . " in ----> " . $url . "<br />";
 //    echo $clean_post . "<br /><hr />";
