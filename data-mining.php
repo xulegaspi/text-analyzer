@@ -120,6 +120,21 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
             // Check that this word is not among the most used Swedish words
             // echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
+
+            echo $single_word . " --> ";
+
+            if(strpos($single_word, " \r\n\0\t") != false) {
+                echo "BLANK";
+            }
+//            $single_word = trim($single_word, " \t\n\r\0\x0B");
+//            echo $single_word . " --> ";
+//            $re = "/[^a-zA-ZåäöÅÄÖ0-9]/";
+            $strange = chr(229) . chr(228) . chr(246) . chr(197) . chr(196) . chr(214);  // å ä ö Å Ä Ö
+            $re = "/[^a-zA-Z" . $strange . "0-9]/";
+            $re2 = ".,?!";
+            $single_word = preg_replace($re, '', $single_word);
+            echo $single_word . "<br />";
+
             if(!array_search($single_word, explode(PHP_EOL, $words))) {
 
                 // Check that this word is not already stored
@@ -127,7 +142,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
                 $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word . "', Term) BETWEEN 0 AND 3";
                 $result1 = $mysqli->query($query_levenshtein);
 
-                var_dump($result1);
+//                var_dump($result1);
 
                 if($result1->num_rows == 0) {
 //                echo "N";
