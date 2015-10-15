@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data-mining.php" afterPath="$PROJECT_DIR$/data-mining.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TextAnalyzer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,23 +42,23 @@
       <file leaf-file-name="data-mining.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data-mining.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.4229884" vertical-offset="1051" max-vertical-offset="4267">
-              <caret line="237" column="5" selection-start-line="237" selection-start-column="5" selection-end-line="237" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.6057471" vertical-offset="0" max-vertical-offset="4335">
+              <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1444930193442" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
-                <marker date="1444930193442" expanded="true" signature="1491:1581" placeholder="UPDATE posts..." />
-                <marker date="1444930193442" expanded="true" signature="1733:1788" placeholder="DELETE FROM ..." />
-                <marker date="1444930193442" expanded="true" signature="2186:2253" placeholder="SELECT * FRO..media..." />
-                <marker date="1444930193442" expanded="true" signature="2812:2876" placeholder="INSERT INTO ..." />
-                <marker date="1444930193442" expanded="true" signature="5211:5298" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444930193442" expanded="true" signature="5577:5664" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444930193442" expanded="true" signature="6048:6108" placeholder="INSERT INTO ..." />
-                <marker date="1444930193442" expanded="true" signature="6289:6346" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444930193442" expanded="true" signature="6795:6876" placeholder="INSERT INTO ..." />
-                <marker date="1444930193442" expanded="true" signature="7187:7281" placeholder="SELECT * FRO..words_freq..." />
-                <marker date="1444930193442" expanded="true" signature="7793:7874" placeholder="INSERT INTO ..." />
-                <marker date="1444930193442" expanded="true" signature="8397:8477" placeholder="UPDATE words..." />
+                <marker date="1444930393127" expanded="true" signature="415:434" placeholder="SELECT * FRO..posts..." />
+                <marker date="1444930393127" expanded="true" signature="1570:1660" placeholder="UPDATE posts..." />
+                <marker date="1444930393127" expanded="true" signature="1812:1867" placeholder="DELETE FROM ..." />
+                <marker date="1444930393127" expanded="true" signature="2265:2332" placeholder="SELECT * FRO..media..." />
+                <marker date="1444930393127" expanded="true" signature="2891:2955" placeholder="INSERT INTO ..." />
+                <marker date="1444930393127" expanded="true" signature="5290:5377" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930393127" expanded="true" signature="5656:5743" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930393127" expanded="true" signature="6127:6187" placeholder="INSERT INTO ..." />
+                <marker date="1444930393127" expanded="true" signature="6368:6425" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930393127" expanded="true" signature="6874:6955" placeholder="INSERT INTO ..." />
+                <marker date="1444930393127" expanded="true" signature="7266:7360" placeholder="SELECT * FRO..words_freq..." />
+                <marker date="1444930393127" expanded="true" signature="7872:7953" placeholder="INSERT INTO ..." />
+                <marker date="1444930393127" expanded="true" signature="8476:8556" placeholder="UPDATE words..." />
               </folding>
             </state>
           </provider>
@@ -755,23 +754,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data-mining.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.4229884" vertical-offset="1051" max-vertical-offset="4267">
-          <caret line="237" column="5" selection-start-line="237" selection-start-column="5" selection-end-line="237" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.6057471" vertical-offset="0" max-vertical-offset="4335">
+          <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1444930193442" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
-            <marker date="1444930193442" expanded="true" signature="1491:1581" placeholder="UPDATE posts..." />
-            <marker date="1444930193442" expanded="true" signature="1733:1788" placeholder="DELETE FROM ..." />
-            <marker date="1444930193442" expanded="true" signature="2186:2253" placeholder="SELECT * FRO..media..." />
-            <marker date="1444930193442" expanded="true" signature="2812:2876" placeholder="INSERT INTO ..." />
-            <marker date="1444930193442" expanded="true" signature="5211:5298" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444930193442" expanded="true" signature="5577:5664" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444930193442" expanded="true" signature="6048:6108" placeholder="INSERT INTO ..." />
-            <marker date="1444930193442" expanded="true" signature="6289:6346" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444930193442" expanded="true" signature="6795:6876" placeholder="INSERT INTO ..." />
-            <marker date="1444930193442" expanded="true" signature="7187:7281" placeholder="SELECT * FRO..words_freq..." />
-            <marker date="1444930193442" expanded="true" signature="7793:7874" placeholder="INSERT INTO ..." />
-            <marker date="1444930193442" expanded="true" signature="8397:8477" placeholder="UPDATE words..." />
+            <marker date="1444930393127" expanded="true" signature="415:434" placeholder="SELECT * FRO..posts..." />
+            <marker date="1444930393127" expanded="true" signature="1570:1660" placeholder="UPDATE posts..." />
+            <marker date="1444930393127" expanded="true" signature="1812:1867" placeholder="DELETE FROM ..." />
+            <marker date="1444930393127" expanded="true" signature="2265:2332" placeholder="SELECT * FRO..media..." />
+            <marker date="1444930393127" expanded="true" signature="2891:2955" placeholder="INSERT INTO ..." />
+            <marker date="1444930393127" expanded="true" signature="5290:5377" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930393127" expanded="true" signature="5656:5743" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930393127" expanded="true" signature="6127:6187" placeholder="INSERT INTO ..." />
+            <marker date="1444930393127" expanded="true" signature="6368:6425" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930393127" expanded="true" signature="6874:6955" placeholder="INSERT INTO ..." />
+            <marker date="1444930393127" expanded="true" signature="7266:7360" placeholder="SELECT * FRO..words_freq..." />
+            <marker date="1444930393127" expanded="true" signature="7872:7953" placeholder="INSERT INTO ..." />
+            <marker date="1444930393127" expanded="true" signature="8476:8556" placeholder="UPDATE words..." />
           </folding>
         </state>
       </provider>

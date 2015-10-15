@@ -6,10 +6,12 @@
  * Time: 19:26
  */
 
+$EXEC_TIME = 600;
+
 require_once('/ext/words.php');
 require_once('/ext/Levenshtein_SQL.php');
 
-set_time_limit(300);
+set_time_limit($EXEC_TIME);
 $mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
 
 //echo $levenshtein_sql . "<br />";
@@ -49,16 +51,18 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
     $yesterday->modify('-1 day');
 
-    echo "Mod: " . $date_m->format('Y-m-d H:i:s') . " <-----> " . $yesterday->format('Y-m-d H:i:s') . "<br />";
+    echo "Mining post nº: " . $ii . "<br />";
+
+//    echo "Mod: " . $date_m->format('Y-m-d H:i:s') . " <-----> " . $yesterday->format('Y-m-d H:i:s') . "<br />";
 
     // TODO check if the post was already mined
     if($date_m > $yesterday) {
 
-        echo "1: Modified recently ==> " . $date_m->format('Y-m-d H:i:s') . "<br />";
+//        echo "1: Modified recently ==> " . $date_m->format('Y-m-d H:i:s') . "<br />";
 
     } else {
 
-        echo "2: Modifying date ==> " . $today->format('Y-m-d H:i:s') . "<br />";
+//        echo "2: Modifying date ==> " . $today->format('Y-m-d H:i:s') . "<br />";
 
         $query_date = "UPDATE posts SET Mined='" . $today->format('Y-m-d H:i:s') . "' WHERE Id='" . $post_id . "'";
         $result_date = $mysqli->query($query_date);
