@@ -24,10 +24,6 @@ echo "Number of entries: " . $result_posts->num_rows . "<br />";
 $num_rows = $result_posts->num_rows;
 
 $ii = 0;
-//echo $words;
-//echo "<br /><hr />";
-//var_dump(explode(PHP_EOL, $words));
-//echo "<br /><hr />";
 
 /**
  *
@@ -121,73 +117,121 @@ for($ii=0; $ii < $num_rows; $ii++) {
             // Check that this word is not among the most used Swedish words
             // echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
 
-            echo $single_word . " --> ";
-
-            if(strpos($single_word, " \r\n\0\t") != false) {
-                echo "BLANK";
-            }
-//            $single_word = trim($single_word, " \t\n\r\0\x0B");
 //            echo $single_word . " --> ";
-//            $re = "/[^a-zA-ZåäöÅÄÖ0-9]/";
-            $strange = chr(229) . chr(228) . chr(246) . chr(197) . chr(196) . chr(214);  // å ä ö Å Ä Ö
-            $re = "/[^a-zA-Z" . $strange . "0-9]/";
-            $re2 = ".,?!";
-            $single_word = preg_replace($re, '', $single_word);
-            echo $single_word . "<br />";
+//            echo urlencode($single_word) . " ----> ";
 
-            if(!array_search($single_word, explode(PHP_EOL, $words))) {
+            // Check for different blank spaces
+            $url_word = urlencode($single_word);
+            if (strpos($url_word, "%0A")) {
+                $url_word = str_replace("%0A", "%20", $url_word);
+                $single_word = urldecode($url_word);
+                $single_word1 = explode(" ", $single_word);
+//                var_dump($single_word1);
+                $pos = array_search($single_word, $words_array);
+                array_splice($words_array, $pos, 0, $single_word1[1]);
+                $single_word = $single_word1[0];
+//                echo "WHITE";
+            } else {
+                $single_word1 = [];
+                array_push($single_word1, $single_word);
+            }
 
-                // Check that this word is not already stored
-//                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
-                $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word . "', Term) BETWEEN 0 AND 3";
-                $result1 = $mysqli->query($query_levenshtein);
+            foreach ($single_word1 as $single_word2) {
 
-//                var_dump($result1);
+                $strange = chr(229) . chr(228) . chr(246) . chr(197) . chr(196) . chr(214);  // å ä ö Å Ä Ö
+                $re = "/[^a-zA-Z" . $strange . "0-9]/";
+                $re2 = "/[^a-zA-Z" . $strange . "]/";
+                $single_word2 = preg_replace($re2, '', $single_word2);
+//                echo $single_word2 . "<br />";
 
-                if($result1->num_rows == 0) {
-//                echo "N";
+                if(strtolower($single_word2) != "i" and $single_word2 != "") {
 
-                    // If the keyword is not stored
-                    $query1 = "INSERT INTO keywords (Term) VALUES ('" . $single_word . "')";
-                    $r1 = $mysqli->query($query1);
+                    // Check if the word is among the common Swedish words
+                    if (!array_search(strtolower($single_word2), explode(PHP_EOL, $words))) {
 
-                } else {
+                        // Check that this word is not already stored
+                        if(strlen($single_word2 <= 3)) {
 
-                    // If the keyword already exists
-                    $data2 = $result1->fetch_assoc();
-                    $id_keyword = $data2['Id'];
-                    $query1 = "SELECT * FROM words_freq WHERE Id_keyword='" . $id_keyword . "' AND Id_post='" . $post_id . "'";
-                    $r2 = $mysqli->query($query1);
+                            //                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
+                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word2 . "', Term) BETWEEN 0 AND 1";
+                            $result1 = $mysqli->query($query_levenshtein);
 
-                    if($r2->num_rows == 0) {
-//                    echo "A";
+                        } else {
 
-                        // If it's the first time the keyword appears in this post
-                        $inserts = "'" . $post_id . "', '" . $id_keyword . "', '1'";
-                        $q1 = "INSERT INTO words_freq (Id_post, Id_keyword, Frequency) VALUES (" . $inserts . ")";
-                        $r3 = $mysqli->query($q1);
+                            //                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
+                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word2 . "', Term) BETWEEN 0 AND 2";
+                            $result1 = $mysqli->query($query_levenshtein);
+
+                            //                var_dump($result1);
+                        }
+
+
+                        if ($result1->num_rows == 0) {
+                            //                echo "N";
+
+                            // If the keyword is not stored
+                            $query1 = "INSERT INTO keywords (Term) VALUES ('" . $single_word2 . "')";
+                            $r1 = $mysqli->query($query1);
+//                            echo "Insert word: " . $single_word2 . "<br />";
+
+                            $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word2 . "'";
+                            $r1 = $mysqli->query($query1);
+
+                            $d2 = $r1->fetch_assoc();
+                            $id_keyword = $d2['Id'];
+//                            echo "ID: " . $id_keyword . "<br />";
+                            // If it's the first time the keyword appears in this post
+                            $inserts = "'" . $post_id . "', '" . $id_keyword . "', '1'";
+                            $q1 = "INSERT INTO words_freq (Id_post, Id_keyword, Frequency) VALUES (" . $inserts . ")";
+                            $r3 = $mysqli->query($q1);
+
+                        } else {
+
+                            // If the keyword already exists
+                            $data2 = $result1->fetch_assoc();
+                            $id_keyword = $data2['Id'];
+                            $query1 = "SELECT * FROM words_freq WHERE Id_keyword='" . $id_keyword . "' AND Id_post='" . $post_id . "'";
+                            $r2 = $mysqli->query($query1);
+
+//                            echo "LEVENSHTEIN: " . $single_word2 . " --> " . $data2['Term'] . "<br />";
+
+                            if ($r2->num_rows == 0) {
+                                //                    echo "A";
+
+                                // If it's the first time the keyword appears in this post
+                                $inserts = "'" . $post_id . "', '" . $id_keyword . "', '1'";
+                                $q1 = "INSERT INTO words_freq (Id_post, Id_keyword, Frequency) VALUES (" . $inserts . ")";
+                                $r3 = $mysqli->query($q1);
+
+                            } else {
+                                //                    echo "+";
+
+                                // If the keyword already appeared in this post
+                                $d1 = $r2->fetch_assoc();
+                                $freq_old = $d1['Frequency'];
+                                $freq_new = $freq_old + 1;
+
+                                // Update the frequency +1
+                                $q1 = "UPDATE words_freq SET Frequency='" . $freq_new . "' WHERE Id='" . $d1['Id'] . "'";
+                                $r3 = $mysqli->query($q1);
+                            }
+                        }
+
+
+                        //        $keywords = $result1->fetch_assoc();
+
+                        // Levenshtein
 
                     } else {
-//                    echo "+";
-
-                        // If the keyword already appeared in this post
-                        $d1 = $r2->fetch_assoc();
-                        $freq_old = $d1['Frequency'];
-                        $freq_new = $freq_old + 1;
-
-                        // Update the frequency +1
-                        $q1 = "UPDATE words_freq SET Frequency='" . $freq_new . "' WHERE Id='" . $d1['Id'] . "'";
-                        $r3 = $mysqli->query($q1);
+                        // Nothing
+                        // echo "E";
                     }
+
+                } else {
+//                    echo "I FOUND<br />";
                 }
-//        $keywords = $result1->fetch_assoc();
 
-                // Levenshtein
-
-            } else {
-                // Nothing
-                // echo "E";
-            }
+            } // End foreach
 
         }
 

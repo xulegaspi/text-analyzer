@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reset.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data-mining.php" afterPath="$PROJECT_DIR$/data-mining.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/settings.html" afterPath="$PROJECT_DIR$/templates/settings.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TextAnalyzer.iws" />
@@ -33,7 +31,7 @@
       <file leaf-file-name="Text-analyzer.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-63.423077" vertical-offset="306" max-vertical-offset="2482">
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2482">
               <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="63" />
               <folding>
                 <element signature="e#7#192#0#PHP" expanded="true" />
@@ -45,28 +43,35 @@
       <file leaf-file-name="data-mining.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data-mining.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09758898" vertical-offset="2244" max-vertical-offset="3519">
-              <caret line="137" column="71" selection-start-line="137" selection-start-column="71" selection-end-line="137" selection-end-column="71" />
+            <state vertical-scroll-proportion="3.4229884" vertical-offset="1051" max-vertical-offset="4267">
+              <caret line="237" column="5" selection-start-line="237" selection-start-column="5" selection-end-line="237" selection-end-column="5" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1444839168615" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
-                <marker date="1444839168615" expanded="true" signature="1590:1614" placeholder="UPDATE posts..." />
-                <marker date="1444839168615" expanded="true" signature="1590:1663" placeholder="UPDATE posts..." />
-                <marker date="1444839168615" expanded="true" signature="1590:1680" placeholder="UPDATE posts..." />
-                <marker date="1444839168615" expanded="true" signature="1832:1870" placeholder="DELETE FROM ..." />
-                <marker date="1444839168615" expanded="true" signature="1832:1887" placeholder="DELETE FROM ..." />
-                <marker date="1444839168615" expanded="true" signature="2285:2352" placeholder="SELECT * FRO..media..." />
-                <marker date="1444839168615" expanded="true" signature="2911:2975" placeholder="INSERT INTO ..." />
-                <marker date="1444839168615" expanded="true" signature="4316:4372" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4413:4420" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4413:4455" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4413:4483" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4413:4499" placeholder="SELECT term ..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4413:4563" placeholder="SELECT * FRO..keywords..." />
-                <marker date="1444839168615" expanded="true" signature="4763:4822" placeholder="INSERT INTO ..." />
-                <marker date="1444839168615" expanded="true" signature="5089:5183" placeholder="SELECT * FRO..words_freq..." />
-                <marker date="1444839168615" expanded="true" signature="5515:5596" placeholder="INSERT INTO ..." />
-                <marker date="1444839168615" expanded="true" signature="6023:6103" placeholder="UPDATE words..." />
+                <marker date="1444930193442" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
+                <marker date="1444930193442" expanded="true" signature="1491:1581" placeholder="UPDATE posts..." />
+                <marker date="1444930193442" expanded="true" signature="1733:1788" placeholder="DELETE FROM ..." />
+                <marker date="1444930193442" expanded="true" signature="2186:2253" placeholder="SELECT * FRO..media..." />
+                <marker date="1444930193442" expanded="true" signature="2812:2876" placeholder="INSERT INTO ..." />
+                <marker date="1444930193442" expanded="true" signature="5211:5298" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930193442" expanded="true" signature="5577:5664" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930193442" expanded="true" signature="6048:6108" placeholder="INSERT INTO ..." />
+                <marker date="1444930193442" expanded="true" signature="6289:6346" placeholder="SELECT * FRO..keywords..." />
+                <marker date="1444930193442" expanded="true" signature="6795:6876" placeholder="INSERT INTO ..." />
+                <marker date="1444930193442" expanded="true" signature="7187:7281" placeholder="SELECT * FRO..words_freq..." />
+                <marker date="1444930193442" expanded="true" signature="7793:7874" placeholder="INSERT INTO ..." />
+                <marker date="1444930193442" expanded="true" signature="8397:8477" placeholder="UPDATE words..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="words.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ext/words.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.148148" vertical-offset="0" max-vertical-offset="15861">
+              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding>
+                <element signature="e#6#87#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,14 +80,13 @@
       <file leaf-file-name="reset.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reset.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.307692" vertical-offset="0" max-vertical-offset="663">
+            <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="663">
               <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
                 <marker date="1444835546017" expanded="true" signature="191:210" placeholder="SELECT * FRO..posts..." />
                 <marker date="1444835546017" expanded="true" signature="442:497" placeholder="UPDATE posts..." />
                 <marker date="1444835546017" expanded="true" signature="442:514" placeholder="UPDATE posts..." />
-                <marker date="1444835546017" expanded="true" signature="442:547" placeholder="UPDATE posts..." />
               </folding>
             </state>
           </provider>
@@ -278,15 +282,15 @@
       <BehatRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
       <tasks />
       <pass-parent-env-vars>false</pass-parent-env-vars>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -314,19 +318,19 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16151386" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -380,7 +384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -433,7 +436,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -472,7 +474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -511,7 +512,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -550,7 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -589,7 +588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -715,16 +713,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/words.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.016092" vertical-offset="14991" max-vertical-offset="15861">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-63.423077" vertical-offset="306" max-vertical-offset="2482">
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2482">
           <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="63" />
           <folding>
             <element signature="e#7#192#0#PHP" expanded="true" />
@@ -736,48 +727,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6736597" vertical-offset="0" max-vertical-offset="858">
           <caret line="34" column="83" selection-start-line="34" selection-start-column="83" selection-end-line="34" selection-end-column="83" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reset.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.307692" vertical-offset="0" max-vertical-offset="663">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="663">
           <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
             <marker date="1444835546017" expanded="true" signature="191:210" placeholder="SELECT * FRO..posts..." />
             <marker date="1444835546017" expanded="true" signature="442:497" placeholder="UPDATE posts..." />
             <marker date="1444835546017" expanded="true" signature="442:514" placeholder="UPDATE posts..." />
-            <marker date="1444835546017" expanded="true" signature="442:547" placeholder="UPDATE posts..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/words.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.148148" vertical-offset="0" max-vertical-offset="15861">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data-mining.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09758898" vertical-offset="2244" max-vertical-offset="3519">
-          <caret line="137" column="71" selection-start-line="137" selection-start-column="71" selection-end-line="137" selection-end-column="71" />
+        <state vertical-scroll-proportion="3.4229884" vertical-offset="1051" max-vertical-offset="4267">
+          <caret line="237" column="5" selection-start-line="237" selection-start-column="5" selection-end-line="237" selection-end-column="5" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1444839168615" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
-            <marker date="1444839168615" expanded="true" signature="1590:1614" placeholder="UPDATE posts..." />
-            <marker date="1444839168615" expanded="true" signature="1590:1663" placeholder="UPDATE posts..." />
-            <marker date="1444839168615" expanded="true" signature="1590:1680" placeholder="UPDATE posts..." />
-            <marker date="1444839168615" expanded="true" signature="1832:1870" placeholder="DELETE FROM ..." />
-            <marker date="1444839168615" expanded="true" signature="1832:1887" placeholder="DELETE FROM ..." />
-            <marker date="1444839168615" expanded="true" signature="2285:2352" placeholder="SELECT * FRO..media..." />
-            <marker date="1444839168615" expanded="true" signature="2911:2975" placeholder="INSERT INTO ..." />
-            <marker date="1444839168615" expanded="true" signature="4316:4372" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4413:4420" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4413:4455" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4413:4483" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4413:4499" placeholder="SELECT term ..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4413:4563" placeholder="SELECT * FRO..keywords..." />
-            <marker date="1444839168615" expanded="true" signature="4763:4822" placeholder="INSERT INTO ..." />
-            <marker date="1444839168615" expanded="true" signature="5089:5183" placeholder="SELECT * FRO..words_freq..." />
-            <marker date="1444839168615" expanded="true" signature="5515:5596" placeholder="INSERT INTO ..." />
-            <marker date="1444839168615" expanded="true" signature="6023:6103" placeholder="UPDATE words..." />
+            <marker date="1444930193442" expanded="true" signature="389:408" placeholder="SELECT * FRO..posts..." />
+            <marker date="1444930193442" expanded="true" signature="1491:1581" placeholder="UPDATE posts..." />
+            <marker date="1444930193442" expanded="true" signature="1733:1788" placeholder="DELETE FROM ..." />
+            <marker date="1444930193442" expanded="true" signature="2186:2253" placeholder="SELECT * FRO..media..." />
+            <marker date="1444930193442" expanded="true" signature="2812:2876" placeholder="INSERT INTO ..." />
+            <marker date="1444930193442" expanded="true" signature="5211:5298" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930193442" expanded="true" signature="5577:5664" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930193442" expanded="true" signature="6048:6108" placeholder="INSERT INTO ..." />
+            <marker date="1444930193442" expanded="true" signature="6289:6346" placeholder="SELECT * FRO..keywords..." />
+            <marker date="1444930193442" expanded="true" signature="6795:6876" placeholder="INSERT INTO ..." />
+            <marker date="1444930193442" expanded="true" signature="7187:7281" placeholder="SELECT * FRO..words_freq..." />
+            <marker date="1444930193442" expanded="true" signature="7793:7874" placeholder="INSERT INTO ..." />
+            <marker date="1444930193442" expanded="true" signature="8397:8477" placeholder="UPDATE words..." />
           </folding>
         </state>
       </provider>
