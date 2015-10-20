@@ -148,22 +148,22 @@ for($ii=0; $ii < $num_rows; $ii++) {
                 $single_word2 = preg_replace($re2, '', $single_word2);
 //                echo $single_word2 . "<br />";
 
-                if(strtolower($single_word2) != "i" and $single_word2 != "") {
+                if(mb_strtolower($single_word2) != "i" and $single_word2 != "") {
 
                     // Check if the word is among the common Swedish words
-                    if (!array_search(strtolower($single_word2), explode(PHP_EOL, $words))) {
+                    if (!array_search(mb_strtolower($single_word2), explode(PHP_EOL, $words))) {
 
                         // Check that this word is not already stored
                         if(strlen($single_word2 <= 3)) {
 
                             //                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
-                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word2 . "', Term) BETWEEN 0 AND 1";
+                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . mb_strtolower($single_word2) . "', Term) BETWEEN 0 AND 1";
                             $result1 = $mysqli->query($query_levenshtein);
 
                         } else {
 
                             //                $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word . "'";
-                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . $single_word2 . "', Term) BETWEEN 0 AND 2";
+                            $query_levenshtein = "SELECT * FROM keywords WHERE levenshtein('" . mb_strtolower($single_word2) . "', Term) BETWEEN 0 AND 2";
                             $result1 = $mysqli->query($query_levenshtein);
 
                             //                var_dump($result1);
@@ -174,11 +174,11 @@ for($ii=0; $ii < $num_rows; $ii++) {
                             //                echo "N";
 
                             // If the keyword is not stored
-                            $query1 = "INSERT INTO keywords (Term) VALUES ('" . $single_word2 . "')";
+                            $query1 = "INSERT INTO keywords (Term) VALUES ('" . mb_strtolower($single_word2) . "')";
                             $r1 = $mysqli->query($query1);
 //                            echo "Insert word: " . $single_word2 . "<br />";
 
-                            $query1 = "SELECT * FROM keywords WHERE Term='" . $single_word2 . "'";
+                            $query1 = "SELECT * FROM keywords WHERE Term='" . mb_strtolower($single_word2) . "'";
                             $r1 = $mysqli->query($query1);
 
                             $d2 = $r1->fetch_assoc();
