@@ -6,10 +6,10 @@
  * Time: 19:26
  */
 
-$EXEC_TIME = 600;
+$EXEC_TIME = 1500;  // 25 minutes
 
 require_once('/ext/words.php');
-require_once('/ext/Levenshtein_SQL.php');
+require_once('/ext/Levenshtein_SQL.php');  // This must be included manually in the phpMyAdmin page, SQL section
 
 set_time_limit($EXEC_TIME);
 $mysqli = new mysqli("localhost", "root", "", "textanalyzer1");
