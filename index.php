@@ -6,6 +6,5 @@
  * Time: 17:30
  */
 
-//$html = file_get_contents("Visualize/index.html");
 $html = require_once("Visualize/index.html");
 return $html;

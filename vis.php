@@ -20,16 +20,24 @@ for($ii = 0; $ii < $result_keywords->num_rows; $ii++) {
 
 // Query the word frequencies
 //$query_freq = "SELECT * FROM words_freq";
-$query_freq = "SELECT * FROM words_freq WHERE Frequency > '1'";
+/*$query_freq = "SELECT * FROM words_freq WHERE Frequency > '1'";
 $result_freq = $mysqli->query($query_freq);
 
 $data_freq = array();
 for($jj = 0; $jj < $result_freq->num_rows; $jj++) {
     $data_freq[] = $result_freq->fetch_assoc();
+}*/
+
+$query_freq = "SELECT * FROM total_freq WHERE freq > '1'";
+$result_freq = $mysqli->query($query_freq);
+
+$data_freq = array();
+for($jj = 0; $jj < $result_freq->num_rows; $jj++) {
+    $data_freq[] = utf8_converter($result_freq->fetch_assoc());
 }
 
 //echo "KEYWORDS: <br />";
-echo json_encode($data_keywords);
+//echo json_encode($data_keywords);
 //echo "<br /><hr /><br />";
 
 //echo "FREQ: <br />";

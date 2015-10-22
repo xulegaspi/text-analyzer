@@ -23,56 +23,60 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .ticks(10, "%");
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//    var svg = d3.select("body").append("svg")
+//            .attr("width", width + margin.left + margin.right)
+//            .attr("height", height + margin.top + margin.bottom)
+//            .append("g")
+//            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-d3.json("127.0.0.1/wordpress/wp-content/plugins/TextAnalyzer/vis.php", function(error, data) {
-    data.forEach(function(d) {
-        alert("OK");
-        d.date = parseDate(d.date);
-        d.close = +d.close;
-    });
+var path = "data/";
+//    d3.json("vis.php", function(error, data) {
+d3.json(path + "total_freq.json", function(error, data) {
 
+    if (error) throw error;
 
-//d3.tsv("data.tsv", type, function(error, data) {
-//    if (error) throw error;
+//        x.domain(data.map(function (d) {
+//            return d.keyword;
+//        }));
 //
-//    x.domain(data.map(function(d) { return d.letter; }));
-//    y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+//        svg.append("g")
+//                .attr("class", "x axis")
+//                .attr("transform", "translate(0, " + height + ")")
+//                .call(xAxis);
 //
-//    svg.append("g")
-//        .attr("class", "x axis")
-//        .attr("transform", "translate(0," + height + ")")
-//        .call(xAxis);
-//
-//    svg.append("g")
-//        .attr("class", "y axis")
-//        .call(yAxis)
-//        .append("text")
-//        .attr("transform", "rotate(-90)")
-//        .attr("y", 6)
-//        .attr("dy", ".71em")
-//        .style("text-anchor", "end")
-//        .text("Frequency");
-//
-//    svg.selectAll(".bar")
-//        .data(data)
-//        .enter().append("rect")
-//        .attr("class", "bar")
-//        .attr("x", function(d) { return x(d.letter); })
-//        .attr("width", x.rangeBand())
-//        .attr("y", function(d) { return y(d.frequency); })
-//        .attr("height", function(d) { return height - y(d.frequency); });
-//});
+//        svg.selectAll(".bar")
+//                .data(data)
+//                .enter().append("rect")
+//                .attr("class", "bar")
+//                .attr("x", function(d) { return x(d.keyword); })
+//                .attr("width", x.rangeBand())
 
-function type(d) {
-    d.frequency = +d.frequency;
-    return d;
-}}
-    .error(function (d) {
-        alert("ERROR");
-    }) );
+
+    var canvas = d3.select("body").append("svg")
+        .attr("width", 500)
+        .attr("height", data.length * 20);
+
+    canvas.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("width", function (d) {
+            //console.log(d);
+            return 500;
+        })
+        .attr("height", 18)
+        .attr("y", function (d, i) { return i * 20; })
+        .attr("width", function (d, i) { return d.freq; })
+        .attr("fill", "blue");
+
+    canvas.selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("fill", "lightgray")
+        .attr("y", function (d, i) { return i * 20 + 14; })
+        .attr("x", 5)
+        .text(function (d) { return d.Term; });
+
+});
