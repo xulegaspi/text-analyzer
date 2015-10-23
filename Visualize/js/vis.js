@@ -54,7 +54,7 @@ d3.json(path + "total_freq.json", function(error, data) {
 
 
     var canvas = d3.select("body").append("svg")
-        .attr("width", 500)
+        .attr("width", 5000)
         .attr("height", data.length * 20);
 
     canvas.selectAll("rect")
@@ -67,8 +67,20 @@ d3.json(path + "total_freq.json", function(error, data) {
         })
         .attr("height", 18)
         .attr("y", function (d, i) { return i * 20; })
-        .attr("width", function (d, i) { return d.freq; })
-        .attr("fill", "blue");
+        .attr("width", function (d, i) {
+            var resul = d3.scale.linear()
+                .domain([0,0.4]);
+            return resul(d.freq);
+        })
+        .attr("fill", function(d) {
+            var resul = d3.scale.linear()
+                .domain([1, 50, 150])
+                .range(["blue", "red", "green"]);
+            //var resul = d3.scale.category10();
+            console.log(resul);
+            return resul(d.freq);
+            //"blue"
+        });
 
     canvas.selectAll("text")
         .data(data)
