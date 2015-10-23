@@ -3,60 +3,55 @@
  * src = http://bl.ocks.org/mbostock/3885304
  */
 
+var width  = 800,
+    height = 600;
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+//var force = d3.layout.force()
+//    .charge( function(d) { return -35 * Math.sqrt(d.freq)} )
+//    .linkDistance(50)
+//    .gravity(0.15)
+//    .size([width - 250, height]);
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .ticks(10, "%");
-
-//    var svg = d3.select("body").append("svg")
-//            .attr("width", width + margin.left + margin.right)
-//            .attr("height", height + margin.top + margin.bottom)
-//            .append("g")
-//            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+var pack = d3.layout.pack()
+    .size([width, height - 50])
+    .padding(10);
 
 var path = "data/";
+
 //    d3.json("vis.php", function(error, data) {
 d3.json(path + "total_freq.json", function(error, data) {
-
     if (error) throw error;
 
-//        x.domain(data.map(function (d) {
-//            return d.keyword;
-//        }));
-//
-//        svg.append("g")
-//                .attr("class", "x axis")
-//                .attr("transform", "translate(0, " + height + ")")
-//                .call(xAxis);
-//
-//        svg.selectAll(".bar")
-//                .data(data)
-//                .enter().append("rect")
-//                .attr("class", "bar")
-//                .attr("x", function(d) { return x(d.keyword); })
-//                .attr("width", x.rangeBand())
+    var nodes = pack.nodes(data);
+    console.log(nodes);
 
-
+    // Create the svg to print the bars
     var canvas = d3.select("body").append("svg")
+        //.attr("class", "bubble")
         .attr("width", 5000)
         .attr("height", data.length * 20);
 
+    /*var node = canvas.selectAll(".node")
+        .data(data)
+        .enter()
+        .append("g")
+            .attr("class", "node");
+            //.attr("transform", function(d) {
+            //    return "translate(" + d.x + "," + d.y + ")";
+            //});
+
+    node.append("circle")
+        .attr("r", function (d) {return d.freq})
+        .attr("fill", "steelblue")
+        //.attr("opacity", 0.50)
+        .attr("stroke-width", "2");
+
+    node.append("text")
+        .data(data)
+        .text(function(d) { return d.Term; });*/
+
+
+    // Create the bars
     canvas.selectAll("rect")
         .data(data)
         .enter()
@@ -76,12 +71,11 @@ d3.json(path + "total_freq.json", function(error, data) {
             var resul = d3.scale.linear()
                 .domain([1, 50, 150])
                 .range(["blue", "red", "green"]);
-            //var resul = d3.scale.category10();
-            console.log(resul);
+            //console.log(resul);
             return resul(d.freq);
-            //"blue"
         });
 
+    // Put text into the bars
     canvas.selectAll("text")
         .data(data)
         .enter()

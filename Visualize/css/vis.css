@@ -1,25 +1,46 @@
 
 
-.bar {
-    fill: steelblue;
-}
+/*.bar {*/
+    /*fill: steelblue;*/
+/*}*/
 
-.bar:hover {
-    fill: brown;
-}
+/*.bar:hover {*/
+    /*fill: brown;*/
+/*}*/
 
-.axis {
-    font: 10px sans-serif;
-}
+/*.axis {*/
+    /*font: 10px sans-serif;*/
+/*}*/
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-}
+/*.axis path,*/
+/*.axis line {*/
+    /*fill: none;*/
+    /*stroke: #000;*/
+    /*shape-rendering: crispEdges;*/
+/*}*/
 
-.x.axis path {
-    display: none;
-}
+/*.x.axis path {*/
+    /*display: none;*/
+/*}*/
 
+.node_circle {
+    stroke: #777;
+    stroke-width: 1.0px;
+}
+.node_label {
+    pointer-events: none;
+}
+.link {
+    stroke: #777;
+    stroke-opacity: .2;
+}
+.node_count {
+    stroke: #777;
+    stroke-width: 1.0px;
+    fill: #999;
+}
+text.legend {
+    font-family: Verdana;
+    font-size: 13px;
+    fill: #000;
+}
