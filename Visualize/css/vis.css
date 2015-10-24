@@ -23,6 +23,19 @@
     /*display: none;*/
 /*}*/
 
+.container {
+    float: left;
+}
+
+#bar_char {
+
+}
+
+#bubble_chart {
+
+}
+
+/*
 .node_circle {
     stroke: #777;
     stroke-width: 1.0px;
@@ -44,3 +57,4 @@ text.legend {
     font-size: 13px;
     fill: #000;
 }
+*/

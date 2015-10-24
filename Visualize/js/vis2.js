@@ -8,12 +8,12 @@ var gravity = 0.30;
 
 var path = "data/";
 
-//d3.json("vis.php", function(error, graph) {
-d3.json(path + "total_freq.json", function(error, graph) {
+d3.json("vis.php", function(error, graph) {
+//d3.json(path + "total_freq.json", function(error, graph) {
     if (error) throw error;
 
     var filterData = function(freq, d) {
-        
+
     };
 
     var kind_to_color = function(d){
@@ -32,9 +32,37 @@ d3.json(path + "total_freq.json", function(error, graph) {
 
     force.start();
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#bubble_chart").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("transform", "translate(600, 0)");
+
+    var svg2 = d3.select("#bar_chart").append("svg")
+        .attr("width", 500)
+        .attr("height", graph.length * 20);
+
+    svg2.selectAll("rect")
+        .data(graph)
+        .enter()
+        .append("rect")
+        .attr("width", 500)
+        .attr("height", 18)
+        .attr("y", function (d, i) { return i*20; })
+        .attr("width", function (d, i) {
+            var resul = d3.scale.linear()
+                .domain([0, 0.4]);
+            return resul(d.freq);
+        })
+        .attr("fill", "steelblue");
+
+    svg2.selectAll("text")
+        .data(graph)
+        .enter()
+        .append("text")
+        .attr("fill", "lightgray")
+        .attr("y", function (d, i) { return i * 20 + 14; })
+        .attr("x", 5)
+        .text(function(d) { return d.Term; });
 
     var main = svg.append("g")
         .attr("class", "graph");
