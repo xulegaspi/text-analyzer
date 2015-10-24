@@ -10,13 +10,20 @@
 <!--D3 Library-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>-->
 <script src="d3.min.js"></script>
-
+<script src="Visualize/js/d3.slider.js"></script>
 <!--Visualization Code-->
 <script src="Visualize/js/vis2.js"></script>
 
 
 <div class="container" id="bar_chart"></div>
 <div class="container" id="bubble_chart"></div>
+<div class="container" id="slider">
+    <label for="slider1"
+           style="display: inline-block; width: 240px; text-align: right">
+        freq = <span id="slider1-value">…</span>
+    </label>
+    <input type="range" min="2" max="30" id="slider1">
+</div>
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Visualize/js/d3.slider.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/index.html" afterPath="$PROJECT_DIR$/Visualize/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/css/vis.css" afterPath="$PROJECT_DIR$/Visualize/css/vis.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/js/vis2.js" afterPath="$PROJECT_DIR$/Visualize/js/vis2.js" />
@@ -101,24 +102,23 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="vis.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Visualize/js/vis.js">
+          <file leaf-file-name="vis2.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Visualize/js/vis2.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="1598">
-                  <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
+                <state vertical-scroll-proportion="0.7273769" vertical-offset="2408" max-vertical-offset="3689">
+                  <caret line="179" column="5" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="vis2.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Visualize/js/vis2.js">
+          <file leaf-file-name="d3.slider.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Visualize/js/d3.slider.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.58419245" vertical-offset="0" max-vertical-offset="2176">
-                  <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="6454" max-vertical-offset="7395">
+                  <caret line="429" column="4" selection-start-line="429" selection-start-column="4" selection-end-line="429" selection-end-column="4" />
                   <folding>
-                    <element signature="e#0#42#0" expanded="false" />
-                    <element signature="e#342#490#0" expanded="false" />
+                    <element signature="n#!!doc" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -150,22 +150,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="vis.css" pinned="false" current-in-tab="true">
+          <file leaf-file-name="vis.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Visualize/css/vis.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.9620536" vertical-offset="141" max-vertical-offset="1105">
-                  <caret line="59" column="2" selection-start-line="59" selection-start-column="2" selection-end-line="59" selection-end-column="2" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="1173">
+                  <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Visualize/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="459">
-                  <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-                  <folding />
+                <state vertical-scroll-proportion="0.46896553" vertical-offset="0" max-vertical-offset="870">
+                  <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+                  <folding>
+                    <element signature="n#style#0;n#label#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -207,9 +209,10 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/Visualize/js/vis.js" />
         <option value="$PROJECT_DIR$/vis.php" />
-        <option value="$PROJECT_DIR$/Visualize/js/vis2.js" />
-        <option value="$PROJECT_DIR$/Visualize/index.html" />
+        <option value="$PROJECT_DIR$/Visualize/js/d3.slider.js" />
         <option value="$PROJECT_DIR$/Visualize/css/vis.css" />
+        <option value="$PROJECT_DIR$/Visualize/index.html" />
+        <option value="$PROJECT_DIR$/Visualize/js/vis2.js" />
       </list>
     </option>
   </component>
@@ -476,14 +479,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Visualize/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1700">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/keywords.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
@@ -856,25 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Visualize/js/vis2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58419245" vertical-offset="0" max-vertical-offset="2176">
-          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-            <element signature="e#342#490#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Visualize/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="459">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/js/vis.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1598">
@@ -883,10 +859,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Visualize/js/d3.slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6454" max-vertical-offset="7395">
+          <caret line="429" column="4" selection-start-line="429" selection-start-column="4" selection-end-line="429" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/css/vis.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9620536" vertical-offset="141" max-vertical-offset="1105">
-          <caret line="59" column="2" selection-start-line="59" selection-start-column="2" selection-end-line="59" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="1173">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visualize/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46896553" vertical-offset="0" max-vertical-offset="870">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visualize/js/vis2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7273769" vertical-offset="2408" max-vertical-offset="3689">
+          <caret line="179" column="5" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
           <folding />
         </state>
       </provider>
