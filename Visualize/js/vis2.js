@@ -8,6 +8,13 @@ var gravity = 0.25;
 
 var path = "data/";
 
+var force;
+var svg;
+var svg2;
+var main;
+var node;
+var label;
+
 //d3.json("vis.php", function(error, graph) {
 d3.json(path + "total_freq.json", function(error, graph2) {
     if (error) throw error;
@@ -43,117 +50,120 @@ d3.json(path + "total_freq.json", function(error, graph2) {
         return resul(d.freq);
     };
 
+    draw();
+
     function remove() {
-        force.remove();
         svg.remove();
         svg2.remove();
         node.remove();
     }
 
+    function draw() {
 
-    var force = d3.layout.force()
-        .charge(function (d) {
-            return -35 * Math.sqrt(d.freq)
-        })
-        .linkDistance(50)
-        .gravity(gravity)
-        .size([width - 250, height])
-        .nodes(graph);
-
-    force.start();
-
-    var svg = d3.select("#bubble_chart").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-    //.attr("transform", "translate(600, 0)");
-
-    var svg2 = d3.select("#bar_chart").append("svg")
-        .attr("width", 500)
-        .attr("height", graph.length * 20);
-
-    svg2.selectAll("rect")
-        .data(graph)
-        .enter()
-        .append("rect")
-        .attr("width", 500)
-        .attr("height", 18)
-        .attr("y", function (d, i) {
-            return i * 20;
-        })
-        .attr("width", function (d, i) {
-            var resul = d3.scale.linear()
-                .domain([0, 0.4]);
-            return resul(d.freq);
-        })
-        .attr("fill", "steelblue");
-
-    svg2.selectAll("text")
-        .data(graph)
-        .enter()
-        .append("text")
-        .attr("fill", "lightgray")
-        .attr("y", function (d, i) {
-            return i * 20 + 14;
-        })
-        .attr("x", 5)
-        .text(function (d) {
-            return d.Term;
-        });
-
-    var main = svg.append("g")
-        .attr("class", "graph");
-
-    var node = main.selectAll(".node_circle")
-        .data(graph)
-        .enter().append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return 3.5 * Math.sqrt(d.freq);
-        })
-        .style("fill", function (d) {
-            return kind_to_color(d);
-        })
-        .call(force.drag);
-
-    var label = main.selectAll(".node_label")
-        .data(graph)
-        .enter().append("text")
-        .attr("class", "node_label")
-        .attr("dx", function (d) {
-            return 2 + 0.5 * Math.sqrt(d.freq);
-        })
-        .attr("dy", ".4em")
-        .attr("font-family", "Verdana")
-        .attr("font-size", 12)
-        .style("fill", "#000000")
-        .text(function (d) {
-            return d.Term;
-        });
-
-    force.on("tick", function (e) {
-        var q = d3.geom.quadtree(node),
-            i = 0,
-            n = node.length;
-
-        while (++i < n) q.visit(collide(node[i]));
-
-        svg.selectAll("circle")
-            .attr("cx", function (d) {
-                return d.x;
+        force = d3.layout.force()
+            .charge(function (d) {
+                return -35 * Math.sqrt(d.freq)
             })
-            .attr("cy", function (d) {
-                return d.y;
+            .linkDistance(50)
+            .gravity(gravity)
+            .size([width - 250, height])
+            .nodes(graph);
+
+        force.start();
+
+        svg = d3.select("#bubble_chart").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        //.attr("transform", "translate(600, 0)");
+
+        svg2 = d3.select("#bar_chart").append("svg")
+            .attr("width", 500)
+            .attr("height", graph.length * 20);
+
+        svg2.selectAll("rect")
+            .data(graph)
+            .enter()
+            .append("rect")
+            .attr("width", 500)
+            .attr("height", 18)
+            .attr("y", function (d, i) {
+                return i * 20;
+            })
+            .attr("width", function (d, i) {
+                var resul = d3.scale.linear()
+                    .domain([0, 0.4]);
+                return resul(d.freq);
+            })
+            .attr("fill", "steelblue");
+
+        svg2.selectAll("text")
+            .data(graph)
+            .enter()
+            .append("text")
+            .attr("fill", "lightgray")
+            .attr("y", function (d, i) {
+                return i * 20 + 14;
+            })
+            .attr("x", 5)
+            .text(function (d) {
+                return d.Term;
             });
 
-        svg.selectAll("text")
+        main = svg.append("g")
+            .attr("class", "graph");
+
+        node = main.selectAll(".node_circle")
+            .data(graph)
+            .enter().append("circle")
+            .attr("class", "node_circle")
+            .attr("r", function (d) {
+                return 3.5 * Math.sqrt(d.freq);
+            })
+            .style("fill", function (d) {
+                return kind_to_color(d);
+            })
+            .call(force.drag);
+
+        label = main.selectAll(".node_label")
+            .data(graph)
+            .enter().append("text")
+            .attr("class", "node_label")
             .attr("dx", function (d) {
-                return d.x;
+                return 2 + 0.5 * Math.sqrt(d.freq);
             })
-            .attr("dy", function (d) {
-                return d.y;
+            .attr("dy", ".4em")
+            .attr("font-family", "Verdana")
+            .attr("font-size", 12)
+            .style("fill", "#000000")
+            .text(function (d) {
+                return d.Term;
             });
-    });
 
+        force.on("tick", function (e) {
+            var q = d3.geom.quadtree(node),
+                i = 0,
+                n = node.length;
+
+            while (++i < n) q.visit(collide(node[i]));
+
+            svg.selectAll("circle")
+                .attr("cx", function (d) {
+                    return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                });
+
+            svg.selectAll("text")
+                .attr("dx", function (d) {
+                    return d.x;
+                })
+                .attr("dy", function (d) {
+                    return d.y;
+                });
+        });
+
+    }
 
     function collide(node) {
         var r = node.radius + 16,
@@ -180,32 +190,16 @@ d3.json(path + "total_freq.json", function(error, graph2) {
     }
 
     function update(slider1) {
+
         d3.select("#slider1-value").text(slider1);
         d3.select("#slider").property("value", slider1);
 
-        graph = filterData(slider1, graph);
+        graph = filterData(slider1, graph2);
 
-        //force.remove();
-        svg.remove();
-        svg2.remove();
-        node.remove();
+        remove();
 
-        /*
-        main.selectAll(".node_label")
-            .data(graph);
-
-        main.selectAll(".node_circle")
-            .data(graph);
-
-        svg2.selectAll("text")
-            .data(graph);
-
-        svg2.selectAll("rect")
-            .data(graph);
-
-        force.nodes(graph);
-*/
-
+        draw();
 
     }
+
 });
