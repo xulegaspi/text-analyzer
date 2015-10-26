@@ -17,15 +17,15 @@ function remove() {
  * @description Draws the whole visualization
  */
 function draw() {
-    draw_bar_chart();
-    draw_bubble_chart();
+    draw_bar_chart(graph);
+    draw_bubble_chart(graph);
 }
 
 /**
  * @name draw_bubble_chart
  * @description Draws the Bubble Chart
  */
-function draw_bubble_chart() {
+function draw_bubble_chart(graph) {
 
     force = d3.layout.force()
         .charge(function (d) {
@@ -99,7 +99,7 @@ function draw_bubble_chart() {
  * @name draw_bar_chart
  * @description Draws the Bar Chart
  */
-function draw_bar_chart() {
+function draw_bar_chart(graph) {
 
     svg_bars = d3.select("#bar_chart").append("svg")
         .attr("width", 500)
@@ -180,6 +180,8 @@ function update(slider1, graph2) {
     remove();
 
     draw();
+    //draw_bar_chart(graph);
+    //draw_bubble_chart(graph);
 
 }
 
@@ -247,3 +249,37 @@ function slider_handlers(words_data) {
         change_gravity(+this.value);
     });
 }
+
+/*
+var mouseover_node = function(z){
+    var neighbors = {};
+    neighbors[z.index] = true;
+    link.filter(function(d){
+        if (d.source == z) {
+            neighbors[d.target.index] = true
+            return true
+        } else if (d.target == z) {
+            neighbors[d.source.index] = true
+            return true
+        } else {
+            return false
+        }
+    })
+        .style("stroke-opacity", 1);
+    node.filter(function(d){ return neighbors[d.index] })
+        .style("stroke-width", 3);
+    label.filter(function(d){ return !neighbors[d.index] })
+        .style("fill-opacity", 0.2);
+    label.filter(function(d){ return neighbors[d.index] })
+        .attr("font-size", 16)
+};
+var mouseout_node = function(z){
+    link
+        .style("stroke-opacity", 0.2);
+    node
+        .style("stroke-width", 1)
+    label
+        .attr("font-size", 10)
+        .style("fill-opacity", 1)
+};
+*/

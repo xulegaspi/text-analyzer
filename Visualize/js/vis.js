@@ -27,6 +27,10 @@ d3.json(path + "total_freq.json", function(error, graph2) {
 
     graph = filterData(15, graph2);
 
-    draw();
+    //draw();
+    draw_bar_chart(graph);
+    draw_bubble_chart(graph);
 
 });
+
+
