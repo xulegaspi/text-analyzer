@@ -14,16 +14,25 @@
 <!--Visualization Code-->
 <script src="Visualize/js/vis2.js"></script>
 
+<div class="container" id="main">
+    <div class="container" id="bar_chart"></div>
+    <div class="container" id="bubble_chart">
+        <div class="container" id="slider_freq">
+            <label for="slider1"
+                   style="display: inline-block; width: 240px; text-align: right">
+                freq = <span id="slider1-value">15</span>
+            </label>
+            <input type="range" min="2" max="50" value="15" id="slider1">
+        </div>
 
-<div class="container" id="bar_chart"></div>
-<div class="container" id="bubble_chart"></div>
-<div class="container" id="slider">
-    <label for="slider1"
-           style="display: inline-block; width: 240px; text-align: right">
-        freq = <span id="slider1-value">…</span>
-    </label>
-    <input type="range" min="2" max="30" id="slider1">
+        <div class="container" id="slider_gravity">
+            <label for="slider2"
+                   style="display: inline-block; width: 240px; text-align: right">
+                gravity = <span id="slider2-value">40</span>
+            </label>
+            <input type="range" min="1" max="80" value="40" id="slider2">
+        </div>
+    </div>
 </div>
-
 </body>
 </html>

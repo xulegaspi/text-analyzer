@@ -2,9 +2,9 @@
  * Created by Xurxo on 23/10/2015.
  */
 var width  = 1000,
-    height = 700;
+    height = 800;
 
-var gravity = 0.25;
+var gravity = 40 * 0.005;
 
 var path = "data/";
 
@@ -37,11 +37,12 @@ d3.json(path + "total_freq.json", function(error, graph2) {
         update(+this.value);
     });
 
-    //graph = filterData(5, graph);
-    console.log(graph2);
-    //console.log(filterData(100, graph));
-    var graph = filterData(2, graph2);
-    console.log(graph.length);
+    d3.select("#slider2").on("input", function() {
+        change_gravity(+this.value);
+    });
+
+
+    var graph = filterData(15, graph2);
 
     var kind_to_color = function(d) {
         var resul = d3.scale.linear()
@@ -51,6 +52,7 @@ d3.json(path + "total_freq.json", function(error, graph2) {
     };
 
     draw();
+    //change_gravity(gravity);
 
     function remove() {
         svg.remove();
@@ -66,7 +68,7 @@ d3.json(path + "total_freq.json", function(error, graph2) {
             })
             .linkDistance(50)
             .gravity(gravity)
-            .size([width - 250, height])
+            .size([width, height])
             .nodes(graph);
 
         force.start();
@@ -81,7 +83,7 @@ d3.json(path + "total_freq.json", function(error, graph2) {
             .attr("height", graph.length * 20);
 
         svg2.selectAll("rect")
-            .data(graph)
+            .data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
             .enter()
             .append("rect")
             .attr("width", 500)
@@ -200,6 +202,16 @@ d3.json(path + "total_freq.json", function(error, graph2) {
 
         draw();
 
+    }
+
+    function change_gravity(slider2) {
+        d3.select("#slider2-value").text(slider2);
+        d3.select("#slider_gravity").property("value", slider2);
+
+        gravity = slider2 * 0.005;
+
+        remove();
+        draw();
     }
 
 });
