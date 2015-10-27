@@ -55,6 +55,15 @@ function draw_bubble_chart(graph) {
         .style("fill", function (d) {
             return kind_to_color(d);
         })
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            mouseclick_node(d);
+        })
         .call(force.drag);
 
     label = main.selectAll(".node_label")
@@ -135,6 +144,24 @@ function draw_bar_chart(graph) {
         });
 }
 
+function draw_list(data) {
+
+    if(list) list.remove();
+
+    list = d3.select("#list")
+        .append("ul")
+        .selectAll("text")
+            .data(data)
+        .enter().append("li")
+        .attr("y", function(d, i) {
+            return i * 20;
+        })
+        .attr("height", 18)
+        .text(function(d) { return d.post_url } )
+        .on("click", function(d) { window.open(d.post_url); });
+
+}
+
 /**
  * @name collide
  * @description Manages and avoid the overlay between nodes
@@ -178,7 +205,6 @@ function update(slider1, graph2) {
     graph = filterData(slider1, graph2);
 
     remove();
-
     draw();
     //draw_bar_chart(graph);
     //draw_bubble_chart(graph);
@@ -219,6 +245,18 @@ function filterData(freq1, d) {
     return array;
 }
 
+function selectData(Term, d) {
+    var array = [];
+    var kk = 0;
+    for(var jj = 0; jj < d.length; jj++) {
+        if(d[jj].Term == Term) {
+            array[kk] = d[jj];
+            kk++;
+        }
+    }
+    return array;
+}
+
 /**
  * @name kind_to_color
  * @description Codifies some information in the color
@@ -250,36 +288,64 @@ function slider_handlers(words_data) {
     });
 }
 
-/*
-var mouseover_node = function(z){
-    var neighbors = {};
-    neighbors[z.index] = true;
-    link.filter(function(d){
-        if (d.source == z) {
-            neighbors[d.target.index] = true
-            return true
-        } else if (d.target == z) {
-            neighbors[d.source.index] = true
-            return true
-        } else {
-            return false
-        }
-    })
-        .style("stroke-opacity", 1);
-    node.filter(function(d){ return neighbors[d.index] })
-        .style("stroke-width", 3);
-    label.filter(function(d){ return !neighbors[d.index] })
-        .style("fill-opacity", 0.2);
-    label.filter(function(d){ return neighbors[d.index] })
-        .attr("font-size", 16)
-};
-var mouseout_node = function(z){
-    link
-        .style("stroke-opacity", 0.2);
-    node
-        .style("stroke-width", 1)
-    label
-        .attr("font-size", 10)
-        .style("fill-opacity", 1)
-};
-*/
+/**
+ *
+ * @param z
+ */
+function mouseover_node(z) {
+    //lock = false;
+    if(!lock) {
+        var neighbors = {};
+        neighbors[z.index] = true;
+        node.filter(function (d) {
+            return neighbors[d.index]
+        })
+            .style("stroke-width", 3)
+            .style("fill", "yellow");
+        label.filter(function (d) {
+            return !neighbors[d.index]
+        })
+            .style("fill-opacity", 0.2);
+        label.filter(function (d) {
+            return neighbors[d.index]
+        })
+            .attr("font-size", 16);
+    }
+}
+
+/**
+ *
+ * @param z
+ */
+function mouseout_node(z) {
+    if(!lock) {
+        node
+            .style("stroke-width", 1)
+            .style("fill", "green");
+        label
+            .attr("font-size", 12)
+            .style("fill-opacity", 1);
+    }
+}
+
+function mouseclick_node(z) {
+    //alert(z.Term);
+    //lock = lock ? false : true;
+    //lock = true;
+    //mouseover_node(z);
+
+    var data = selectData(z.Term, klass_data);
+
+    if(list_title) {
+        list_title.text(z.Term);
+    } else {
+        list_title = d3.select("#list_title")
+            .append("text")
+            .text(z.Term)
+            .style("font-size", 16);
+    }
+
+
+    //list.remove();
+    draw_list(data);
+}

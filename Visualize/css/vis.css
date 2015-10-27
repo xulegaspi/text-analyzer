@@ -2,8 +2,16 @@
     float: left;
 }
 
+#header {
+    width: 100%;
+    background-color: aqua;
+    position: fixed;
+    height: 50px;
+}
+
 #main {
     width: 100%;
+    margin-top: 55px;
     text-align: center;
 }
 
@@ -11,6 +19,7 @@
     width: 100%;
     position: relative;
     right: 20px;
+    margin-top: 55px;
     text-align: right;
 }
 
@@ -27,9 +36,29 @@
 }
 
 #bubble_chart {
-    width: 100%;
+    width: 85%;
     position: fixed;
     top: 20px;
     text-align: center;
     z-index: 1;
+}
+
+#list {
+    width: 30%;
+    position: absolute;
+    right: 30px;
+    top: 100px;
+    text-align: left;
+    margin-top: 55px;
+    z-index: 2;
+}
+
+#list_title {
+    width: 30%;
+    position: absolute;
+    right: 30px;
+    top: 75px;
+    margin-top: 55px;
+    text-align: left;
+    z-index: 2;
 }

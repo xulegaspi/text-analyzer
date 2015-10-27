@@ -28,7 +28,8 @@ for($jj = 0; $jj < $result_freq->num_rows; $jj++) {
     $data_freq[] = $result_freq->fetch_assoc();
 }*/
 
-$query_freq = "SELECT * FROM total_freq WHERE freq > '5'";
+//$query_freq = "SELECT * FROM total_freq WHERE freq > '5'";
+$query_freq = "SELECT * FROM freq_klass_final";
 $result_freq = $mysqli->query($query_freq);
 
 $data_freq = array();
