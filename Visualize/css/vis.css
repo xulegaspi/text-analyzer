@@ -1,64 +1,134 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: azure;
+}
+
+/*svg {*/
+    /*background-color: azure;*/
+/*}*/
+
 .container {
     float: left;
+}
+
+.graph {
+    /*transform: translateX(-500px);*/
+    z-index: 3;
 }
 
 #header {
     width: 100%;
     background-color: aqua;
     position: fixed;
-    height: 50px;
+    height: 78px;
+    z-index: 2;
+}
+
+#title {
+    z-index: 3;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    font-size: 32px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#global {
+    width: 100%;
+    height: 100%;
+    background-color: azure;
+    z-index: -1;
+    /*position: fixed;*/
+    /*overflow: scroll;*/
 }
 
 #main {
     width: 100%;
-    margin-top: 55px;
+    background-color: azure;
+    /*margin-top: 70px;*/
+    height: 100%;
     text-align: center;
+}
+
+#sliders {
+    width: 20%;
+    position: fixed;
+    right: 20px;
+    top: 10px;
+    background-color: azure;
+    height: 60px;
+    z-index: 3;
 }
 
 #slider_freq {
     width: 100%;
     position: relative;
-    right: 20px;
-    margin-top: 55px;
-    text-align: right;
+    /*right: 20px;*/
+    margin-top: 3px;
+    text-align: center;
 }
 
 #slider_gravity {
     width: 100%;
     position: relative;
-    right: 20px;
-    text-align: right;
+    /*right: 20px;*/
+    text-align: center;
 }
 
-#bar_char {
+#bar_chart {
     position: relative;
-    z-index: 0;
+    /*height: 600px;*/
+    opacity: 0.8;
+    width: 20%;
+    text-align: left;
+    z-index: 1;
+    background-color: azure;
+    padding-left: 1%;
+    margin-top: 80px;
+    /*margin-left: 1%;*/
+    /*overflow: scroll;*/
 }
 
 #bubble_chart {
-    width: 85%;
+    width: 55%;
+    height: 100%;
     position: fixed;
-    top: 20px;
+    /*top: 20px;*/
+    left: 20%;
+    margin-top: 80px;
+    /*top: 10%;*/
+    /*transform: translate(-50%, -50%);*/
     text-align: center;
+    /*right: 25%;*/
     z-index: 1;
 }
 
 #list {
-    width: 30%;
-    position: absolute;
-    right: 30px;
-    top: 100px;
+    background-color: azure;
+    opacity: 0.9;
+    width: 25%;
+    position: fixed;
+    /*right: 30px;*/
+    left: 75%;
+    top: 70px;
+    height: 80%;
     text-align: left;
     margin-top: 55px;
-    z-index: 2;
+    z-index: 1;
+    overflow: auto;
 }
 
 #list_title {
-    width: 30%;
-    position: absolute;
+    width: 20%;
+    position: fixed;
     right: 30px;
-    top: 75px;
+    top: 40px;
     margin-top: 55px;
     text-align: left;
-    z-index: 2;
+    z-index: 1;
 }

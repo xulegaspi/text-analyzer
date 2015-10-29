@@ -39,10 +39,13 @@ function draw_bubble_chart(graph) {
     force.start();
 
     svg_bubble = d3.select("#bubble_chart").append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", "100%")
+        .attr("height", "100%");
 
     main = svg_bubble.append("g")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        //.attr("transform", "translate(-150,0)")
         .attr("class", "graph");
 
     node = main.selectAll(".node_circle")
@@ -108,16 +111,21 @@ function draw_bubble_chart(graph) {
  * @name draw_bar_chart
  * @description Draws the Bar Chart
  */
-function draw_bar_chart(graph) {
+function draw_bar_chart(graph, mode) {
 
     svg_bars = d3.select("#bar_chart").append("svg")
         .attr("width", 500)
         .attr("height", graph.length * 20);
+        //.attr("height", 800);
 
-    svg_bars.selectAll("rect")
-        .data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
+    bars = svg_bars.selectAll("rect")
+        //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
+        .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }))
         .enter()
         .append("rect")
+        //.attr("id", function(d) {
+        //    return d.URL;
+        //})
         .attr("width", 500)
         .attr("height", 18)
         .attr("y", function (d, i) {
@@ -125,12 +133,24 @@ function draw_bar_chart(graph) {
         })
         .attr("width", function (d, i) {
             var resul = d3.scale.linear()
-                .domain([0, 0.4]);
-            return resul(d.freq);
+                //.domain([0, 0.4]);
+                .domain([0, 0.05]);
+            //return resul(d.freq);
+            return resul(d.num_posts);
+        })
+        .on("mouseover", function(d) {
+            mouseover_bar(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_bar(d);
+        })
+        .on("click", function(d) {
+            mouseclick_bar(d);
+            //alert(d.URL);
         })
         .attr("fill", "steelblue");
 
-    svg_bars.selectAll("text")
+    label_bars = svg_bars.selectAll("text")
         .data(graph)
         .enter()
         .append("text")
@@ -139,11 +159,27 @@ function draw_bar_chart(graph) {
             return i * 20 + 14;
         })
         .attr("x", 5)
+        .on("mouseover", function(d) {
+            mouseover_bar(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_bar(d);
+        })
+        .on("click", function(d) {
+            mouseclick_bar(d);
+            //alert(d.URL);
+        })
         .text(function (d) {
-            return d.Term;
+            //return d.Term;
+            return d.URL;
         });
 }
 
+/**
+ * @name draw_list
+ * @description Draws/writes the list with the posts links
+ * @param data
+ */
 function draw_list(data) {
 
     if(list) list.remove();
@@ -205,9 +241,9 @@ function update(slider1, graph2) {
     graph = filterData(slider1, graph2);
 
     remove();
-    draw();
-    //draw_bar_chart(graph);
-    //draw_bubble_chart(graph);
+    //draw();
+    draw_bar_chart(num_posts);
+    draw_bubble_chart(graph);
 
 }
 
@@ -223,7 +259,9 @@ function change_gravity(slider2) {
     gravity = slider2 * 0.005;
 
     remove();
-    draw();
+    //draw();
+    draw_bar_chart(num_posts);
+    draw_bubble_chart(graph);
 }
 
 /**
@@ -245,7 +283,14 @@ function filterData(freq1, d) {
     return array;
 }
 
-function selectData(Term, d) {
+/**
+ * @name selectDataList
+ * @description Selects the list of posts where a specific term appears
+ * @param Term
+ * @param d
+ * @returns {Array}
+ */
+function selectDataList(Term, d) {
     var array = [];
     var kk = 0;
     for(var jj = 0; jj < d.length; jj++) {
@@ -255,6 +300,49 @@ function selectData(Term, d) {
         }
     }
     return array;
+}
+
+/**
+ * @name selectDataBars
+ * @description Selects the urls/schools that have posts that contains the specific term
+ * @param Term
+ * @param d
+ * @returns {Array}
+ */
+function selectDataBars(Term, d) {
+    var array = [];
+    var resul = [];
+    var kk = 0;
+    for (var jj = 0; jj < d.length; jj++) {
+        if (d[jj].Term == Term) {
+            array[kk] = d[jj].klass_url;
+            kk++;
+        }
+    }
+    kk = 0;
+    var ii = 0;
+    var x = false;
+    for (jj = 0; jj < array.length; jj++) {
+        for (kk = 0; kk < num_posts.length; kk++) {
+            if (array[jj] == num_posts[kk].URL) {
+                for(var xx = 0; xx < resul.length; xx++) {
+                    if (resul[xx] == num_posts[kk]) {
+                        x = true;
+                    }
+                }
+                if(!x) {
+                    resul[ii] = num_posts[kk];
+                    ii++;
+                }
+            }
+        }
+        x = false;
+    }
+    return resul;
+}
+
+function selectDataBubbles(url, data) {
+
 }
 
 /**
@@ -297,6 +385,7 @@ function mouseover_node(z) {
     if(!lock) {
         var neighbors = {};
         neighbors[z.index] = true;
+        //alert(z.index);
         node.filter(function (d) {
             return neighbors[d.index]
         })
@@ -334,7 +423,7 @@ function mouseclick_node(z) {
     //lock = true;
     //mouseover_node(z);
 
-    var data = selectData(z.Term, klass_data);
+    var data = selectDataList(z.Term, klass_data);
 
     if(list_title) {
         list_title.text(z.Term);
@@ -342,10 +431,55 @@ function mouseclick_node(z) {
         list_title = d3.select("#list_title")
             .append("text")
             .text(z.Term)
-            .style("font-size", 16);
+            .style("font-weight", "bold")
+            .style("font-size", 20);
     }
 
 
     //list.remove();
+    remove();
     draw_list(data);
+    draw_bubble_chart(graph);
+    draw_bar_chart(selectDataBars(z.Term, klass_data));
+
+}
+
+function mouseover_bar(z) {
+    var neighbors = {};
+    neighbors[z] = true;
+    //var x = 1;
+    //alert(z.URL);
+    bars.filter(function (d, i) {
+        //console.log(bars.id);
+        //return neighbors[i]
+
+        return bars[i]
+    })
+        .style("stroke-width", 3)
+        .style("fill", "yellow");
+    label_bars.filter(function (d, i) {
+        //return !neighbors[d.index]
+        return !bars[i]
+    })
+        .style("fill-opacity", 0.2);
+    label_bars.filter(function (d, i) {
+        //return neighbors[d.index]
+        return bars[i]
+    })
+        .attr("font-size", 16);
+}
+
+function mouseout_bar(z) {
+    if(!lock) {
+        bars
+            .style("stroke-width", 1)
+            .style("fill", "steelblue");
+        label_bars
+            .attr("font-size", 12)
+            .style("fill-opacity", 1);
+    }
+}
+
+function mouseclick_bar(z) {
+    console.log(z);
 }
