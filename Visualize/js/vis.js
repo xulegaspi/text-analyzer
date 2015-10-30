@@ -5,6 +5,7 @@ var width  = 1000,
     height = 800;
 
 var gravity = 40 * 0.005;
+var diam = 3.5;
 
 var path = "data/";
 
@@ -19,9 +20,12 @@ var bars;
 var label;       // Labels of the Bubbles
 var label_bars;
 var graph;       // Data loaded and filtered from the Keywords and their Frequencies
+var graph_raw;
 var words_data;  // Raw data loaded from total_freq.json
 var klass_data;  // Raw data loaded from freq_klass_final.json
+var klass_fil;
 var num_posts;
+var posts_fil;
 
 var lock = false;
 
@@ -30,6 +34,7 @@ d3.json(path + "total_freq.json", function(error, graph2) {
     if (error) throw error;
 
     words_data = graph2;
+    graph_raw = words_data;
 
     slider_handlers(words_data);
 
@@ -57,6 +62,7 @@ d3.json(path + "num_posts.json", function(error, data) {
     if (error) throw error;
 
     num_posts = data;
+    posts_fil = num_posts;
 
     draw_bar_chart(num_posts);
     //console.log(data);

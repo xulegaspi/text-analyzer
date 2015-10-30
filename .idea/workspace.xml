@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\xampp\htdocs\wordpress\wp-content\plugins\TextAnalyzer\Visualize\coffee\vis.coffee" afterPath="" />
+      <change type="DELETED" beforePath="C:\xampp\htdocs\wordpress\wp-content\plugins\TextAnalyzer\data\freq_klass.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\xampp\htdocs\wordpress\wp-content\plugins\TextAnalyzer\data\keywords.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\xampp\htdocs\wordpress\wp-content\plugins\TextAnalyzer\data\words_freq.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/index.html" afterPath="$PROJECT_DIR$/Visualize/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/css/vis.css" afterPath="$PROJECT_DIR$/Visualize/css/vis.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/js/vis.js" afterPath="$PROJECT_DIR$/Visualize/js/vis.js" />
@@ -36,7 +40,7 @@
           <file leaf-file-name="vis.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/vis.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="1122">
+                <state vertical-scroll-proportion="-15.153846" vertical-offset="133" max-vertical-offset="1122">
                   <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
                   <folding>
                     <element signature="e#6#87#0#PHP" expanded="true" />
@@ -53,9 +57,11 @@
           <file leaf-file-name="vis.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Visualize/js/vis.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1207">
-                  <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
-                  <folding />
+                <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="1054">
+                  <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+                  <folding>
+                    <element signature="e#887#1123#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -85,10 +91,82 @@
           <file leaf-file-name="vis_functions.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Visualize/js/vis_functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.37458193" vertical-offset="7348" max-vertical-offset="8347">
-                  <caret line="452" column="27" selection-start-line="452" selection-start-column="27" selection-end-line="452" selection-end-column="29" />
+                <state vertical-scroll-proportion="0.41248608" vertical-offset="1024" max-vertical-offset="3179">
+                  <caret line="250" column="33" selection-start-line="250" selection-start-column="33" selection-end-line="250" selection-end-column="33" />
                   <folding>
-                    <element signature="n#!!doc" expanded="true" />
+                    <element signature="n#!!doc;n#remove#0" expanded="false" />
+                    <element signature="n#!!doc;n#draw#0" expanded="false" />
+                    <element signature="n#!!block;n#draw#0" expanded="false" />
+                    <element signature="n#!!doc;n#draw_bubble_chart#0" expanded="false" />
+                    <element signature="e#520#574#0" expanded="false" />
+                    <element signature="e#1435#1476#0" expanded="false" />
+                    <element signature="e#2081#2119#0" expanded="false" />
+                    <element signature="e#2157#2712#0" expanded="false" />
+                    <element signature="e#2376#2419#0" expanded="false" />
+                    <element signature="e#2458#2501#0" expanded="false" />
+                    <element signature="e#2579#2622#0" expanded="false" />
+                    <element signature="e#2661#2704#0" expanded="false" />
+                    <element signature="n#!!doc;n#draw_bar_chart#0" expanded="false" />
+                    <element signature="n#!!block;n#draw_bar_chart#0" expanded="false" />
+                    <element signature="e#3248#3275#0" expanded="false" />
+                    <element signature="e#3408#3446#0" expanded="false" />
+                    <element signature="e#3487#3688#0" expanded="false" />
+                    <element signature="e#3726#3835#0" expanded="false" />
+                    <element signature="e#3872#3986#0" expanded="false" />
+                    <element signature="e#4021#4091#0" expanded="false" />
+                    <element signature="e#4306#4349#0" expanded="false" />
+                    <element signature="e#4409#4521#0" expanded="false" />
+                    <element signature="e#4558#4672#0" expanded="false" />
+                    <element signature="e#4707#4777#0" expanded="false" />
+                    <element signature="e#4806#4872#0" expanded="false" />
+                    <element signature="n#!!doc;n#draw_list#0" expanded="false" />
+                    <element signature="n#!!block;n#draw_list#0" expanded="false" />
+                    <element signature="e#5203#5241#0" expanded="false" />
+                    <element signature="n#!!doc;n#collide#0" expanded="false" />
+                    <element signature="n#!!block;n#collide#0" expanded="false" />
+                    <element signature="e#5714#6243#0" expanded="false" />
+                    <element signature="e#5765#6176#0" expanded="false" />
+                    <element signature="e#5975#6166#0" expanded="false" />
+                    <element signature="n#!!doc;n#update#0" expanded="false" />
+                    <element signature="n#!!block;n#update#0" expanded="false" />
+                    <element signature="n#!!doc;n#change_gravity#0" expanded="false" />
+                    <element signature="n#!!block;n#change_gravity#0" expanded="false" />
+                    <element signature="n#!!block;n#change_diam#0" expanded="false" />
+                    <element signature="n#!!doc;n#filterData#0" expanded="false" />
+                    <element signature="n#!!block;n#filterData#0" expanded="false" />
+                    <element signature="e#7572#7672#0" expanded="false" />
+                    <element signature="e#7606#7666#0" expanded="false" />
+                    <element signature="n#!!doc;n#selectDataList#0" expanded="false" />
+                    <element signature="n#!!block;n#selectDataList#0" expanded="false" />
+                    <element signature="e#7957#8056#0" expanded="false" />
+                    <element signature="e#7990#8050#0" expanded="false" />
+                    <element signature="n#!!doc;n#selectDataBars#0" expanded="false" />
+                    <element signature="e#8379#8489#0" expanded="false" />
+                    <element signature="e#8413#8483#0" expanded="false" />
+                    <element signature="e#8579#9034#0" expanded="false" />
+                    <element signature="e#8631#9009#0" expanded="false" />
+                    <element signature="e#8681#8999#0" expanded="false" />
+                    <element signature="e#8740#8869#0" expanded="false" />
+                    <element signature="e#8794#8851#0" expanded="false" />
+                    <element signature="e#8893#8985#0" expanded="false" />
+                    <element signature="n#!!block;n#selectDataBubbles#0" expanded="false" />
+                    <element signature="e#9176#9285#0" expanded="false" />
+                    <element signature="e#9216#9279#0" expanded="false" />
+                    <element signature="n#!!doc;n#kind_to_color#0" expanded="false" />
+                    <element signature="n#!!block;n#kind_to_color#0" expanded="false" />
+                    <element signature="e#9556#9587#0" expanded="false" />
+                    <element signature="n#!!doc;n#slider_handlers#0" expanded="false" />
+                    <element signature="n#!!block;n#slider_handlers#0" expanded="false" />
+                    <element signature="e#9946#9993#0" expanded="false" />
+                    <element signature="e#10069#10113#0" expanded="false" />
+                    <element signature="e#10186#10227#0" expanded="false" />
+                    <element signature="n#!!doc;n#mouseover_node#0" expanded="false" />
+                    <element signature="e#10443#10492#0" expanded="false" />
+                    <element signature="e#10622#10672#0" expanded="false" />
+                    <element signature="e#10749#10798#0" expanded="false" />
+                    <element signature="n#!!doc;n#mouseout_node#0" expanded="false" />
+                    <element signature="n#!!block;n#mouseclick_bar#0" expanded="false" />
+                    <element signature="e#11846#11848#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -103,18 +181,8 @@
               <file leaf-file-name="vis.css" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/Visualize/css/vis.css">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.4896074" vertical-offset="349" max-vertical-offset="2363">
-                      <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/Visualize/index.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="952">
-                      <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+                    <state vertical-scroll-proportion="0.92147803" vertical-offset="1930" max-vertical-offset="2448">
+                      <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -127,8 +195,8 @@
               <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/Visualize/index.html">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.4477612" vertical-offset="143" max-vertical-offset="952">
-                      <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+                    <state vertical-scroll-proportion="0.28109452" vertical-offset="448" max-vertical-offset="1054">
+                      <caret line="33" column="46" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
                       <folding />
                     </state>
                   </provider>
@@ -177,8 +245,8 @@
         <option value="$PROJECT_DIR$/vis.php" />
         <option value="$PROJECT_DIR$/data/num_posts.json" />
         <option value="$PROJECT_DIR$/Visualize/index.html" />
-        <option value="$PROJECT_DIR$/Visualize/js/vis.js" />
         <option value="$PROJECT_DIR$/Visualize/css/vis.css" />
+        <option value="$PROJECT_DIR$/Visualize/js/vis.js" />
         <option value="$PROJECT_DIR$/Visualize/js/vis_functions.js" />
       </list>
     </option>
@@ -220,6 +288,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -332,7 +401,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -369,15 +437,15 @@
       <BehatRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
       <tasks />
       <pass-parent-env-vars>false</pass-parent-env-vars>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -405,19 +473,19 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.114072494" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11513859" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -441,7 +509,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -663,13 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Visualize/coffee/vis.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.019517796" vertical-offset="0" max-vertical-offset="7854">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vis_index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="629">
@@ -691,24 +752,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/words_freq.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="238">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Text-analyzer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.5" vertical-offset="425" max-vertical-offset="2482">
           <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/keywords.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
-          <caret line="0" column="92401" selection-start-line="0" selection-start-column="92401" selection-end-line="0" selection-end-column="92401" />
         </state>
       </provider>
     </entry>
@@ -743,20 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/total_freq.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
-          <caret line="0" column="56255" selection-start-line="0" selection-start-column="56255" selection-end-line="0" selection-end-column="56255" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/freq_klass.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15869312" vertical-offset="0" max-vertical-offset="857">
-          <caret line="8" column="1036518" selection-start-line="8" selection-start-column="1036516" selection-end-line="8" selection-end-column="1036518" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/freq_klass_final.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="857">
@@ -766,7 +799,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vis.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="1122">
+        <state vertical-scroll-proportion="-15.153846" vertical-offset="133" max-vertical-offset="1122">
           <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
@@ -787,36 +820,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Visualize/js/vis.js">
+    <entry file="file://$PROJECT_DIR$/data/total_freq.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207">
-          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Visualize/css/vis.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4896074" vertical-offset="349" max-vertical-offset="2363">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="858">
+          <caret line="0" column="56255" selection-start-line="0" selection-start-column="56255" selection-end-line="0" selection-end-column="56255" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="952">
-          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.28109452" vertical-offset="448" max-vertical-offset="1054">
+          <caret line="33" column="46" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visualize/css/vis.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.92147803" vertical-offset="1930" max-vertical-offset="2448">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visualize/js/vis.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="1054">
+          <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+          <folding>
+            <element signature="e#887#1123#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/js/vis_functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37458193" vertical-offset="7348" max-vertical-offset="8347">
-          <caret line="452" column="27" selection-start-line="452" selection-start-column="27" selection-end-line="452" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.41248608" vertical-offset="1024" max-vertical-offset="3179">
+          <caret line="250" column="33" selection-start-line="250" selection-start-column="33" selection-end-line="250" selection-end-column="33" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc;n#remove#0" expanded="false" />
+            <element signature="n#!!doc;n#draw#0" expanded="false" />
+            <element signature="n#!!block;n#draw#0" expanded="false" />
+            <element signature="n#!!doc;n#draw_bubble_chart#0" expanded="false" />
+            <element signature="e#520#574#0" expanded="false" />
+            <element signature="e#1435#1476#0" expanded="false" />
+            <element signature="e#2081#2119#0" expanded="false" />
+            <element signature="e#2157#2712#0" expanded="false" />
+            <element signature="e#2376#2419#0" expanded="false" />
+            <element signature="e#2458#2501#0" expanded="false" />
+            <element signature="e#2579#2622#0" expanded="false" />
+            <element signature="e#2661#2704#0" expanded="false" />
+            <element signature="n#!!doc;n#draw_bar_chart#0" expanded="false" />
+            <element signature="n#!!block;n#draw_bar_chart#0" expanded="false" />
+            <element signature="e#3248#3275#0" expanded="false" />
+            <element signature="e#3408#3446#0" expanded="false" />
+            <element signature="e#3487#3688#0" expanded="false" />
+            <element signature="e#3726#3835#0" expanded="false" />
+            <element signature="e#3872#3986#0" expanded="false" />
+            <element signature="e#4021#4091#0" expanded="false" />
+            <element signature="e#4306#4349#0" expanded="false" />
+            <element signature="e#4409#4521#0" expanded="false" />
+            <element signature="e#4558#4672#0" expanded="false" />
+            <element signature="e#4707#4777#0" expanded="false" />
+            <element signature="e#4806#4872#0" expanded="false" />
+            <element signature="n#!!doc;n#draw_list#0" expanded="false" />
+            <element signature="n#!!block;n#draw_list#0" expanded="false" />
+            <element signature="e#5203#5241#0" expanded="false" />
+            <element signature="n#!!doc;n#collide#0" expanded="false" />
+            <element signature="n#!!block;n#collide#0" expanded="false" />
+            <element signature="e#5714#6243#0" expanded="false" />
+            <element signature="e#5765#6176#0" expanded="false" />
+            <element signature="e#5975#6166#0" expanded="false" />
+            <element signature="n#!!doc;n#update#0" expanded="false" />
+            <element signature="n#!!block;n#update#0" expanded="false" />
+            <element signature="n#!!doc;n#change_gravity#0" expanded="false" />
+            <element signature="n#!!block;n#change_gravity#0" expanded="false" />
+            <element signature="n#!!block;n#change_diam#0" expanded="false" />
+            <element signature="n#!!doc;n#filterData#0" expanded="false" />
+            <element signature="n#!!block;n#filterData#0" expanded="false" />
+            <element signature="e#7572#7672#0" expanded="false" />
+            <element signature="e#7606#7666#0" expanded="false" />
+            <element signature="n#!!doc;n#selectDataList#0" expanded="false" />
+            <element signature="n#!!block;n#selectDataList#0" expanded="false" />
+            <element signature="e#7957#8056#0" expanded="false" />
+            <element signature="e#7990#8050#0" expanded="false" />
+            <element signature="n#!!doc;n#selectDataBars#0" expanded="false" />
+            <element signature="e#8379#8489#0" expanded="false" />
+            <element signature="e#8413#8483#0" expanded="false" />
+            <element signature="e#8579#9034#0" expanded="false" />
+            <element signature="e#8631#9009#0" expanded="false" />
+            <element signature="e#8681#8999#0" expanded="false" />
+            <element signature="e#8740#8869#0" expanded="false" />
+            <element signature="e#8794#8851#0" expanded="false" />
+            <element signature="e#8893#8985#0" expanded="false" />
+            <element signature="n#!!block;n#selectDataBubbles#0" expanded="false" />
+            <element signature="e#9176#9285#0" expanded="false" />
+            <element signature="e#9216#9279#0" expanded="false" />
+            <element signature="n#!!doc;n#kind_to_color#0" expanded="false" />
+            <element signature="n#!!block;n#kind_to_color#0" expanded="false" />
+            <element signature="e#9556#9587#0" expanded="false" />
+            <element signature="n#!!doc;n#slider_handlers#0" expanded="false" />
+            <element signature="n#!!block;n#slider_handlers#0" expanded="false" />
+            <element signature="e#9946#9993#0" expanded="false" />
+            <element signature="e#10069#10113#0" expanded="false" />
+            <element signature="e#10186#10227#0" expanded="false" />
+            <element signature="n#!!doc;n#mouseover_node#0" expanded="false" />
+            <element signature="e#10443#10492#0" expanded="false" />
+            <element signature="e#10622#10672#0" expanded="false" />
+            <element signature="e#10749#10798#0" expanded="false" />
+            <element signature="n#!!doc;n#mouseout_node#0" expanded="false" />
+            <element signature="n#!!block;n#mouseclick_bar#0" expanded="false" />
+            <element signature="e#11846#11848#0" expanded="false" />
           </folding>
         </state>
       </provider>

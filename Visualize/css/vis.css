@@ -132,3 +132,8 @@ html, body {
     text-align: left;
     z-index: 1;
 }
+
+#selected_node {
+    fill: red;
+
+}

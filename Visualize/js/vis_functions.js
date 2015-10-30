@@ -53,7 +53,7 @@ function draw_bubble_chart(graph) {
         .enter().append("circle")
         .attr("class", "node_circle")
         .attr("r", function (d) {
-            return 3.5 * Math.sqrt(d.freq);
+            return diam * Math.sqrt(d.freq);
         })
         .style("fill", function (d) {
             return kind_to_color(d);
@@ -65,7 +65,12 @@ function draw_bubble_chart(graph) {
             mouseout_node(d);
         })
         .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
             mouseclick_node(d);
+                d3.select(this)
+                    .style("fill", "red")
+                    .attr("class", "selected_node");
         })
         .call(force.drag);
 
@@ -118,6 +123,8 @@ function draw_bar_chart(graph, mode) {
         .attr("height", graph.length * 20);
         //.attr("height", 800);
 
+    //tip = d3.tip()
+
     bars = svg_bars.selectAll("rect")
         //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
         .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }))
@@ -138,11 +145,15 @@ function draw_bar_chart(graph, mode) {
             //return resul(d.freq);
             return resul(d.num_posts);
         })
-        .on("mouseover", function(d) {
-            mouseover_bar(d);
+        .on("mouseover", function() {
+            d3.select(this)
+                .attr("fill", "red");
+            //mouseover_bar(d);
         })
-        .on("mouseout", function(d) {
-            mouseout_bar(d);
+        .on("mouseout", function() {
+            d3.select(this)
+                .attr("fill", "steelblue");
+            //mouseout_bar(d);
         })
         .on("click", function(d) {
             mouseclick_bar(d);
@@ -159,11 +170,15 @@ function draw_bar_chart(graph, mode) {
             return i * 20 + 14;
         })
         .attr("x", 5)
-        .on("mouseover", function(d) {
-            mouseover_bar(d);
+        .on("mouseover", function() {
+            d3.select(this)
+                .attr("fill", "yellow");
+            //mouseover_bar(d);
         })
-        .on("mouseout", function(d) {
-            mouseout_bar(d);
+        .on("mouseout", function() {
+            d3.select(this)
+                .attr("fill", "lightgray");
+            //mouseout_bar(d);
         })
         .on("click", function(d) {
             mouseclick_bar(d);
@@ -242,7 +257,7 @@ function update(slider1, graph2) {
 
     remove();
     //draw();
-    draw_bar_chart(num_posts);
+    draw_bar_chart(posts_fil);
     draw_bubble_chart(graph);
 
 }
@@ -260,7 +275,16 @@ function change_gravity(slider2) {
 
     remove();
     //draw();
-    draw_bar_chart(num_posts);
+    draw_bar_chart(posts_fil);
+    draw_bubble_chart(graph);
+}
+
+function change_diam(slider3) {
+    d3.select("#slider3-value").text(slider3);
+    d3.select("#slider_diam").property("value", slider3);
+
+    diam = slider3 * 0.5;
+    svg_bubble.remove();
     draw_bubble_chart(graph);
 }
 
@@ -342,7 +366,19 @@ function selectDataBars(Term, d) {
 }
 
 function selectDataBubbles(url, data) {
-
+    var array = [];
+    var kk = 0;
+    for(var jj = 0; jj < data.length; jj++) {
+        if(data[jj].klass_url == url) {
+            array[kk] = data[jj];
+            kk++;
+        }
+    }
+    svg_bubble.remove();
+    draw_bubble_chart(array);
+    graph_raw = array;
+    graph = graph_raw;
+    //return array;
 }
 
 /**
@@ -352,10 +388,11 @@ function selectDataBubbles(url, data) {
  * @returns {*}
  */
 function kind_to_color(d) {
-    var resul = d3.scale.linear()
-        .domain([1, 50, 150])
-        .range(["grey", "green"]);
-    return resul(d.freq);
+    //var resul = d3.scale.linear()
+    //    .domain([1, 50, 150])
+    //    .range(["grey", "green"]);
+    //return resul(d.freq);
+    return "green";
 }
 
 /**
@@ -367,12 +404,17 @@ function slider_handlers(words_data) {
 
     // Frequency Slider
     d3.select("#slider1").on("input", function () {
-        update(+this.value, words_data);
+        update(+this.value, graph_raw);
     });
 
     // Gravity Slider
     d3.select("#slider2").on("input", function () {
         change_gravity(+this.value);
+    });
+
+    // Diam Slider
+    d3.select("#slider3").on("input", function () {
+        change_diam(+this.value);
     });
 }
 
@@ -391,6 +433,7 @@ function mouseover_node(z) {
         })
             .style("stroke-width", 3)
             .style("fill", "yellow");
+    //if(!lock) {
         label.filter(function (d) {
             return !neighbors[d.index]
         })
@@ -411,6 +454,7 @@ function mouseout_node(z) {
         node
             .style("stroke-width", 1)
             .style("fill", "green");
+    //if(!lock) {
         label
             .attr("font-size", 12)
             .style("fill-opacity", 1);
@@ -437,49 +481,58 @@ function mouseclick_node(z) {
 
 
     //list.remove();
-    remove();
+    //remove();
+    svg_bars.remove();
     draw_list(data);
-    draw_bubble_chart(graph);
-    draw_bar_chart(selectDataBars(z.Term, klass_data));
+    //draw_bubble_chart(graph);
+    posts_fil = selectDataBars(z.Term, klass_data);
+    draw_bar_chart(posts_fil);
 
-}
-
-function mouseover_bar(z) {
-    var neighbors = {};
-    neighbors[z] = true;
-    //var x = 1;
-    //alert(z.URL);
-    bars.filter(function (d, i) {
-        //console.log(bars.id);
-        //return neighbors[i]
-
-        return bars[i]
-    })
-        .style("stroke-width", 3)
-        .style("fill", "yellow");
-    label_bars.filter(function (d, i) {
-        //return !neighbors[d.index]
-        return !bars[i]
-    })
-        .style("fill-opacity", 0.2);
-    label_bars.filter(function (d, i) {
-        //return neighbors[d.index]
-        return bars[i]
-    })
-        .attr("font-size", 16);
-}
-
-function mouseout_bar(z) {
-    if(!lock) {
-        bars
-            .style("stroke-width", 1)
-            .style("fill", "steelblue");
-        label_bars
-            .attr("font-size", 12)
-            .style("fill-opacity", 1);
-    }
 }
 
 function mouseclick_bar(z) {
     console.log(z);
+    selectDataBubbles(z.URL, klass_data);
 }
+
+
+//
+//function mouseover_bar(z) {
+//    var neighbors = {};
+//    neighbors[z] = true;
+//    //var x = 1;
+//    //alert(z.URL);
+//    //bars.filter(function (d, i) {
+//    //    //console.log(bars.id);
+//    //    //return neighbors[i]
+//    //
+//    //    return bars[i]
+//    //})
+//    //bars.filter(bars[z.Id])
+//    d3.select(this)
+//        .style("stroke-width", 3)
+//        .style("fill", "yellow");
+//    //label_bars.filter(function (d, i) {
+//    //    //return !neighbors[d.index]
+//    //    return !bars[i]
+//    //})
+//    label_bars.filter(z.Id)
+//        .style("fill-opacity", 0.2);
+//    label_bars.filter(function (d, i) {
+//        //return neighbors[d.index]
+//        return bars[i]
+//    })
+//        .attr("font-size", 16);
+//}
+//
+//function mouseout_bar(z) {
+//    if(!lock) {
+//        bars
+//            .style("stroke-width", 1)
+//            .style("fill", "steelblue");
+//        label_bars
+//            .attr("font-size", 12)
+//            .style("fill-opacity", 1);
+//    }
+//}
+
