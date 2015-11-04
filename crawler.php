@@ -45,7 +45,7 @@ $ii = 0;
                 $pubDate->format('Y-m-d H:i:s');
                 echo "<br />";
 
-                $description = $item->description;
+                $description = utf8_decode($item->description);
 
                 // get the HTML string out of the feed:
                 $htmlString = $item->children('content', true)->encoded;

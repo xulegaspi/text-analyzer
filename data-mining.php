@@ -6,7 +6,7 @@
  * Time: 19:26
  */
 
-$EXEC_TIME = 1500;  // 25 minutes
+$EXEC_TIME = 30;  // 25 minutes
 
 require_once('/ext/words.php');
 require_once('/ext/Levenshtein_SQL.php');  // This must be included manually in the phpMyAdmin page, SQL section
@@ -83,9 +83,13 @@ for($ii=0; $ii < $num_rows; $ii++) {
         $dom->loadHTML($post);
         foreach($dom->getElementsByTagName('a') as $node) {
 
-            $query_check = "SELECT * FROM media WHERE Media_URL='" . $dom->saveHTML($node) . "'";
+            // TODO it's enough to extract the url
+            $media_url = $node->getAttribute( 'href' );
+            $media_url = utf8_decode(utf8_decode($media_url));
+//            $query_check = "SELECT * FROM media WHERE Media_URL='" . $dom->saveHTML($node) . "'";
+            $query_check = "SELECT * FROM media WHERE Media_URL='" . $media_url . "'";
             $result_check = $mysqli->query($query_check);
-            $media_url = $dom->saveHTML($node);
+
 
             // TODO Delete this url from the clean_post
 //        echo $media_url . "<br />";
@@ -95,9 +99,12 @@ for($ii=0; $ii < $num_rows; $ii++) {
             // Check if it's already in the db.
             if($result_check->num_rows == 0) {
 
+                // Classify the media
+                $type = extractMedia($media_url);
+
                 // Insert the media
-                $inserts = "'" . $url_id . "'" . ", " . "'" . $media_url . "'";
-                $query2 = "INSERT INTO media (Id_Post, Media_URL) VALUES (" . $inserts . ")";
+                $inserts = "'" . $url_id . "'" . ", " . "'" . $media_url . "'" . ", " . "'" . $type . "'";
+                $query2 = "INSERT INTO media (Id_Post, Media_URL, Type) VALUES (" . $inserts . ")";
                 $result2 = $mysqli->query($query2);
 
             } else {
@@ -120,9 +127,6 @@ for($ii=0; $ii < $num_rows; $ii++) {
 
             // Check that this word is not among the most used Swedish words
             // echo "Checking $single_word -> " . array_search($single_word, explode(PHP_EOL, $words)) . "<br />";
-
-//            echo $single_word . " --> ";
-//            echo urlencode($single_word) . " ----> ";
 
             // Check for different blank spaces
             $url_word = urlencode($single_word);
@@ -247,4 +251,28 @@ for($ii=0; $ii < $num_rows; $ii++) {
 //    echo $clean_post . "<br /><hr />";
 
 
+}
+
+function extractMedia($url) {
+    $resul = "";
+
+    $path_parts = pathinfo($url);
+    $ext = $path_parts['extension'];
+    echo $url . " has EXT: " . $ext . "<br />";
+
+    if($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
+        $resul = "IMAGE";
+    } elseif($ext == "mkv" || $ext == "flv" || $ext == "avi" || $ext == "mov" || $ext == "wmv" || $ext == "mpg" || $ext == "mpeg") {
+        $resul = "VIDEO";
+    } elseif(strpos($url, 'video')) {
+        $resul = "VIDEO";
+    } elseif($ext == "doc" || $ext == "docx") {
+        $resul = "DOC";
+    } elseif($ext == "pdf") {
+        $resul = "PDF";
+    } else {
+        $resul = "WEB";
+    }
+
+    return $resul;
 }

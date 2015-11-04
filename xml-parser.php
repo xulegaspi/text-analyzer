@@ -116,7 +116,7 @@ if(isset($_POST["submit_my_file"])) {
 //                        echo "<hr />";
 
                         // Insert into markers TODO enter creation_date, delete DetailsHTML
-                        $inserts = "'" . $mark->LatLong . "'" . ", " . "'" . $mark->Title . "'" . ", " . "'" . $mark->PinImage . "'" . ", " . "'" . $urls . "'";
+                        $inserts = "'" . $mark->LatLong . "'" . ", " . "'" . utf8_decode($mark->Title) . "'" . ", " . "'" . $mark->PinImage . "'" . ", " . "'" . $urls . "'";
                         $query = "INSERT INTO markers (LatLong, Title, PinImage, DetailsHTML) VALUES " . "(" . $inserts . ")";
 //                    echo $query;
                         if (!$result = $mysqli->query($query)) {
