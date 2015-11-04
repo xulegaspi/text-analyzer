@@ -142,6 +142,16 @@ function draw_bar_chart(graph, mode) {
             var resul = d3.scale.linear()
                 //.domain([0, 0.4]);
                 .domain([0, 0.05]);
+            //switch (mode) {
+            //    case "posts":
+            //        return resul(d.num_posts);
+            //        break;
+            //    case "media":
+            //        return resul(d.freq);
+            //        break;
+            //    default :
+            //        return resul(d.freq);
+            //}
             //return resul(d.freq);
             return resul(d.num_posts);
         })
@@ -186,6 +196,16 @@ function draw_bar_chart(graph, mode) {
         })
         .text(function (d) {
             //return d.Term;
+            //switch (mode) {
+            //    case "posts":
+            //        return d.URL;
+            //        break;
+            //    case "media":
+            //        return d.Post_URL;
+            //        break;
+            //    default :
+            //        return d.URL;
+            //}
             return d.URL;
         });
 }
@@ -259,6 +279,15 @@ function update(slider1, graph2) {
     //draw();
     draw_bar_chart(posts_fil);
     draw_bubble_chart(graph);
+    //node = node.data(graph);
+    ////node.
+    //
+    //node.transition()
+    //    .attr("r", function(d) {
+    //        return 5 * Math.sqrt(d.freq);
+    //    })
+    //    .delay(500);
+
 
 }
 
@@ -286,6 +315,12 @@ function change_diam(slider3) {
     diam = slider3 * 0.5;
     svg_bubble.remove();
     draw_bubble_chart(graph);
+}
+
+function reset() {
+    remove();
+    draw_bubble_chart(filterData(15,words_data));
+    draw_bar_chart(num_posts);
 }
 
 /**
@@ -374,11 +409,31 @@ function selectDataBubbles(url, data) {
             kk++;
         }
     }
-    svg_bubble.remove();
-    draw_bubble_chart(array);
-    graph_raw = array;
-    graph = graph_raw;
-    //return array;
+    //svg_bubble.remove();
+    //draw_bubble_chart(array);
+
+    //force = force.nodes(array);
+    //node = node.data(array);
+    //node.exit().remove();
+    //label = label.data(array)
+    //    .text(function (d) {
+    //        return d.Term;
+    //    });
+    //label.exit().remove();
+    //force.start();
+    //
+    //graph_raw = array;
+    //graph = graph_raw;
+    //
+    //node.transition()
+    //    .attr("r", function(d) {
+    //        return 13 * Math.sqrt(d.freq);
+    //    })
+    //    .duration(3000)
+    //    .delay(500);
+    //
+    //force.gravity(12 * 0.005);
+    return array;
 }
 
 /**
@@ -415,6 +470,11 @@ function slider_handlers(words_data) {
     // Diam Slider
     d3.select("#slider3").on("input", function () {
         change_diam(+this.value);
+    });
+
+    // Reset Button
+    d3.select("#reset").on("click", function () {
+        reset();
     });
 }
 
@@ -479,11 +539,29 @@ function mouseclick_node(z) {
             .style("font-size", 20);
     }
 
+    //bars = bars.data(data.sort(function(a,b) { return +b.num_posts - +a.num_posts; }))
+    //    .attr("width", function (d, i) {
+    //            var resul = d3.scale.linear()
+    //                //.domain([0, 0.4]);
+    //                .domain([0, 0.05]);
+    //            //switch (mode) {
+    //            //    case "posts":
+    //            //        return resul(d.num_posts);
+    //            //        break;
+    //            //    case "media":
+    //            //        return resul(d.freq);
+    //            //        break;
+    //            //    default :
+    //            //        return resul(d.freq);
+    //            //}
+    //            //return resul(d.freq);
+    //            return resul(d.num_posts);
+    //        });
+    //bars.exit().remove();
 
-    //list.remove();
-    //remove();
     svg_bars.remove();
     draw_list(data);
+
     //draw_bubble_chart(graph);
     posts_fil = selectDataBars(z.Term, klass_data);
     draw_bar_chart(posts_fil);
@@ -491,8 +569,34 @@ function mouseclick_node(z) {
 }
 
 function mouseclick_bar(z) {
-    console.log(z);
-    selectDataBubbles(z.URL, klass_data);
+    //console.log(z);
+
+    var array = selectDataBubbles(z.URL, klass_data);
+
+    force = force.nodes(array)
+        .charge(function (d) {
+            return -35 * Math.sqrt(d.freq)
+        });
+    node = node.data(array);
+    node.exit().remove();
+    label = label.data(array)
+        .text(function (d) {
+            return d.Term;
+        });
+    label.exit().remove();
+    force.start();
+
+    graph_raw = array;
+    graph = graph_raw;
+
+    node.transition()
+        .attr("r", function(d) {
+            return 13 * Math.sqrt(d.freq);
+        })
+        .duration(3000)
+        .delay(500);
+
+    force.gravity(12 * 0.005);
 }
 
 

@@ -26,6 +26,8 @@ var klass_data;  // Raw data loaded from freq_klass_final.json
 var klass_fil;
 var num_posts;
 var posts_fil;
+var num_media;
+var media_fil;
 
 var lock = false;
 
@@ -64,7 +66,17 @@ d3.json(path + "num_posts.json", function(error, data) {
     num_posts = data;
     posts_fil = num_posts;
 
-    draw_bar_chart(num_posts);
+    draw_bar_chart(num_posts, "posts");
+    //console.log(data);
+});
+
+d3.json(path + "num_media_final.json", function(error, data) {
+    if (error) throw error;
+
+    num_media = data;
+    media_fil = num_media;
+
+    //draw_bar_chart(num_media, "media");
     //console.log(data);
 });
 
