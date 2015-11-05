@@ -142,18 +142,18 @@ function draw_bar_chart(graph, mode) {
             var resul = d3.scale.linear()
                 //.domain([0, 0.4]);
                 .domain([0, 0.05]);
-            //switch (mode) {
-            //    case "posts":
-            //        return resul(d.num_posts);
-            //        break;
-            //    case "media":
-            //        return resul(d.freq);
-            //        break;
-            //    default :
-            //        return resul(d.freq);
-            //}
-            //return resul(d.freq);
-            return resul(d.num_posts);
+            switch (mode) {
+                case "posts":
+                    return resul(d.num_posts);
+                    break;
+                case "num_photos":
+                    return resul(d.freq);
+                    break;
+                default :
+                    return resul(d.freq);
+            }
+            return resul(d.freq);
+            //return resul(d.num_posts);
         })
         .on("mouseover", function() {
             d3.select(this)
@@ -320,7 +320,7 @@ function change_diam(slider3) {
 function reset() {
     remove();
     draw_bubble_chart(filterData(15,words_data));
-    draw_bar_chart(num_posts);
+    draw_bar_chart(num_posts, sort);
 }
 
 /**
@@ -476,6 +476,14 @@ function slider_handlers(words_data) {
     d3.select("#reset").on("click", function () {
         reset();
     });
+
+    // Dropdown list
+    d3.select("select").on("change", function(d) {
+        sort = this.value;
+        console.log(sort);
+        svg_bars.remove();
+        draw_bar_chart(graph, sort);
+    })
 }
 
 /**
@@ -564,7 +572,8 @@ function mouseclick_node(z) {
 
     //draw_bubble_chart(graph);
     posts_fil = selectDataBars(z.Term, klass_data);
-    draw_bar_chart(posts_fil);
+    console.log(sort);
+    draw_bar_chart(posts_fil, sort);
 
 }
 

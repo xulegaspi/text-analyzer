@@ -6,7 +6,7 @@
  * Time: 19:26
  */
 
-$EXEC_TIME = 30;  // 25 minutes
+$EXEC_TIME = 3000;  // 25 minutes
 
 require_once('/ext/words.php');
 require_once('/ext/Levenshtein_SQL.php');  // This must be included manually in the phpMyAdmin page, SQL section
@@ -117,6 +117,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
         }
 
         // Processing words
+        // TODO store this
         $word_count = str_word_count($clean_post);
 
         // Explode the posts
@@ -270,6 +271,8 @@ function extractMedia($url) {
         $resul = "DOC";
     } elseif($ext == "pdf") {
         $resul = "PDF";
+    } elseif(strpos($url, "img") !== false) {
+        $resul = "IMAGE";
     } elseif(strpos($url, "bambuser") !== false || strpos($url, "youtube") !== false || strpos($url, "vimeo")) {
         $resul = "VIDEO";
     } else {

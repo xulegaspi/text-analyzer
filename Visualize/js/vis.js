@@ -28,6 +28,7 @@ var num_posts;
 var posts_fil;
 var num_media;
 var media_fil;
+var sort;
 
 var lock = false;
 
@@ -65,8 +66,9 @@ d3.json(path + "num_posts.json", function(error, data) {
 
     num_posts = data;
     posts_fil = num_posts;
+    sort = "posts";
 
-    draw_bar_chart(num_posts, "posts");
+    draw_bar_chart(num_posts, sort);
     //console.log(data);
 });
 

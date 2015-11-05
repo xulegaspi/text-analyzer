@@ -60,6 +60,12 @@ $ii = 0;
                 try {
                     if ($html) {
                         $postContent = $html->body->asXML();
+
+                        $post_aux = strip_tags($postContent);
+                        $post_aux = utf8_decode(utf8_decode($post_aux));
+
+                        $word_count = str_word_count($post_aux);
+
                         echo $id_url . " added correctly. <br />";
                     } else {
                         echo $id_url . " -----> " . $post_link . " is not working. <br />";
@@ -73,9 +79,9 @@ $ii = 0;
                 echo "<br />";
                 echo "<br />";
 
-                $inserts = "'" . $id_url . "'" . ", " . "'" . $post_link . "'" . ", " . "'" . $description . "'" . ", " . "'" . $postContent . "'" . ", " . "'" . $pubDate->format('Y-m-d H:i:s') . "'";
+                $inserts = "'" . $id_url . "'" . ", " . "'" . $post_link . "'" . ", " . "'" . $description . "'" . ", " . "'" . $postContent . "'" . ", " . "'" . $word_count . "'" . ", " . "'" . $pubDate->format('Y-m-d H:i:s') . "'";
 
-                $query2 = "INSERT INTO posts (Id_URL, Post_URL, Description, Post, PubDate) VALUES " . "(" . $inserts . ")";
+                $query2 = "INSERT INTO posts (Id_URL, Post_URL, Description, Post, word_count, PubDate) VALUES " . "(" . $inserts . ")";
                 $result2 = $mysqli->query($query2);
 
                 //            $post = simplexml_load_file()
