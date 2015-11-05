@@ -270,6 +270,8 @@ function extractMedia($url) {
         $resul = "DOC";
     } elseif($ext == "pdf") {
         $resul = "PDF";
+    } elseif(strpos($url, "bambuser") !== false || strpos($url, "youtube") !== false || strpos($url, "vimeo")) {
+        $resul = "VIDEO";
     } else {
         $resul = "WEB";
     }
