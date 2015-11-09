@@ -32,6 +32,7 @@ var posts_fil;
 var num_media;
 var media_fil;
 var sort;
+var avg_length;  // Raw data from avg_length.json
 
 var lock = false;
 
@@ -87,4 +88,9 @@ d3.json(path + "num_media_final.json", function(error, data) {
     //console.log(data);
 });
 
+d3.json(path + "avg_length.json", function(error, data) {
+    if (error) throw error;
 
+    avg_length = data;
+
+});

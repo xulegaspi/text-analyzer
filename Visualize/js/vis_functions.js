@@ -107,121 +107,6 @@ function draw_bubble_chart(graph) {
 
 }
 
-//function update_bubble_chart(graph) {
-//
-//    svg_bubble.remove();
-//
-//    force = d3.layout.force()
-//        .charge(function (d) {
-//            return -35 * Math.sqrt(d.freq)
-//        })
-//        .linkDistance(50)
-//        .gravity(gravity)
-//        .size([width, height])
-//        .nodes(graph);
-//
-//    force.start();
-//
-//    svg_bubble = d3.select("#bubble_chart").append("svg")
-//        .attr("width", "100%")
-//        .attr("height", "100%");
-//
-//    main = svg_bubble.append("g")
-//        .attr("width", "100%")
-//        .attr("height", "100%")
-//        //.attr("transform", "translate(-150,0)")
-//        .attr("class", "graph");
-//
-//    node = main.selectAll(".node_circle")
-//        .data(graph)
-//        .enter().append("circle")
-//        .attr("class", "node_circle")
-//        .style("fill", function (d) {
-//            return kind_to_color(d);
-//        })
-//        .on("mouseover", function(d) {
-//            mouseover_node(d);
-//        })
-//        .on("mouseout", function(d) {
-//            mouseout_node(d);
-//        })
-//        .on("click", function(d) {
-//            //lock = true;
-//            lock = lock ? false : true;
-//            mouseclick_node(d);
-//            d3.select(this)
-//                .style("fill", "red")
-//                .attr("class", "selected_node");
-//        })
-//        .call(force.drag);
-//
-//    node.transition()
-//        .attr("r", function (d) {
-//            return diam * Math.sqrt(d.freq);
-//        })
-//        .duration(3000);
-//
-//    //node.transition()
-//    //    .attr("r", function(d) {
-//    //
-//    //        return diam * Math.sqrt(d.freq);
-//    //    })
-//    //    .duration(500)
-//    //    .delay(500);
-//
-//    label = main.selectAll(".node_label")
-//        .data(graph)
-//        .enter().append("text")
-//        .attr("text-anchor", "middle")
-//        .attr("class", "node_label")
-//        .attr("font-family", "Verdana")
-//        .attr("font-size", 12)
-//        .style("fill", "#000000")
-//        .on("mouseover", function(d) {
-//            mouseover_node(d);
-//        })
-//        .on("mouseout", function(d) {
-//            mouseout_node(d);
-//        })
-//        .on("click", function(d) {
-//            //lock = true;
-//            lock = lock ? false : true;
-//            mouseclick_node(d);
-//            d3.select(this)
-//                //.style("fill", "red")
-//                .attr("class", "selected_node");
-//        })
-//        .text(function (d) {
-//            return d.Term;
-//        });
-//
-//    force.on("tick", function (e) {
-//        var q = d3.geom.quadtree(node),
-//            i = 0,
-//            n = node.length;
-//
-//        while (++i < n) q.visit(collide(node[i]));
-//
-//        svg_bubble.selectAll("circle")
-//            .attr("cx", function (d) {
-//                return d.x;
-//            })
-//            .attr("cy", function (d) {
-//                return d.y;
-//            });
-//
-//        svg_bubble.selectAll("text")
-//            .attr("dx", function (d) {
-//                return d.x;
-//            })
-//            .attr("dy", function (d) {
-//                return d.y;
-//            });
-//    });
-//
-//
-//}
-
 /**
  * @name draw_bar_chart
  * @description Draws the Bar Chart
@@ -235,10 +120,27 @@ function draw_bar_chart(graph, mode) {
 
     //tip = d3.tip()
 
-    bars = svg_bars.selectAll("rect")
-        //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
-        .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }))
-        .enter()
+    switch(mode) {
+        case "posts":
+            bars = svg_bars.selectAll("rect")
+                .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }));
+            break;
+        case "post_length":
+            bars = svg_bars.selectAll("rect")
+                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
+                .data(graph.sort(function(a,b) { return +b.avg_length - +a.avg_length; }));
+            break;
+        case "num_photos":
+            return resul(d.freq);
+            break;
+        case "num_videos":
+            return resul(d.freq);
+            break;
+        default :
+            return resul(d.freq);
+    }
+
+    bars.enter()
         .append("rect")
         //.attr("id", function(d) {
         //    return d.URL;
@@ -248,15 +150,21 @@ function draw_bar_chart(graph, mode) {
             return i * 20;
         })
         .attr("width", function (d, i) {
-            var resul = d3.scale.linear()
+            var resul;// = d3.scale.linear()
                 //.domain([0, 0.4]);
-                .domain([0, 0.05]);
+            //    .domain([0, 0.05]);
             switch (mode) {
                 case "posts":
+                    resul = d3.scale.linear()
+                        //.domain([0, 0.4]);
+                        .domain([0, 0.05]);
                     return resul(d.num_posts);
                     break;
                 case "post_length":
-                    return resul(d.word_count);
+                    resul = d3.scale.linear()
+                        //.domain([0, 0.4]);
+                        .domain([0, 0.5]);
+                    return resul(d.avg_length);
                     break;
                 case "num_photos":
                     return resul(d.freq);
@@ -311,23 +219,23 @@ function draw_bar_chart(graph, mode) {
         })
         .text(function (d) {
             //return d.Term;
-            //switch (mode) {
-            //    case "posts":
-            //        return resul(d.URL);
-            //        break;
-            //    case "post_length":
-            //        return resul(d.URL);
-            //        break;
-            //    case "num_photos":
-            //        return resul(d.URL);
-            //        break;
-            //    case "num_videos":
-            //        return resul(d.URL);
-            //        break;
-            //    default :
-            //        return resul(d.URL);
-            //}
-            return d.URL;
+            switch (mode) {
+                case "posts":
+                    return d.URL;
+                    break;
+                case "post_length":
+                    return d.url;
+                    break;
+                case "num_photos":
+                    return resul(d.URL);
+                    break;
+                case "num_videos":
+                    return resul(d.URL);
+                    break;
+                default :
+                    return resul(d.URL);
+            }
+            //return d.URL;
         });
 }
 
@@ -389,7 +297,7 @@ function collide(node) {
  * @description Updates the charts with the new data, adding or removing depending on the applied filters
  * @param slider1
  */
-function update(slider1, graph2) {
+function update(slider1) {
 
     d3.select("#slider1-value").text(slider1);
     d3.select("#slider").property("value", slider1);
@@ -404,7 +312,8 @@ function update(slider1, graph2) {
         });
 
 
-    node = main.selectAll(".node_circle")
+    //node = main.selectAll(".node_circle")
+    node = node
         .data(force.nodes());
 
     nodeEnter = node.enter()
@@ -431,7 +340,14 @@ function update(slider1, graph2) {
                 .attr("class", "selected_node");
         });
 
-    node.exit().remove();
+    node.transition()
+        .duration(500);
+
+    node.exit()
+        .transition()
+        .attr("r", 0)
+        .duration(500)
+        .remove();
 
     node.transition()
         .attr("class", "node_circle");
@@ -441,6 +357,14 @@ function update(slider1, graph2) {
     //label.remove();
 
     label = label.data(force.nodes());
+
+    label.text(function(d) {
+        return d.Term;
+    });
+    label.transition()
+        .duration(750)
+        .attr("font-size", 12);
+
     label.enter()
         .append("text")
         .attr("text-anchor", "middle")
@@ -466,7 +390,13 @@ function update(slider1, graph2) {
             return d.Term;
         });
 
-    label.exit().remove();
+    //label.transition()
+        //.duration(500);
+
+    label.exit()
+        .transition()
+        .duration(500)
+        .remove();
 
     force.start();
 
@@ -506,10 +436,22 @@ function change_diam(slider3) {
 }
 
 function reset() {
+
+    freq = 20;
+
+    document.getElementById("slider1").value = freq;
+    var span = document.getElementById('slider1-value');
+    while( span.firstChild ) {
+        span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode(freq) );
+
     diam = 3.5;
     gravity = 40 * 0.005;
     remove();
-    draw_bubble_chart(filterData(15,words_data));
+    draw_bubble_chart(words_data);
+    graph_raw = words_data;
+    console.log(words_data);
     draw_bar_chart(num_posts, sort);
 }
 
@@ -599,30 +541,7 @@ function selectDataBubbles(url, data) {
             kk++;
         }
     }
-    //svg_bubble.remove();
-    //draw_bubble_chart(array);
 
-    //force = force.nodes(array);
-    //node = node.data(array);
-    //node.exit().remove();
-    //label = label.data(array)
-    //    .text(function (d) {
-    //        return d.Term;
-    //    });
-    //label.exit().remove();
-    //force.start();
-    //
-    //graph_raw = array;
-    //graph = graph_raw;
-    //
-    //node.transition()
-    //    .attr("r", function(d) {
-    //        return 13 * Math.sqrt(d.freq);
-    //    })
-    //    .duration(3000)
-    //    .delay(500);
-    //
-    //force.gravity(12 * 0.005);
     return array;
 }
 
@@ -649,7 +568,7 @@ function slider_handlers(words_data) {
 
     // Frequency Slider
     d3.select("#slider1").on("input", function () {
-        update(+this.value, graph_raw);
+        update(+this.value);
     });
 
     // Gravity Slider
@@ -671,6 +590,25 @@ function slider_handlers(words_data) {
     d3.select("select").on("change", function(d) {
         sort = this.value;
         console.log(sort);
+        switch(sort) {
+            case "posts":
+                graph = num_posts;
+                console.log(graph);
+                break;
+            case "post_length":
+                graph = avg_length;
+                console.log(graph);
+                break;
+            case "num_photos":
+                return resul(d.URL);
+                break;
+            case "num_videos":
+                return resul(d.URL);
+                break;
+            default :
+                return resul(d.URL);
+        }
+
         svg_bars.remove();
         draw_bar_chart(graph, sort);
     })
@@ -782,7 +720,7 @@ function mouseclick_node(z) {
     //svg_bars.transition();
     //bars.transition().duration(1000);
 
-    console.log(sort);
+    console.log(z.Term);
     draw_bar_chart(posts_fil, sort);
 
 }
@@ -794,7 +732,19 @@ function mouseclick_bar(z) {
 
     //force.remove();
 
-    force.nodes(array)
+    freq = 1;
+    document.getElementById("slider1").value = freq;
+
+    var span = document.getElementById('slider1-value');
+
+    while( span.firstChild ) {
+        span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode("1") );
+
+    force.nodes(array.filter(function(d) {
+        return d.freq > freq;
+    }))
         .charge(function (d) {
             return -35 * Math.sqrt(d.freq)
         });
@@ -825,10 +775,14 @@ function mouseclick_bar(z) {
                 .attr("class", "selected_node");
         });
 
-    node.exit().remove();
+    node.exit()
+        .transition()
+        .attr("r", 0)
+        .duration(500)
+        .remove();
     //node.call(force.drag);
 
-    label = label.data(array)
+    label = label.data(force.nodes())
         .text(function (d) {
             return d.Term;
         });
@@ -858,7 +812,10 @@ function mouseclick_bar(z) {
             return d.Term;
         });
 
-    label.exit().remove();
+    label.exit()
+        .transition()
+        .duration(500)
+        .remove();
     force.start();
 
     //svg_bubble.remove();
