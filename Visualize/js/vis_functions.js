@@ -28,13 +28,14 @@ function draw() {
 function draw_bubble_chart(graph) {
 
     force = d3.layout.force()
-        .charge(function (d) {
-            return -35 * Math.sqrt(d.freq)
-        })
+        .charge(-200)
         .linkDistance(50)
         .gravity(gravity)
         .size([width, height])
-        .nodes(graph);
+        .nodes(graph.filter(function(d) {
+            return d.freq > freq;
+        }))
+        .on("tick", tick);
 
     force.start();
 
@@ -45,12 +46,13 @@ function draw_bubble_chart(graph) {
     main = svg_bubble.append("g")
         .attr("width", "100%")
         .attr("height", "100%")
-        //.attr("transform", "translate(-150,0)")
         .attr("class", "graph");
 
     node = main.selectAll(".node_circle")
-        .data(graph)
-        .enter().append("circle")
+        .data(force.nodes());
+
+    nodeEnter = node.enter()
+        .append("circle")
         .attr("class", "node_circle")
         .attr("r", function (d) {
             return diam * Math.sqrt(d.freq);
@@ -71,46 +73,154 @@ function draw_bubble_chart(graph) {
                 d3.select(this)
                     .style("fill", "red")
                     .attr("class", "selected_node");
-        })
-        .call(force.drag);
+        });
+
+    node.call(force.drag);
 
     label = main.selectAll(".node_label")
-        .data(graph)
-        .enter().append("text")
+        .data(force.nodes());
+    //label = node
+    label.enter()
+        .append("text")
         .attr("text-anchor", "middle")
         .attr("class", "node_label")
         .attr("font-family", "Verdana")
         .attr("font-size", 12)
         .style("fill", "#000000")
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
+            mouseclick_node(d);
+            d3.select(this)
+                //.style("fill", "red")
+                .attr("class", "selected_node");
+        })
         .text(function (d) {
             return d.Term;
         });
 
-    force.on("tick", function (e) {
-        var q = d3.geom.quadtree(node),
-            i = 0,
-            n = node.length;
-
-        while (++i < n) q.visit(collide(node[i]));
-
-        svg_bubble.selectAll("circle")
-            .attr("cx", function (d) {
-                return d.x;
-            })
-            .attr("cy", function (d) {
-                return d.y;
-            });
-
-        svg_bubble.selectAll("text")
-            .attr("dx", function (d) {
-                return d.x;
-            })
-            .attr("dy", function (d) {
-                return d.y;
-            });
-    });
-
 }
+
+//function update_bubble_chart(graph) {
+//
+//    svg_bubble.remove();
+//
+//    force = d3.layout.force()
+//        .charge(function (d) {
+//            return -35 * Math.sqrt(d.freq)
+//        })
+//        .linkDistance(50)
+//        .gravity(gravity)
+//        .size([width, height])
+//        .nodes(graph);
+//
+//    force.start();
+//
+//    svg_bubble = d3.select("#bubble_chart").append("svg")
+//        .attr("width", "100%")
+//        .attr("height", "100%");
+//
+//    main = svg_bubble.append("g")
+//        .attr("width", "100%")
+//        .attr("height", "100%")
+//        //.attr("transform", "translate(-150,0)")
+//        .attr("class", "graph");
+//
+//    node = main.selectAll(".node_circle")
+//        .data(graph)
+//        .enter().append("circle")
+//        .attr("class", "node_circle")
+//        .style("fill", function (d) {
+//            return kind_to_color(d);
+//        })
+//        .on("mouseover", function(d) {
+//            mouseover_node(d);
+//        })
+//        .on("mouseout", function(d) {
+//            mouseout_node(d);
+//        })
+//        .on("click", function(d) {
+//            //lock = true;
+//            lock = lock ? false : true;
+//            mouseclick_node(d);
+//            d3.select(this)
+//                .style("fill", "red")
+//                .attr("class", "selected_node");
+//        })
+//        .call(force.drag);
+//
+//    node.transition()
+//        .attr("r", function (d) {
+//            return diam * Math.sqrt(d.freq);
+//        })
+//        .duration(3000);
+//
+//    //node.transition()
+//    //    .attr("r", function(d) {
+//    //
+//    //        return diam * Math.sqrt(d.freq);
+//    //    })
+//    //    .duration(500)
+//    //    .delay(500);
+//
+//    label = main.selectAll(".node_label")
+//        .data(graph)
+//        .enter().append("text")
+//        .attr("text-anchor", "middle")
+//        .attr("class", "node_label")
+//        .attr("font-family", "Verdana")
+//        .attr("font-size", 12)
+//        .style("fill", "#000000")
+//        .on("mouseover", function(d) {
+//            mouseover_node(d);
+//        })
+//        .on("mouseout", function(d) {
+//            mouseout_node(d);
+//        })
+//        .on("click", function(d) {
+//            //lock = true;
+//            lock = lock ? false : true;
+//            mouseclick_node(d);
+//            d3.select(this)
+//                //.style("fill", "red")
+//                .attr("class", "selected_node");
+//        })
+//        .text(function (d) {
+//            return d.Term;
+//        });
+//
+//    force.on("tick", function (e) {
+//        var q = d3.geom.quadtree(node),
+//            i = 0,
+//            n = node.length;
+//
+//        while (++i < n) q.visit(collide(node[i]));
+//
+//        svg_bubble.selectAll("circle")
+//            .attr("cx", function (d) {
+//                return d.x;
+//            })
+//            .attr("cy", function (d) {
+//                return d.y;
+//            });
+//
+//        svg_bubble.selectAll("text")
+//            .attr("dx", function (d) {
+//                return d.x;
+//            })
+//            .attr("dy", function (d) {
+//                return d.y;
+//            });
+//    });
+//
+//
+//}
 
 /**
  * @name draw_bar_chart
@@ -133,7 +243,6 @@ function draw_bar_chart(graph, mode) {
         //.attr("id", function(d) {
         //    return d.URL;
         //})
-        .attr("width", 500)
         .attr("height", 18)
         .attr("y", function (d, i) {
             return i * 20;
@@ -146,13 +255,19 @@ function draw_bar_chart(graph, mode) {
                 case "posts":
                     return resul(d.num_posts);
                     break;
+                case "post_length":
+                    return resul(d.word_count);
+                    break;
                 case "num_photos":
+                    return resul(d.freq);
+                    break;
+                case "num_videos":
                     return resul(d.freq);
                     break;
                 default :
                     return resul(d.freq);
             }
-            return resul(d.freq);
+            //return resul(d.freq);
             //return resul(d.num_posts);
         })
         .on("mouseover", function() {
@@ -198,13 +313,19 @@ function draw_bar_chart(graph, mode) {
             //return d.Term;
             //switch (mode) {
             //    case "posts":
-            //        return d.URL;
+            //        return resul(d.URL);
             //        break;
-            //    case "media":
-            //        return d.Post_URL;
+            //    case "post_length":
+            //        return resul(d.URL);
+            //        break;
+            //    case "num_photos":
+            //        return resul(d.URL);
+            //        break;
+            //    case "num_videos":
+            //        return resul(d.URL);
             //        break;
             //    default :
-            //        return d.URL;
+            //        return resul(d.URL);
             //}
             return d.URL;
         });
@@ -273,21 +394,88 @@ function update(slider1, graph2) {
     d3.select("#slider1-value").text(slider1);
     d3.select("#slider").property("value", slider1);
 
-    graph = filterData(slider1, graph2);
+    freq = slider1;
 
-    remove();
+    force.nodes(graph_raw.filter(function(d) {
+            return d.freq > freq;
+        }))
+        .charge(function (d) {
+            return -35 * Math.sqrt(d.freq)
+        });
+
+
+    node = main.selectAll(".node_circle")
+        .data(force.nodes());
+
+    nodeEnter = node.enter()
+        .append("circle")
+        .attr("class", "node_circle")
+        .attr("r", function (d) {
+            return diam * Math.sqrt(d.freq);
+        })
+        .style("fill", function (d) {
+            return kind_to_color(d);
+        })
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
+            mouseclick_node(d);
+            d3.select(this)
+                .style("fill", "red")
+                .attr("class", "selected_node");
+        });
+
+    node.exit().remove();
+
+    node.transition()
+        .attr("class", "node_circle");
+
+    node.call(force.drag);
+
+    //label.remove();
+
+    label = label.data(force.nodes());
+    label.enter()
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("class", "node_label")
+        .attr("font-family", "Verdana")
+        .attr("font-size", 12)
+        .style("fill", "#000000")
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
+            mouseclick_node(d);
+            d3.select(this)
+                //.style("fill", "red")
+                .attr("class", "selected_node");
+        })
+        .text(function (d) {
+            return d.Term;
+        });
+
+    label.exit().remove();
+
+    force.start();
+
+    //graph = filterData(slider1, graph2);
+
+    //remove();
     //draw();
-    draw_bar_chart(posts_fil);
-    draw_bubble_chart(graph);
-    //node = node.data(graph);
-    ////node.
-    //
-    //node.transition()
-    //    .attr("r", function(d) {
-    //        return 5 * Math.sqrt(d.freq);
-    //    })
-    //    .delay(500);
-
+    //draw_bar_chart(posts_fil, sort);
+    //draw_bubble_chart(graph);
 
 }
 
@@ -304,7 +492,7 @@ function change_gravity(slider2) {
 
     remove();
     //draw();
-    draw_bar_chart(posts_fil);
+    draw_bar_chart(posts_fil, sort);
     draw_bubble_chart(graph);
 }
 
@@ -318,6 +506,8 @@ function change_diam(slider3) {
 }
 
 function reset() {
+    diam = 3.5;
+    gravity = 40 * 0.005;
     remove();
     draw_bubble_chart(filterData(15,words_data));
     draw_bar_chart(num_posts, sort);
@@ -567,11 +757,31 @@ function mouseclick_node(z) {
     //        });
     //bars.exit().remove();
 
+
+    //bars.exit().remove();
+
     svg_bars.remove();
     draw_list(data);
 
     //draw_bubble_chart(graph);
     posts_fil = selectDataBars(z.Term, klass_data);
+
+    //console.log(posts_fil.length);
+    //console.log(bars.filter(function(d, i) {
+    //    if(posts_fil.indexOf(d) > -1) {
+    //        return d;
+    //    }
+    //}));
+    //bars = bars
+    //    .filter(function(d) {
+    //    if(posts_fil.indexOf(d) > -1) {
+    //        return d;
+    //    }
+    //})
+    //    .transition();
+    //svg_bars.transition();
+    //bars.transition().duration(1000);
+
     console.log(sort);
     draw_bar_chart(posts_fil, sort);
 
@@ -582,70 +792,185 @@ function mouseclick_bar(z) {
 
     var array = selectDataBubbles(z.URL, klass_data);
 
-    force = force.nodes(array)
+    //force.remove();
+
+    force.nodes(array)
         .charge(function (d) {
             return -35 * Math.sqrt(d.freq)
         });
-    node = node.data(array);
+
+    node = node.data(force.nodes());
+
+    nodeEnter = node.enter()
+        .append("circle")
+        .attr("class", "node_circle")
+        .attr("r", function (d) {
+            return diam * Math.sqrt(d.freq);
+        })
+        .style("fill", function (d) {
+            return kind_to_color(d);
+        })
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
+            mouseclick_node(d);
+            d3.select(this)
+                .style("fill", "red")
+                .attr("class", "selected_node");
+        });
+
     node.exit().remove();
+    //node.call(force.drag);
+
     label = label.data(array)
         .text(function (d) {
             return d.Term;
         });
+
+    label.enter()
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("class", "node_label")
+        .attr("font-family", "Verdana")
+        .attr("font-size", 12)
+        .style("fill", "#000000")
+        .on("mouseover", function(d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function(d) {
+            mouseout_node(d);
+        })
+        .on("click", function(d) {
+            //lock = true;
+            lock = lock ? false : true;
+            mouseclick_node(d);
+            d3.select(this)
+                //.style("fill", "red")
+                .attr("class", "selected_node");
+        })
+        .text(function (d) {
+            return d.Term;
+        });
+
     label.exit().remove();
     force.start();
+
+    //svg_bubble.remove();
 
     graph_raw = array;
     graph = graph_raw;
 
+    diam = 13;
+
     node.transition()
         .attr("r", function(d) {
-            return 13 * Math.sqrt(d.freq);
+
+            return diam * Math.sqrt(d.freq);
         })
-        .duration(3000)
+        .duration(1000)
         .delay(500);
+
+    //update_bubble_chart(array);
+
+    //draw_bubble_chart(array);
 
     force.gravity(12 * 0.005);
 }
 
 
-//
-//function mouseover_bar(z) {
-//    var neighbors = {};
-//    neighbors[z] = true;
-//    //var x = 1;
-//    //alert(z.URL);
-//    //bars.filter(function (d, i) {
-//    //    //console.log(bars.id);
-//    //    //return neighbors[i]
-//    //
-//    //    return bars[i]
-//    //})
-//    //bars.filter(bars[z.Id])
-//    d3.select(this)
-//        .style("stroke-width", 3)
-//        .style("fill", "yellow");
-//    //label_bars.filter(function (d, i) {
-//    //    //return !neighbors[d.index]
-//    //    return !bars[i]
-//    //})
-//    label_bars.filter(z.Id)
-//        .style("fill-opacity", 0.2);
-//    label_bars.filter(function (d, i) {
-//        //return neighbors[d.index]
-//        return bars[i]
-//    })
-//        .attr("font-size", 16);
-//}
-//
-//function mouseout_bar(z) {
-//    if(!lock) {
-//        bars
-//            .style("stroke-width", 1)
-//            .style("fill", "steelblue");
-//        label_bars
-//            .attr("font-size", 12)
-//            .style("fill-opacity", 1);
-//    }
-//}
 
+function changebubble(root) {
+    var node = main.selectAll(".node_circle")
+        .data(graph.filter(function(d) {
+                return d.freq > freq;
+            }));
+
+    // capture the enter selection
+    var nodeEnter = node.enter()
+        .append("g")
+        .attr("class", "node")
+        .attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+    // re-use enter selection for circles
+    nodeEnter
+        .append("circle")
+        .attr("r", function (d) {return d.r;})
+        .style("fill", function (d, i) {return color(i);})
+
+    // re-use enter selection for titles
+    nodeEnter
+        .append("title")
+        .text(function (d) {
+            return d.className + ": " + format(d.value);
+        });
+
+    node.select("circle")
+        .transition().duration(1000)
+        .attr("r", function (d) {
+            return d.r;
+        })
+        .style("fill", function (d, i) {
+            return color(i);
+        });
+
+    node.transition().attr("class", "node")
+        .attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+    node.exit().remove();
+
+    // Returns a flattened hierarchy containing all leaf nodes under the root.
+    function classes(root) {
+        var classes = [];
+
+        function recurse(name, node) {
+            if (node.children) node.children.forEach(function (child) {
+                recurse(node.name, child);
+            });
+            else classes.push({
+                packageName: name,
+                className: node.name,
+                value: node.size
+            });
+        }
+
+        recurse(null, root);
+        return {
+            children: classes
+        };
+    }
+
+}
+
+function tick() {
+    var q = d3.geom.quadtree(node),
+        i = 0,
+        n = node.length;
+
+    while (++i < n) q.visit(collide(node[i]));
+
+    svg_bubble.selectAll("circle")
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        });
+
+    svg_bubble.selectAll("text")
+        .attr("dx", function (d) {
+            return d.x;
+        })
+        .attr("dy", function (d) {
+            return d.y;
+        });
+}

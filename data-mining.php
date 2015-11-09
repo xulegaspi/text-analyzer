@@ -49,7 +49,7 @@ for($ii=0; $ii < $num_rows; $ii++) {
     $yesterday = new DateTime();
     $today = new DateTime();
 
-    $yesterday->modify('-1 day');
+    $yesterday->modify('-5 day');
 
     echo "Mining post nº: " . $ii . "<br />";
 

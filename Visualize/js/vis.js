@@ -6,6 +6,7 @@ var width  = 1000,
 
 var gravity = 40 * 0.005;
 var diam = 3.5;
+var freq = 15;
 
 var path = "data/";
 
@@ -15,7 +16,9 @@ var svg_bars;    // Bar Chart SVG
 var list;        // List of posts
 var list_title;  // Word shown for the list
 var main;        // Bubble Chart
+var bubble;
 var node;        // Bubble Chart nodes (bubbles)
+var nodeEnter;
 var bars;
 var label;       // Labels of the Bubbles
 var label_bars;
@@ -36,16 +39,18 @@ var lock = false;
 d3.json(path + "total_freq.json", function(error, graph2) {
     if (error) throw error;
 
+    //console.log(graph2);
+
     words_data = graph2;
     graph_raw = words_data;
 
     slider_handlers(words_data);
 
-    graph = filterData(15, graph2);
+    //graph = filterData(15, graph2);
 
     //draw();
     //draw_bar_chart(num_posts);
-    draw_bubble_chart(graph);
+    draw_bubble_chart(graph2);
 
 
 });
