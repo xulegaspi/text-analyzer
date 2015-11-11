@@ -2,6 +2,18 @@
  * Created by Xurxo on 20/10/2015.
  */
 
+var node_color = "#FFE47A";
+var bar_color = "#1C68FF";
+var node_selected_color = "#1AD1FF";
+var node_mouse_color = "#90DAFF";
+var node_label_color = "#000000";
+var bar_mouse_color = "#1C68FF";
+var bar_selected_color = "";
+var bar_label_color = "#FFFFE3";
+var bar_label_mouse_color = "#B38F00";
+var bar_label_selected_color = "yellow";
+
+
 /**
  * @name remove
  * @description Erase the whole visualization
@@ -57,13 +69,16 @@ function draw_bubble_chart(graph) {
         .attr("r", function (d) {
             return diam * Math.sqrt(d.freq);
         })
-        .style("fill", function (d) {
-            return kind_to_color(d);
-        })
+        //.style("fill", function (d) {
+        //    //return kind_to_color(d);
+        //})
+        .style("fill", node_color)  // COLOUR
         .on("mouseover", function(d) {
             mouseover_node(d);
         })
         .on("mouseout", function(d) {
+            d3.select(this)
+                .attr("class", "mouse_node");
             mouseout_node(d);
         })
         .on("click", function(d) {
@@ -71,8 +86,8 @@ function draw_bubble_chart(graph) {
             lock = lock ? false : true;
             mouseclick_node(d);
                 d3.select(this)
-                    .style("fill", "red")
-                    .attr("class", "selected_node");
+                    .style("fill", node_selected_color);
+                    //.attr("class", "selected_node");
         });
 
     node.call(force.drag);
@@ -86,7 +101,7 @@ function draw_bubble_chart(graph) {
         .attr("class", "node_label")
         .attr("font-family", "Verdana")
         .attr("font-size", 12)
-        .style("fill", "#000000")
+        .style("fill", node_label_color)
         .on("mouseover", function(d) {
             mouseover_node(d);
         })
@@ -97,9 +112,6 @@ function draw_bubble_chart(graph) {
             //lock = true;
             lock = lock ? false : true;
             mouseclick_node(d);
-            d3.select(this)
-                //.style("fill", "red")
-                .attr("class", "selected_node");
         })
         .text(function (d) {
             return d.Term;
@@ -114,7 +126,7 @@ function draw_bubble_chart(graph) {
 function draw_bar_chart(graph, mode) {
 
     svg_bars = d3.select("#bar_chart").append("svg")
-        .attr("width", 500)
+        .attr("width", "100%")
         .attr("height", graph.length * 20);
         //.attr("height", 800);
 
@@ -131,10 +143,14 @@ function draw_bar_chart(graph, mode) {
                 .data(graph.sort(function(a,b) { return +b.avg_length - +a.avg_length; }));
             break;
         case "num_photos":
-            return resul(d.freq);
+            bars = svg_bars.selectAll("rect")
+                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
+                .data(graph.sort(function(a,b) { return +b.freq_image - +a.freq_image; }));
             break;
         case "num_videos":
-            return resul(d.freq);
+            bars = svg_bars.selectAll("rect")
+                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
+                .data(graph.sort(function(a,b) { return +b.freq_video - +a.freq_video; }));
             break;
         default :
             return resul(d.freq);
@@ -150,71 +166,79 @@ function draw_bar_chart(graph, mode) {
             return i * 20;
         })
         .attr("width", function (d, i) {
-            var resul;// = d3.scale.linear()
+            var scale;// = d3.scale.linear()
                 //.domain([0, 0.4]);
             //    .domain([0, 0.05]);
             switch (mode) {
                 case "posts":
-                    resul = d3.scale.linear()
+                    scale = d3.scale.linear()
                         //.domain([0, 0.4]);
-                        .domain([0, 0.05]);
-                    return resul(d.num_posts);
+                        .domain([0, 0.035]);
+                    return scale(d.num_posts);
                     break;
                 case "post_length":
-                    resul = d3.scale.linear()
+                    scale = d3.scale.linear()
                         //.domain([0, 0.4]);
                         .domain([0, 0.5]);
-                    return resul(d.avg_length);
+                    return scale(d.avg_length);
                     break;
                 case "num_photos":
-                    return resul(d.freq);
+                    scale = d3.scale.linear()
+                        //.domain([0, 0.4]);
+                        .domain([0, 0.09]);
+                    return scale(d.freq_image);
                     break;
                 case "num_videos":
-                    return resul(d.freq);
+                    scale = d3.scale.linear()
+                        //.domain([0, 0.4]);
+                        .domain([0, 0.01]);
+                    return scale(d.freq_video);
                     break;
                 default :
-                    return resul(d.freq);
+                    return scale(d.freq);
             }
             //return resul(d.freq);
             //return resul(d.num_posts);
         })
         .on("mouseover", function() {
             d3.select(this)
-                .attr("fill", "red");
+                .attr("fill", bar_mouse_color);  // COLOUR
             //mouseover_bar(d);
         })
         .on("mouseout", function() {
             d3.select(this)
-                .attr("fill", "steelblue");
+                .attr("fill", bar_color);  // COLOUR
             //mouseout_bar(d);
         })
         .on("click", function(d) {
             mouseclick_bar(d);
             //alert(d.URL);
         })
-        .attr("fill", "steelblue");
+        .attr("fill", bar_color);  // COLOUR
 
     label_bars = svg_bars.selectAll("text")
         .data(graph)
         .enter()
         .append("text")
-        .attr("fill", "lightgray")
+        .attr("fill", bar_label_color)
         .attr("y", function (d, i) {
             return i * 20 + 14;
         })
         .attr("x", 5)
         .on("mouseover", function() {
             d3.select(this)
-                .attr("fill", "yellow");
+                .attr("fill", bar_label_mouse_color);
             //mouseover_bar(d);
         })
         .on("mouseout", function() {
             d3.select(this)
-                .attr("fill", "lightgray");
+                .attr("fill", bar_label_color);
             //mouseout_bar(d);
         })
         .on("click", function(d) {
             mouseclick_bar(d);
+            d3.select(this)
+                .attr("fill", bar_label_selected_color);
             //alert(d.URL);
         })
         .text(function (d) {
@@ -227,16 +251,25 @@ function draw_bar_chart(graph, mode) {
                     return d.url;
                     break;
                 case "num_photos":
-                    return resul(d.URL);
+                    return d.url;
                     break;
                 case "num_videos":
-                    return resul(d.URL);
+                    return d.url;
                     break;
                 default :
                     return resul(d.URL);
             }
             //return d.URL;
         });
+
+    var xAxis = d3.svg.axis()
+        .orient("top")
+        .scale(xScale);
+
+    svg_bars.append("g")
+        .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
+        //.attr("transform", "translate(0," + (height - padding) + ")")
+        .call(xAxis);
 }
 
 /**
@@ -257,7 +290,8 @@ function draw_list(data) {
             return i * 20;
         })
         .attr("height", 18)
-        .text(function(d) { return d.post_url } )
+        //.text(function(d) { return d.post_url } )
+        .text(function(d) { return extractTitlePost(d.post_url) } )
         .on("click", function(d) { window.open(d.post_url); });
 
 }
@@ -446,12 +480,21 @@ function reset() {
     }
     span.appendChild( document.createTextNode(freq) );
 
+    document.getElementById("tittle_bubble").value = "Overall";
+    span = document.getElementById('tittle_bubble');
+    while( span.firstChild ) {
+        span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode("Overall") );
+
     diam = 3.5;
     gravity = 40 * 0.005;
     remove();
     draw_bubble_chart(words_data);
-    graph_raw = words_data;
+    //graph_raw = words_data;
     console.log(words_data);
+    sort = "posts";
+    graph_raw = words_data;
     draw_bar_chart(num_posts, sort);
 }
 
@@ -514,20 +557,58 @@ function selectDataBars(Term, d) {
     var ii = 0;
     var x = false;
     for (jj = 0; jj < array.length; jj++) {
-        for (kk = 0; kk < num_posts.length; kk++) {
-            if (array[jj] == num_posts[kk].URL) {
-                for(var xx = 0; xx < resul.length; xx++) {
-                    if (resul[xx] == num_posts[kk]) {
-                        x = true;
+
+        switch(sort) {
+            case "posts":
+                for (kk = 0; kk < num_posts.length; kk++) {
+                    if (array[jj] == num_posts[kk].URL) {
+                        for(var xx = 0; xx < resul.length; xx++) {
+                            if (resul[xx] == num_posts[kk]) {
+                                x = true;
+                            }
+                        }
+                        if(!x) {
+                            resul[ii] = num_posts[kk];
+                            ii++;
+                        }
                     }
                 }
-                if(!x) {
-                    resul[ii] = num_posts[kk];
-                    ii++;
+                x = false;
+                break;
+            case "post_length":
+                for (kk = 0; kk < avg_length.length; kk++) {
+                    if (array[jj] == avg_length[kk].url) {
+                        for(var xx = 0; xx < resul.length; xx++) {
+                            if (resul[xx] == avg_length[kk]) {
+                                x = true;
+                            }
+                        }
+                        if(!x) {
+                            resul[ii] = avg_length[kk];
+                            ii++;
+                        }
+                    }
                 }
-            }
+                x = false;
+                break;
+            default:
+                for (kk = 0; kk < num_posts.length; kk++) {
+                    if (array[jj] == num_posts[kk].URL) {
+                        for(var xx = 0; xx < resul.length; xx++) {
+                            if (resul[xx] == num_posts[kk]) {
+                                x = true;
+                            }
+                        }
+                        if(!x) {
+                            resul[ii] = num_posts[kk];
+                            ii++;
+                        }
+                    }
+                }
+                x = false;
+                break;
         }
-        x = false;
+
     }
     return resul;
 }
@@ -556,7 +637,7 @@ function kind_to_color(d) {
     //    .domain([1, 50, 150])
     //    .range(["grey", "green"]);
     //return resul(d.freq);
-    return "green";
+    return node_color;  // COLOUR
 }
 
 /**
@@ -564,7 +645,7 @@ function kind_to_color(d) {
  * @description Manages the sliders and call the respective functions
  * @param words_data
  */
-function slider_handlers(words_data) {
+function slider_handlers() {
 
     // Frequency Slider
     d3.select("#slider1").on("input", function () {
@@ -600,10 +681,12 @@ function slider_handlers(words_data) {
                 console.log(graph);
                 break;
             case "num_photos":
-                return resul(d.URL);
+                graph = num_media;
+                console.log(graph);
                 break;
             case "num_videos":
-                return resul(d.URL);
+                graph = num_media;
+                console.log(graph);
                 break;
             default :
                 return resul(d.URL);
@@ -627,8 +710,9 @@ function mouseover_node(z) {
         node.filter(function (d) {
             return neighbors[d.index]
         })
+            //.attr("class", "node_circle_select")
             .style("stroke-width", 3)
-            .style("fill", "yellow");
+            .style("fill", node_mouse_color);  // COLOUR
     //if(!lock) {
         label.filter(function (d) {
             return !neighbors[d.index]
@@ -648,8 +732,9 @@ function mouseover_node(z) {
 function mouseout_node(z) {
     if(!lock) {
         node
+            //.attr("class", "node_circle")
             .style("stroke-width", 1)
-            .style("fill", "green");
+            .style("fill", node_color);  // COLOUR
     //if(!lock) {
         label
             .attr("font-size", 12)
@@ -726,186 +811,247 @@ function mouseclick_node(z) {
 }
 
 function mouseclick_bar(z) {
-    //console.log(z);
 
-    var array = selectDataBubbles(z.URL, klass_data);
 
-    //force.remove();
+    var array;
+    var span;
+
+    switch(sort) {
+        case "posts":
+            console.log(z.URL);
+            array = selectDataBubbles(z.URL, klass_data);
+
+            document.getElementById("tittle_bubble").value = z.URL;
+            span = document.getElementById('tittle_bubble');
+            while( span.firstChild ) {
+                span.removeChild( span.firstChild );
+            }
+            span.appendChild( document.createTextNode(z.URL) );
+
+            break;
+        case "post_length":
+            console.log(z.url);
+            array = selectDataBubbles(z.url, klass_data);
+
+            document.getElementById("tittle_bubble").value = z.url;
+            span = document.getElementById('tittle_bubble');
+            while( span.firstChild ) {
+                span.removeChild( span.firstChild );
+            }
+            span.appendChild( document.createTextNode(z.url) );
+
+            break;
+        case "num_photos":
+            console.log(z);
+            array = extractImages(z.id_post);
+            break;
+        case "num_videos":
+            break;
+        default:
+            array = selectDataBubbles(z.URL, klass_data);
+            break;
+    }
+    
+
 
     freq = 1;
     document.getElementById("slider1").value = freq;
-
-    var span = document.getElementById('slider1-value');
-
+    span = document.getElementById('slider1-value');
     while( span.firstChild ) {
         span.removeChild( span.firstChild );
     }
     span.appendChild( document.createTextNode("1") );
 
-    force.nodes(array.filter(function(d) {
-        return d.freq > freq;
-    }))
-        .charge(function (d) {
-            return -35 * Math.sqrt(d.freq)
-        });
 
-    node = node.data(force.nodes());
+    switch (sort) {
+        case "posts":
+        case "post_length":
+            force.
+                nodes(array.filter(function (d) {
+                    return d.freq > freq;
+                }))
+                    .charge(function (d) {
+                        return -35 * Math.sqrt(d.freq)
+                    });
 
-    nodeEnter = node.enter()
-        .append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
-        })
-        .style("fill", function (d) {
-            return kind_to_color(d);
-        })
-        .on("mouseover", function(d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function(d) {
-            mouseout_node(d);
-        })
-        .on("click", function(d) {
-            //lock = true;
-            lock = lock ? false : true;
-            mouseclick_node(d);
-            d3.select(this)
-                .style("fill", "red")
-                .attr("class", "selected_node");
-        });
+                node = node.data(force.nodes());
 
-    node.exit()
-        .transition()
-        .attr("r", 0)
-        .duration(500)
-        .remove();
-    //node.call(force.drag);
+                nodeEnter = node.enter()
+                    .append("circle")
+                    .attr("class", "node_circle")
+                    .attr("r", function (d) {
+                        return diam * Math.sqrt(d.freq);
+                    })
+                    .style("fill", function (d) {
+                        return kind_to_color(d);
+                    })
+                    .on("mouseover", function (d) {
+                        mouseover_node(d);
+                    })
+                    .on("mouseout", function (d) {
+                        mouseout_node(d);
+                    })
+                    .on("click", function (d) {
+                        //lock = true;
+                        lock = lock ? false : true;
+                        mouseclick_node(d);
+                        d3.select(this)
+                            .style("fill", "red")
+                            .attr("class", "selected_node");
+                    });
 
-    label = label.data(force.nodes())
-        .text(function (d) {
-            return d.Term;
-        });
+                node.exit()
+                    .transition()
+                    .attr("r", 0)
+                    .duration(500)
+                    .remove();
+                //node.call(force.drag);
 
-    label.enter()
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("class", "node_label")
-        .attr("font-family", "Verdana")
-        .attr("font-size", 12)
-        .style("fill", "#000000")
-        .on("mouseover", function(d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function(d) {
-            mouseout_node(d);
-        })
-        .on("click", function(d) {
-            //lock = true;
-            lock = lock ? false : true;
-            mouseclick_node(d);
-            d3.select(this)
-                //.style("fill", "red")
-                .attr("class", "selected_node");
-        })
-        .text(function (d) {
-            return d.Term;
-        });
+                label = label.data(force.nodes())
+                    .text(function (d) {
+                        return d.Term;
+                    });
 
-    label.exit()
-        .transition()
-        .duration(500)
-        .remove();
-    force.start();
+                label.enter()
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("class", "node_label")
+                    .attr("font-family", "Verdana")
+                    .attr("font-size", 12)
+                    .style("fill", "#000000")
+                    .on("mouseover", function (d) {
+                        mouseover_node(d);
+                    })
+                    .on("mouseout", function (d) {
+                        mouseout_node(d);
+                    })
+                    .on("click", function (d) {
+                        //lock = true;
+                        lock = lock ? false : true;
+                        mouseclick_node(d);
+                        d3.select(this)
+                            //.style("fill", "red")
+                            .attr("class", "selected_node");
+                    })
+                    .text(function (d) {
+                        return d.Term;
+                    });
 
-    //svg_bubble.remove();
+                label.exit()
+                    .transition()
+                    .duration(500)
+                    .remove();
 
-    graph_raw = array;
-    graph = graph_raw;
+                force.start();
 
-    diam = 13;
+                graph_raw = array;
+                graph = graph_raw;
 
-    node.transition()
-        .attr("r", function(d) {
+                diam = 13;
 
-            return diam * Math.sqrt(d.freq);
-        })
-        .duration(1000)
-        .delay(500);
+                node.transition()
+                    .attr("r", function (d) {
 
-    //update_bubble_chart(array);
+                        return diam * Math.sqrt(d.freq);
+                    })
+                    .duration(1000)
+                    .delay(500);
 
-    //draw_bubble_chart(array);
+                force.gravity(12 * 0.005);
+            break;
+        case "num_photos":
+            //console.log(array);
+            force.nodes(array);
+                //.charge(function (d) {
+                //    return -35;
+                //})
+                //.on("tick", tick);
 
-    force.gravity(12 * 0.005);
+            node.remove();
+            label.remove();
+
+            node = node.data(force.nodes());
+
+            nodeEnter = node.enter()
+                .append("g")
+                .attr("class", "node");
+                //.attr("r", 200 )
+                //.on("mouseover", function (d) {
+                //    mouseover_node(d);
+                //})
+                //.on("mouseout", function (d) {
+                //    mouseout_node(d);
+                //})
+                //.on("click", function (d) {
+                //    //lock = true;
+                //    lock = lock ? false : true;
+                //    mouseclick_node(d);
+                //    d3.select(this)
+                //        .style("fill", "red")
+                //        .attr("class", "selected_node");
+                //})
+                //.call(force.drag);
+
+            var images = nodeEnter.append("image")
+                .attr("xlink:href", function(d, i) { console.log("hey" + d + " --> " + i + " " + array.length); return d; })
+                .attr("x", function(d, i) { return 1000 - i*5; })
+                .attr("y", 400)
+                .attr("width", "160px")
+                .attr("height", "90px");
+
+            //var images = nodeEnter.append("svg:image")
+            //    .attr("xlink:href",  function(d) { return d;})
+            //    .attr("x", function(d) { return -25;})
+            //    .attr("y", function(d) { return -25;})
+            //    .attr("height", 50)
+            //    .attr("width", 50);
+
+            node.exit()
+                .transition()
+                .attr("r", 0)
+                .duration(500)
+                .remove();
+            //node.call(force.drag);
+
+            label = label.data(force.nodes());
+                //.text(function (d) {
+                //    return d.Term;
+                //});
+
+            label.exit()
+                .transition()
+                .duration(500)
+                .remove();
+
+            //force.start();
+
+            graph_raw = array;
+            graph = graph_raw;
+
+            diam = 13;
+
+            //node.transition()
+            //    .attr("r", function (d) {
+            //
+            //        return diam * Math.sqrt(d.freq);
+            //    })
+            //    .duration(1000)
+            //    .delay(500);
+
+            //force.gravity(12 * 0.005);
+            break;
+    }
+
+
 }
 
 
+function extractTitlePost(post) {
+    var array = [];
+    array = post.split("/");
+    var l = array.length;
 
-function changebubble(root) {
-    var node = main.selectAll(".node_circle")
-        .data(graph.filter(function(d) {
-                return d.freq > freq;
-            }));
-
-    // capture the enter selection
-    var nodeEnter = node.enter()
-        .append("g")
-        .attr("class", "node")
-        .attr("transform", function (d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
-
-    // re-use enter selection for circles
-    nodeEnter
-        .append("circle")
-        .attr("r", function (d) {return d.r;})
-        .style("fill", function (d, i) {return color(i);})
-
-    // re-use enter selection for titles
-    nodeEnter
-        .append("title")
-        .text(function (d) {
-            return d.className + ": " + format(d.value);
-        });
-
-    node.select("circle")
-        .transition().duration(1000)
-        .attr("r", function (d) {
-            return d.r;
-        })
-        .style("fill", function (d, i) {
-            return color(i);
-        });
-
-    node.transition().attr("class", "node")
-        .attr("transform", function (d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
-
-    node.exit().remove();
-
-    // Returns a flattened hierarchy containing all leaf nodes under the root.
-    function classes(root) {
-        var classes = [];
-
-        function recurse(name, node) {
-            if (node.children) node.children.forEach(function (child) {
-                recurse(node.name, child);
-            });
-            else classes.push({
-                packageName: name,
-                className: node.name,
-                value: node.size
-            });
-        }
-
-        recurse(null, root);
-        return {
-            children: classes
-        };
-    }
-
+    return array[l-2];
 }
 
 function tick() {
@@ -930,4 +1076,17 @@ function tick() {
         .attr("dy", function (d) {
             return d.y;
         });
+}
+
+function extractImages(post_id) {
+    var array = [];
+    var ii = 0;
+    for(var kk = 0; kk < media.length; kk++) {
+        if(media[kk].Id_Post == post_id && media[kk].Type == "IMAGE") {
+            array[ii] = media[kk].Media_URL;
+            ii++;
+        }
+    }
+
+    return array;
 }

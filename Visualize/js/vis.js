@@ -6,7 +6,7 @@ var width  = 1000,
 
 var gravity = 40 * 0.005;
 var diam = 3.5;
-var freq = 15;
+var freq = 23;
 
 var path = "data/";
 
@@ -31,6 +31,7 @@ var num_posts;
 var posts_fil;
 var num_media;
 var media_fil;
+var media;
 var sort;
 var avg_length;  // Raw data from avg_length.json
 
@@ -78,7 +79,7 @@ d3.json(path + "num_posts.json", function(error, data) {
     //console.log(data);
 });
 
-d3.json(path + "num_media_final.json", function(error, data) {
+d3.json(path + "media_final.json", function(error, data) {
     if (error) throw error;
 
     num_media = data;
@@ -86,6 +87,12 @@ d3.json(path + "num_media_final.json", function(error, data) {
 
     //draw_bar_chart(num_media, "media");
     //console.log(data);
+});
+
+d3.json(path + "media.json", function(error, data) {
+    if (error) throw error;
+
+    media = data;
 });
 
 d3.json(path + "avg_length.json", function(error, data) {
