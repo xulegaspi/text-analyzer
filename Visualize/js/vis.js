@@ -34,8 +34,11 @@ var media_fil;
 var media;
 var sort;
 var avg_length;  // Raw data from avg_length.json
+var scale;
 
 var lock = false;
+var lock_bar = false;
+
 
 //d3.json("vis.php", function(error, graph) {
 d3.json(path + "total_freq.json", function(error, graph2) {
@@ -52,20 +55,23 @@ d3.json(path + "total_freq.json", function(error, graph2) {
 
     //draw();
     //draw_bar_chart(num_posts);
-    draw_bubble_chart(graph2);
+
+    d3.json(path + "freq_klass_final.json", function(error, data) {
+        if (error) throw error;
+
+        klass_data = data;
+
+        console.log(data);
+        draw_bubble_chart(graph2);
+    });
+    //setTimeout(draw_bubble_chart(graph2), 2000);
 
 
 });
 
 
 //d3.json("vis.php", function(error, data) {
-d3.json(path + "freq_klass_final.json", function(error, data) {
-    if (error) throw error;
 
-    klass_data = data;
-
-    //console.log(data);
-});
 
 
 d3.json(path + "num_posts.json", function(error, data) {
