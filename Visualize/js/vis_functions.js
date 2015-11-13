@@ -3,17 +3,25 @@
  */
 
 var node_color = "#FFE47A";
-var bar_color = "#1C68FF";
-var node_selected_color = "#1AD1FF";
+//var bar_color = "#1C68FF";
+var bar_color = "#6c7b93";
+//var node_selected_color = "#FFE47A";
+var node_selected_color = "#80b3ff";
 var node_mouse_color = "#90DAFF";
-var node_low_color = "#ff9900";
+//var node_low_color = "#ff9900";
+
+var node_low_color = "#ffebcc";
+var node_high_color = "#ffa31a";
+
 var node_label_color = "#000000";
 var bar_mouse_color = "#1C68FF";
 var bar_selected_color = "";
 var bar_label_color = "#FFFFE3";
 var bar_label_mouse_color = "#B38F00";
 var bar_label_selected_color = "yellow";
-var margin = {top: 20, right: 20, bottom: 70, left: 40};
+var bar_list_color = "#b3d9ff";
+var label_list_color = "#000d1a";
+var margin = {top: 25, right: 20, bottom: 70, left: 40};
 
 var node_title;
 var label_title;
@@ -88,7 +96,8 @@ function draw_bubble_chart(graph) {
         //.style("fill", function (d) {
         //    //return kind_to_color(d);
         //})
-        .style("fill", node_color)  // COLOUR
+        //.style("fill", node_color)  // COLOUR
+        .style("fill", function(d) { return kind_to_color(d) })
         .on("mouseover", function(d) {
             mouseover_node(d);
         })
@@ -103,9 +112,7 @@ function draw_bubble_chart(graph) {
             click_node = true;
             mouseclick_node(d);
                 d3.select(this)
-                    .style("fill", function(d) {
-                        return kind_to_color(d);
-                    });
+                    .style("fill", node_selected_color);
         });
 
     node_title = node.append("svg:title")
@@ -160,11 +167,8 @@ function draw_bar_chart(graph, mode) {
 
     svg_bars = d3.select("#bar_chart").append("svg")
         .attr("width", "100%")
-        .attr("height", graph.length * 20)
+        .attr("height", graph.length * 20 + 50)
         .on("click", function() {
-            console.log(click_bar);
-            console.log(lock_bar);
-            //lock_bar = lock_bar ? false : true;
             if(!click_bar) {
             //    if(lock_bar) {
                     lock_bar = false;
@@ -181,39 +185,51 @@ function draw_bar_chart(graph, mode) {
         .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
+    var w_svg = svg_bars.style("width");
+    w_svg = w_svg.substr(0, w_svg.length - 2);
+    var max;
+
     switch(mode) {
         case "posts":
+            max = d3.max(graph, function(d) { return +d.num_posts; });
+            console.log(max);
             bars = svg_bars.selectAll("rect")
                 .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }));
+            console.log(graph);
+            scale = d3.scale.linear()
+                .domain([0, max + 1])
+                .range([0, w_svg - 15]);
             break;
         case "post_length":
+            max = d3.max(graph, function(d) { return +d.avg_length; });
+            console.log(max);
             bars = svg_bars.selectAll("rect")
-                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
                 .data(graph.sort(function(a,b) { return +b.avg_length - +a.avg_length; }));
+            scale = d3.scale.linear()
+                .domain([0, max + 1])
+                .range([0, w_svg - 15]);
             break;
         case "num_photos":
+            max = d3.max(graph, function(d) { return +d.freq_image; });
+            console.log(max);
             bars = svg_bars.selectAll("rect")
-                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
                 .data(graph.sort(function(a,b) { return +b.freq_image - +a.freq_image; }));
+            scale = d3.scale.linear()
+                .domain([0, max + 1])
+                .range([0, w_svg - 15]);
             break;
         case "num_videos":
+            max = d3.max(graph, function(d) { return +d.freq_video; });
+            console.log(max);
             bars = svg_bars.selectAll("rect")
-                //.data(graph.sort(function(a,b) { return +b.freq - +a.freq; }))
                 .data(graph.sort(function(a,b) { return +b.freq_video - +a.freq_video; }));
+            scale = d3.scale.linear()
+                .domain([0, max + 1])
+                .range([0, w_svg - 15]);
             break;
         default :
             return resul(d.freq);
     }
-
-    //var xAxis = d3.svg.axis()
-    //    .orient("bottom")
-    //    .scale(scale);
-    //
-    //svg_bars.append("g")
-    //    .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
-    //    //.attr("transform", "translate(0," + (height - padding) + ")")
-    //    .attr("transform", "translate(50," + height - margin.top + ")")
-    //    .call(xAxis);
 
     bars.enter()
         .append("rect")
@@ -230,27 +246,15 @@ function draw_bar_chart(graph, mode) {
             ////    .domain([0, 0.05]);
             switch (mode) {
                 case "posts":
-                    scale = d3.scale.linear()
-                        //.domain([0, 0.4]);
-                        .domain([0, 0.035]);
                     return scale(d.num_posts);
                     break;
                 case "post_length":
-                    scale = d3.scale.linear()
-                        //.domain([0, 0.4]);
-                        .domain([0, 0.5]);
                     return scale(d.avg_length);
                     break;
                 case "num_photos":
-                    scale = d3.scale.linear()
-                        //.domain([0, 0.4]);
-                        .domain([0, 0.09]);
                     return scale(d.freq_image);
                     break;
                 case "num_videos":
-                    scale = d3.scale.linear()
-                        //.domain([0, 0.4]);
-                        .domain([0, 0.01]);
                     return scale(d.freq_video);
                     break;
                 default :
@@ -274,12 +278,20 @@ function draw_bar_chart(graph, mode) {
             //lock = true;
             click_bar = true;
             mouseclick_bar(d);
+            d3.select(this)
+                .attr("fill", bar_mouse_color);
             //alert(d.URL);
         })
+        .attr("transform", "translate(5," + margin.top + ")")
         .attr("fill", bar_color);  // COLOUR
 
     label_bars = svg_bars.selectAll("text")
         .data(graph)
+        //.data(graph.sort(function(a,b) {
+        //    //max = d3.max(b.num_posts);
+        //    //console.log(a.num_posts);
+        //    return +b.num_posts - +a.num_posts;
+        //}))
         .enter()
         .append("text")
         .attr("fill", bar_label_color)
@@ -309,11 +321,13 @@ function draw_bar_chart(graph, mode) {
             d3.select(this)
                 .attr("fill", bar_label_selected_color);
             //alert(d.URL);
-            console.log(i);
-            console.log(bars)
+            //console.log(i);
+            //console.log(bars)
         })
+        .attr("transform", "translate(5," + margin.top + ")")
         .text(function (d) {
             //return d.Term;
+            //console.log(d);
             switch (mode) {
                 case "posts":
                     return extractTitleURL(d.URL);
@@ -333,6 +347,15 @@ function draw_bar_chart(graph, mode) {
             //return d.URL;
         });
 
+    var xAxis = d3.svg.axis()
+        .orient("top")
+        .scale(scale);
+
+    svg_bars.append("g")
+        .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
+        .attr("transform", "translate(5," + margin.top + ")")
+        .call(xAxis);
+
 
 }
 
@@ -343,20 +366,101 @@ function draw_bar_chart(graph, mode) {
  */
 function draw_list(data) {
 
-    if(list) list.remove();
+    if(svg_list) svg_list.remove();
 
-    list = d3.select("#list")
-        .append("ul")
-        .selectAll("text")
-            .data(data)
-        .enter().append("li")
-        .attr("y", function(d, i) {
+    console.log(data);
+
+    //list = d3.select("#list")
+    //    .append("ul")
+    //    .selectAll("text")
+    //        .data(data)
+    //    .enter().append("li")
+    //    .attr("y", function(d, i) {
+    //        return i * 20;
+    //    })
+    //    .attr("height", 18)
+    //    //.text(function(d) { return d.post_url } )
+    //    .text(function(d) { return extractTitlePost(d.post_url) } )
+    //    .on("click", function(d) { window.open(d.post_url); });
+
+    svg_list = d3.select("#list").append("svg")
+        .attr("width", "100%")
+        .attr("height", data.length * 20 + 50)
+        .on("click", function() {
+            //console.log(click_bar);
+            //console.log(lock_bar);
+            //lock_bar = lock_bar ? false : true;
+            if(!click_bar) {
+                lock_bar = false;
+            } else {
+                click_bar = false;
+            }
+        })
+        .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+    var w_svg_list = svg_list.style("width");
+    w_svg_list = w_svg_list.substr(0, w_svg_list.length - 2);
+    var max = d3.max(data, function(d) {
+        return +d.freq;
+    });
+    console.log(max);
+
+    bars_list = svg_list.selectAll("rect")
+        .data(data.sort(function(a,b) { return +b.freq - +a.freq; }));
+
+    var xscale = d3.scale.linear()
+        .domain([0, max + 1])
+        .range([w_svg_list - 15, 20]);
+
+    var xscale2 = d3.scale.linear()
+        .domain([0, max + 1])
+        .range([20, w_svg_list - 15]);
+
+    bars_list.enter()
+        .append("rect")
+        .attr("height", 18)
+        .attr("y", function (d, i) {
             return i * 20;
         })
-        .attr("height", 18)
-        //.text(function(d) { return d.post_url } )
-        .text(function(d) { return extractTitlePost(d.post_url) } )
-        .on("click", function(d) { window.open(d.post_url); });
+        .attr("x", function(d) {
+            return w_svg_list - xscale2(d.freq) + 20;
+            //return 0;
+        })
+        .attr("width", function (d, i) {
+            return xscale2(d.freq) - 20;
+        })
+        .on("click", function(d) { window.open(d.post_url); })
+        .attr("transform", "translate(-15," + margin.top + ")")
+        .attr("fill", bar_list_color);  // COLOUR
+
+    label_list = svg_list.selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("fill", label_list_color)
+        .attr("y", function (d, i) {
+            return i * 20 + 14;
+        })
+        .text(function (d) {
+            return extractTitlePost(d.post_url);
+        })
+        .on("click", function(d) { window.open(d.post_url); })
+        .attr("transform", "translate(-15," + margin.top + ")")
+        .attr("x", function(d) {
+            var w_svg_list = svg_list.style("width");
+            w_svg_list = w_svg_list.substr(0, w_svg_list.length-2);
+            return w_svg_list - this.getComputedTextLength() - 5;
+        });
+
+    var xAxis = d3.svg.axis()
+        .orient("top")
+        .scale(xscale);
+
+    svg_list.append("g")
+        .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
+        .attr("transform", "translate(0," + margin.top + ")")
+        .call(xAxis);
 
 }
 
@@ -420,7 +524,8 @@ function update(slider1) {
         .attr("r", function (d) {
             return diam * Math.sqrt(d.freq);
         })
-        .style("fill", node_color)
+        //.style("fill", node_color)
+        .style("fill", function(d) { return kind_to_color(d) })
         .on("mouseover", function(d) {
             mouseover_node(d);
         })
@@ -433,9 +538,7 @@ function update(slider1) {
             click_node = true;
             mouseclick_node(d);
             d3.select(this)
-                .style("fill", function(d) {
-                    return kind_to_color(d);
-                });
+                .style("fill", node_selected_color);
         });
 
     node_title = node.append("svg:title")
@@ -571,11 +674,20 @@ function reset() {
     remove();
     draw_bubble_chart(words_data);
     //graph_raw = words_data;
-    console.log(words_data);
+    //console.log(words_data);
     sort = "posts";
     graph_raw = words_data;
     draw_bar_chart(num_posts, sort);
-}
+    if(svg_list) svg_list.remove();
+    if(list_title) {
+        list_title.text(" ");
+    } else {
+        list_title = d3.select("#list_title")
+            .append("text")
+            .text(" ")
+            .style("font-weight", "bold")
+            .style("font-size", 20);
+    }}
 
 /**
  * @name filterData
@@ -608,6 +720,7 @@ function selectDataList(Term, d) {
     var kk = 0;
     for(var jj = 0; jj < d.length; jj++) {
         if(d[jj].Term == Term) {
+            //console.log(d[jj]);
             array[kk] = d[jj];
             kk++;
         }
@@ -712,13 +825,13 @@ function selectDataBubbles(url, data) {
  * @returns {*}
  */
 function kind_to_color(d) {
-    console.log(d);
+    //console.log(d);
 
     var array = selectDataBars(d.Term, klass_data);
-    console.log(array.length);
+    //console.log(array.length);
     var resul = d3.scale.linear()
         .domain([10, 50])
-        .range([node_low_color, node_mouse_color]);
+        .range([node_low_color, node_high_color]);
     return resul(array.length);
     //return node_color;  // COLOUR
 }
@@ -753,7 +866,7 @@ function slider_handlers() {
     // Dropdown list
     d3.select("select").on("change", function(d) {
         sort = this.value;
-        console.log(sort);
+        //console.log(sort);
         switch(sort) {
             case "posts":
                 graph = num_posts;
@@ -795,8 +908,8 @@ function mouseover_node(z) {
         })
             //.attr("class", "node_circle_select")
             .style("stroke-width", 3)
-            .style("fill", function(d) { return kind_to_color(d) });
-            //.style("fill", node_mouse_color);  // COLOUR
+            //.style("fill", function(d) { return kind_to_color(d) });
+            .style("fill", node_color);  // COLOUR
 
         label.filter(function (d) {
             return !neighbors[d.index]
@@ -818,14 +931,12 @@ function mouseout_node(z) {
         node
             //.attr("class", "node_circle")
             .style("stroke-width", 1)
-            .style("fill", node_color);  // COLOUR
-    //if(!lock) {
+            .style("fill", function(d) { return kind_to_color(d) });
+            //.style("fill", node_color);  // COLOUR
         label
             .attr("font-size", 12)
             .style("fill-opacity", 1);
 
-        //node_title.remove();
-        //label_title.remove();
     }
 }
 
@@ -899,7 +1010,7 @@ function mouseclick_node(z) {
     //svg_bars.transition();
     //bars.transition().duration(1000);
 
-    console.log(z.Term);
+    //console.log(z.Term);
     draw_bar_chart(posts_fil, sort);
 
 }
@@ -953,8 +1064,6 @@ function mouseclick_bar(z) {
             array = selectDataBubbles(z.URL, klass_data);
             break;
     }
-    
-
 
     freq = 1;
     document.getElementById("slider1").value = freq;
@@ -963,7 +1072,6 @@ function mouseclick_bar(z) {
         span.removeChild( span.firstChild );
     }
     span.appendChild( document.createTextNode("1") );
-
 
     switch (sort) {
         case "posts":
@@ -977,7 +1085,8 @@ function mouseclick_bar(z) {
                         return -35 * Math.sqrt(d.freq)
                     });
 
-                node = node.data(force.nodes());
+                node = node.data(force.nodes())
+                    .style("fill", function(d) { return kind_to_color(d) });
 
                 nodeEnter = node.enter()
                     .append("circle")
@@ -985,7 +1094,8 @@ function mouseclick_bar(z) {
                     .attr("r", function (d) {
                         return diam * Math.sqrt(d.freq);
                     })
-                    .style("fill", node_color)
+                    //.style("fill", node_color)
+                    .style("fill", function(d) { return kind_to_color(d) })
                     .on("mouseover", function (d) {
                         mouseover_node(d);
                     })
@@ -998,9 +1108,7 @@ function mouseclick_bar(z) {
                         click_node = true;
                         mouseclick_node(d);
                         d3.select(this)
-                            .style("fill", function(d) {
-                                return kind_to_color(d);
-                            });
+                            .style("fill", node_selected_color);
                     });
 
             node_title = node.append("svg:title")

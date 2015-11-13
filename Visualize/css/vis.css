@@ -21,7 +21,8 @@ html, body {
 
 #header {
     width: 100%;
-    background-color: #90DAFF;
+    /*background-color: #90DAFF;*/
+    background-color: #ebf0fa;
     position: fixed;
     height: 68px;
     z-index: 2;
@@ -51,8 +52,6 @@ html, body {
 #reset {
     width: 10%;
     position: fixed;
-    /*margin-top: 2%;*/
-    /*margin-left: 10%;*/
     top: 1%;
     left: 2%;
     z-index: 4;
@@ -80,7 +79,7 @@ html, body {
     position: fixed;
     right: 20px;
     top: 10px;
-    background-color: #90DAFF;
+    background-color: #ebf0fa;
     height: 50px;
     z-index: 3;
 }

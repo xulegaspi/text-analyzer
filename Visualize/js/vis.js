@@ -13,6 +13,7 @@ var path = "data/";
 var force;       // Force layout for the Bubble Chart
 var svg_bubble;  // Bubble Chart SVG
 var svg_bars;    // Bar Chart SVG
+var svg_list;
 var list;        // List of posts
 var list_title;  // Word shown for the list
 var main;        // Bubble Chart
@@ -20,8 +21,10 @@ var bubble;
 var node;        // Bubble Chart nodes (bubbles)
 var nodeEnter;
 var bars;
+var bars_list;
 var label;       // Labels of the Bubbles
 var label_bars;
+var label_list;
 var graph;       // Data loaded and filtered from the Keywords and their Frequencies
 var graph_raw;
 var words_data;  // Raw data loaded from total_freq.json
