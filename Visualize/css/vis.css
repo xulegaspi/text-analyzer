@@ -198,3 +198,14 @@ html, body {
     -ms-user-select: none;
     user-select: none;
 }
+
+.xaxis {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+    /*font: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+}
+
+.axis-text {
+    font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

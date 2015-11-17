@@ -170,15 +170,8 @@ function draw_bar_chart(graph, mode) {
         .attr("height", graph.length * 20 + 50)
         .on("click", function() {
             if(!click_bar) {
-            //    if(lock_bar) {
-                    lock_bar = false;
-                    //label_bars = label_bars.style("fill", bar_label_color);
-            //    } else {
-            //        label_bars.style("fill", bar_label_color);
-            //        //click_bar = true;
-            //    }
+                lock_bar = false;
             } else {
-            //    //lock_bar = false;
                 click_bar = false;
             }
         })
@@ -197,7 +190,7 @@ function draw_bar_chart(graph, mode) {
                 .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }));
             console.log(graph);
             scale = d3.scale.linear()
-                .domain([0, max + 1])
+                .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "post_length":
@@ -206,7 +199,7 @@ function draw_bar_chart(graph, mode) {
             bars = svg_bars.selectAll("rect")
                 .data(graph.sort(function(a,b) { return +b.avg_length - +a.avg_length; }));
             scale = d3.scale.linear()
-                .domain([0, max + 1])
+                .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "num_photos":
@@ -215,7 +208,7 @@ function draw_bar_chart(graph, mode) {
             bars = svg_bars.selectAll("rect")
                 .data(graph.sort(function(a,b) { return +b.freq_image - +a.freq_image; }));
             scale = d3.scale.linear()
-                .domain([0, max + 1])
+                .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "num_videos":
@@ -224,7 +217,7 @@ function draw_bar_chart(graph, mode) {
             bars = svg_bars.selectAll("rect")
                 .data(graph.sort(function(a,b) { return +b.freq_video - +a.freq_video; }));
             scale = d3.scale.linear()
-                .domain([0, max + 1])
+                .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         default :
@@ -264,13 +257,17 @@ function draw_bar_chart(graph, mode) {
             //return resul(d.num_posts);
         })
         .on("mouseover", function() {
-            d3.select(this)
-                .attr("fill", bar_mouse_color);  // COLOUR
+            if(!lock_bar) {
+                d3.select(this)
+                    .attr("fill", bar_mouse_color);
+            }// COLOUR
             //mouseover_bar(d);
         })
         .on("mouseout", function() {
-            d3.select(this)
-                .attr("fill", bar_color);  // COLOUR
+            if(!lock_bar) {
+                d3.select(this)
+                    .attr("fill", bar_color);
+            }// COLOUR
             //mouseout_bar(d);
         })
         .on("click", function(d) {
@@ -280,6 +277,7 @@ function draw_bar_chart(graph, mode) {
             mouseclick_bar(d);
             d3.select(this)
                 .attr("fill", bar_mouse_color);
+            console.log(lock_bar + " " + click_bar + " bar_click");
             //alert(d.URL);
         })
         .attr("transform", "translate(5," + margin.top + ")")
@@ -349,6 +347,7 @@ function draw_bar_chart(graph, mode) {
 
     var xAxis = d3.svg.axis()
         .orient("top")
+        //.attr("class", "axis-text")
         .scale(scale);
 
     svg_bars.append("g")
@@ -410,11 +409,11 @@ function draw_list(data) {
         .data(data.sort(function(a,b) { return +b.freq - +a.freq; }));
 
     var xscale = d3.scale.linear()
-        .domain([0, max + 1])
+        .domain([0, max])
         .range([w_svg_list - 15, 20]);
 
     var xscale2 = d3.scale.linear()
-        .domain([0, max + 1])
+        .domain([0, max])
         .range([20, w_svg_list - 15]);
 
     bars_list.enter()
@@ -454,6 +453,7 @@ function draw_list(data) {
         });
 
     var xAxis = d3.svg.axis()
+        //.attr("class", "axis-text")
         .orient("top")
         .scale(xscale);
 
