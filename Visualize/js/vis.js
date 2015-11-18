@@ -64,18 +64,13 @@ d3.json(path + "total_freq.json", function(error, graph2) {
 
         klass_data = data;
 
-        console.log(data);
+        //console.log(data);
         draw_bubble_chart(graph2);
     });
     //setTimeout(draw_bubble_chart(graph2), 2000);
 
 
 });
-
-
-//d3.json("vis.php", function(error, data) {
-
-
 
 d3.json(path + "num_posts.json", function(error, data) {
     if (error) throw error;
