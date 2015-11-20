@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - textanalyzer1@localhost" uuid="ea353863-f98a-4330-ba3a-d6426a0512c3">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>textanalyzer1.*</schema-pattern>
+      <default-schemas>textanalyzer1.*</default-schemas>
+    </data-source>
+  </component>
+</project>
+

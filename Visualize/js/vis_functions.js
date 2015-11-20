@@ -3,12 +3,9 @@
  */
 
 var node_color = "#FFE47A";
-//var bar_color = "#1C68FF";
 var bar_color = "#6c7b93";
-//var node_selected_color = "#FFE47A";
 var node_selected_color = "#80b3ff";
 var node_mouse_color = "#90DAFF";
-//var node_low_color = "#ff9900";
 
 var node_low_color = "#ffebcc";
 var node_high_color = "#ffa31a";
@@ -34,6 +31,7 @@ var selected_bar;
 
 var bubble_values;
 var bar_values;
+var list_values;
 
 
 /**
@@ -81,6 +79,8 @@ function draw_bubble_chart(graph) {
                 if(lock) lock = false;
                 mouseout_node();
                 selected_node = null;
+                var data = selectDataList(klass_data);
+                draw_list(data);
             } else {
                 click_node = false;
             }
@@ -117,7 +117,7 @@ function draw_bubble_chart(graph) {
         })
         .on("click", function(d) {
             selected_node = d;
-            console.log(selected_node);
+            //console.log(selected_node);
             lock = lock ? false : true;
             //lock = true;
             click_node = true;
@@ -193,6 +193,8 @@ function draw_bar_chart(graph, mode) {
                 console.log(bar_change);
                 bar_change.attr("fill", bar_color);
                 selected_bar = null;
+                var data = selectDataList(klass_data);
+                draw_list(data);
             } else {
                 click_bar = false;
             }
@@ -391,8 +393,10 @@ function draw_bar_chart(graph, mode) {
  */
 function draw_list(data) {
 
+    //console.log(data);
     if(svg_list) svg_list.remove();
 
+    if(data == "[]") return;
     //console.log(data);
 
     //list = d3.select("#list")
@@ -407,6 +411,8 @@ function draw_list(data) {
     //    //.text(function(d) { return d.post_url } )
     //    .text(function(d) { return extractTitlePost(d.post_url) } )
     //    .on("click", function(d) { window.open(d.post_url); });
+
+
 
     svg_list = d3.select("#list").append("svg")
         .attr("width", "100%")
@@ -702,6 +708,8 @@ function reset() {
     }
     span.appendChild( document.createTextNode("Overall") );
 
+    document.getElementById("select").value = "posts";
+
     diam = 3.5;
     gravity = 40 * 0.005;
     remove();
@@ -748,16 +756,99 @@ function filterData(freq1, d) {
  * @param d
  * @returns {Array}
  */
-function selectDataList(Term, d) {
+function selectDataList(d) {
     var array = [];
+    var resul = [];
     var kk = 0;
-    for(var jj = 0; jj < d.length; jj++) {
-        if(d[jj].Term == Term) {
-            //console.log(d[jj]);
-            array[kk] = d[jj];
-            kk++;
+    var zz = 0;
+    var Term = "";
+    var Url = "";
+    console.log("node: " + selected_node + ", bar: " + selected_bar);
+
+    if(selected_node != null && selected_bar != null) {
+        console.log("BOTH");
+
+        Term = selected_node.Term;
+        for(var jj = 0; jj < d.length; jj++) {
+            if(d[jj].Term == Term) {
+                //console.log(d[jj]);
+                array[kk] = d[jj];
+                kk++;
+            }
         }
+
+        switch(sort) {
+            case "posts":
+                Url = selected_bar.URL;
+                break;
+            default :
+                Url = selected_bar.url;
+                break;
+        }
+
+        //console.log(selected_bar);
+        for(var ii = 0; ii < array.length; ii++) {
+            if(array[ii].klass_url == Url) {
+                resul[zz] = array[ii];
+                console.log("AAA");
+                zz++;
+            }
+        }
+        return resul;
+
+    } else if(selected_node != null) {
+
+        console.log("NODE");
+        console.log(selected_node.Term);
+        Term = selected_node.Term;
+        for(var jj = 0; jj < d.length; jj++) {
+            if(d[jj].Term == Term) {
+                //console.log(d[jj]);
+                array[kk] = d[jj];
+                kk++;
+            }
+        }
+        return array;
+
+    } else if(selected_bar != null) {
+
+        console.log("BAR");
+        console.log(selected_bar);
+        var vv = 0;
+
+        switch(sort) {
+            case "posts":
+                Url = selected_bar.URL;
+                break;
+            default :
+                Url = selected_bar.url;
+                break;
+        }
+
+
+        for(var hh = 0; hh < d.length; hh++) {
+            var exists = false;
+            if(d[hh].klass_url == Url) {
+                for(var abc = 0; abc < array.length; abc++) {
+                    if(array[abc].post_url == d[hh].post_url) {
+                        exists = true;
+                    }
+                }
+                if(!exists) {
+                    console.log(d[hh]);
+                    array[vv] = d[hh];
+                    vv++;
+                }
+            }
+        }
+
+
+
+    } else {
+        console.log("NTH");
+
     }
+
     return array;
 }
 
@@ -1007,7 +1098,7 @@ function mouseclick_node(z) {
     //lock = true;
     //mouseover_node(z);
 
-    var data = selectDataList(z.Term, klass_data);
+    var data = selectDataList(klass_data);
 
     if(list_title) {
         list_title.text(z.Term);
@@ -1067,7 +1158,7 @@ function mouseclick_node(z) {
     draw_bar_chart(posts_fil, sort);
 
     if(selected_bar != null) {
-        console.log(selected_bar);
+        //console.log(selected_bar);
         var bar_change = bars.filter(function(d) {
             //console.log("d: " + d);
             switch(sort) {
@@ -1077,8 +1168,8 @@ function mouseclick_node(z) {
                     return d.url == selected_bar.url;;
             }
         });
-        console.log("SELECTED: " + selected_bar.url);
-        console.log("FOUND: " + bar_change);
+        //console.log("SELECTED: " + selected_bar.url);
+        //console.log("FOUND: " + bar_change);
         bar_change.attr("fill", bar_mouse_color);
 
     }
@@ -1172,6 +1263,7 @@ function mouseclick_bar(z) {
             mouseout_node(d);
         })
         .on("click", function (d) {
+            selected_node = d;
             //lock = true;
             lock = lock ? false : true;
             click_node = true;
@@ -1280,11 +1372,15 @@ function mouseclick_bar(z) {
         label_nochange.style("fill-opacity", 0.2);
 
     }
+
+    var data = selectDataList(klass_data);
+    draw_list(data);
             //break;
     //}
 
 
 }
+
 
 
 function extractTitlePost(post) {
