@@ -6,7 +6,7 @@
  * Time: 19:26
  */
 
-$EXEC_TIME = 3000;  // 25 minutes
+$EXEC_TIME = 3600;  // 25 minutes
 
 require_once('/ext/words.php');
 require_once('/ext/Levenshtein_SQL.php');  // This must be included manually in the phpMyAdmin page, SQL section
@@ -103,8 +103,8 @@ for($ii=0; $ii < $num_rows; $ii++) {
                 $type = extractMedia($media_url);
 
                 // Insert the media
-                $inserts = "'" . $url_id . "'" . ", " . "'" . $media_url . "'" . ", " . "'" . $type . "'";
-                $query2 = "INSERT INTO media (Id_Post, Media_URL, Type) VALUES (" . $inserts . ")";
+                $inserts = "'" . $url_id . "'" . ", " . "'" . $post_id . "'" . ", " . "'" . $media_url . "'" . ", " . "'" . $type . "'";
+                $query2 = "INSERT INTO media (Id_url, Id_Post, Media_URL, Type) VALUES (" . $inserts . ")";
                 $result2 = $mysqli->query($query2);
 
             } else {

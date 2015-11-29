@@ -25,9 +25,11 @@ var label_title;
 
 var click_node = false;
 var click_bar = false;
+var click_list = false;
 
 var selected_node;
 var selected_bar;
+var selected_list;
 
 var bubble_values;
 var bar_values;
@@ -60,13 +62,15 @@ function draw() {
 function draw_bubble_chart(graph) {
 
     force = d3.layout.force()
-        .charge(-200)
         .linkDistance(50)
         .gravity(gravity)
         .size([width, height])
         .nodes(bubble_values = graph.filter(function(d) {
             return d.freq > freq;
         }))
+        .charge(function(d) {
+            return -4 * d.freq;
+        })
         .on("tick", tick);
 
     force.start();
@@ -100,10 +104,6 @@ function draw_bubble_chart(graph) {
         .attr("r", function (d) {
             return diam * Math.sqrt(d.freq);
         })
-        //.style("fill", function (d) {
-        //    //return kind_to_color(d);
-        //})
-        //.style("fill", node_color)  // COLOUR
         .style("fill", function(d) {
             return kind_to_color(d)
         })
@@ -186,11 +186,9 @@ function draw_bar_chart(graph, mode) {
         .on("click", function() {
             if(!click_bar) {
                 if(lock_bar) lock_bar = false;
-                console.log(selected_bar);
                 var bar_change = bars.filter(function(d) {
                     return d == selected_bar;
                 });
-                console.log(bar_change);
                 bar_change.attr("fill", bar_color);
                 selected_bar = null;
                 var data = selectDataList(klass_data);
@@ -250,17 +248,11 @@ function draw_bar_chart(graph, mode) {
 
     bars.enter()
         .append("rect")
-        //.attr("id", function(d) {
-        //    return d.URL;
-        //})
         .attr("height", 18)
         .attr("y", function (d, i) {
             return i * 20;
         })
         .attr("width", function (d, i) {
-            //var scale;// = d3.scale.linear()
-            //    //.domain([0, 0.4]);
-            ////    .domain([0, 0.05]);
             switch (mode) {
                 case "posts":
                     return scale(d.num_posts);
@@ -277,8 +269,6 @@ function draw_bar_chart(graph, mode) {
                 default :
                     return scale(d.freq);
             }
-            //return resul(d.freq);
-            //return resul(d.num_posts);
         })
         .on("mouseover", function() {
             if(!lock_bar) {
@@ -295,11 +285,10 @@ function draw_bar_chart(graph, mode) {
             //mouseout_bar(d);
         })
         .on("click", function(d) {
+            if(selected_bar == d)
+                console.log(d);
             selected_bar = d;
-            console.log("Bar selected: ");
-            console.log(d);
             lock_bar = lock_bar ? false : true;
-            //lock = true;
             click_bar = true;
             mouseclick_bar(d);
             d3.select(this)
@@ -307,16 +296,20 @@ function draw_bar_chart(graph, mode) {
             //console.log(lock_bar + " " + click_bar + " bar_click");
             //alert(d.URL);
         })
+        .on("dblclick", function(d) {
+            switch (sort) {
+                case "posts":
+                    window.open(d.URL);
+                    break;
+                default :
+                    window.open(d.url);
+            }
+        })
         .attr("transform", "translate(5," + margin.top + ")")
         .attr("fill", bar_color);  // COLOUR
 
     label_bars = svg_bars.selectAll("text")
         .data(graph)
-        //.data(graph.sort(function(a,b) {
-        //    //max = d3.max(b.num_posts);
-        //    //console.log(a.num_posts);
-        //    return +b.num_posts - +a.num_posts;
-        //}))
         .enter()
         .append("text")
         .attr("fill", bar_label_color)
@@ -339,16 +332,13 @@ function draw_bar_chart(graph, mode) {
             //mouseout_bar(d);
         })
         .on("click", function(d, i) {
-            selected_bar = d.index;
+            selected_bar = d;
+            //console.log(d);
             lock_bar = lock_bar ? false : true;
-            //lock = true;
             click_bar = true;
             mouseclick_bar(d);
             d3.select(this)
                 .attr("fill", bar_label_selected_color);
-            //alert(d.URL);
-            //console.log(i);
-            //console.log(bars)
         })
         .attr("transform", "translate(5," + margin.top + ")")
         .text(function (d) {
@@ -375,7 +365,6 @@ function draw_bar_chart(graph, mode) {
 
     var xAxis = d3.svg.axis()
         .orient("top")
-        //.attr("class", "axis-text")
         .scale(scale);
 
     svg_bars.append("g")
@@ -399,32 +388,19 @@ function draw_list(data) {
     if(data == "[]") return;
     //console.log(data);
 
-    //list = d3.select("#list")
-    //    .append("ul")
-    //    .selectAll("text")
-    //        .data(data)
-    //    .enter().append("li")
-    //    .attr("y", function(d, i) {
-    //        return i * 20;
-    //    })
-    //    .attr("height", 18)
-    //    //.text(function(d) { return d.post_url } )
-    //    .text(function(d) { return extractTitlePost(d.post_url) } )
-    //    .on("click", function(d) { window.open(d.post_url); });
-
-
-
     svg_list = d3.select("#list").append("svg")
         .attr("width", "100%")
         .attr("height", data.length * 20 + 50)
         .on("click", function() {
-            //console.log(click_bar);
-            //console.log(lock_bar);
-            //lock_bar = lock_bar ? false : true;
-            if(!click_bar) {
-                lock_bar = false;
+            if(!click_list) {
+                if(lock_list) lock_list = false;
+                var list_change = bars_list.filter(function(d) {
+                    return d == selected_list;
+                });
+                list_change.attr("fill", bar_list_color);
+                selected_list = null;
             } else {
-                click_bar = false;
+                click_list = false;
             }
         })
         .attr("transform",
@@ -461,7 +437,19 @@ function draw_list(data) {
         .attr("width", function (d, i) {
             return xscale2(d.freq) - 20;
         })
-        .on("click", function(d) { window.open(d.post_url); })
+        .on("click", function(d) {
+            console.log(selected_list);
+
+            console.log(d);
+            selected_list = d;
+            lock_list = lock_list ? false : true;
+            click_list = true;
+            d3.select(this)
+                .attr("fill", bar_mouse_color);
+            mouseclick_list(d);
+
+        })
+        .on("dblclick", function(d) { window.open(d.post_url); })
         .attr("transform", "translate(-15," + margin.top + ")")
         .attr("fill", bar_list_color);  // COLOUR
 
@@ -476,7 +464,7 @@ function draw_list(data) {
         .text(function (d) {
             return extractTitlePost(d.post_url);
         })
-        .on("click", function(d) { window.open(d.post_url); })
+        .on("dblclick", function(d) { window.open(d.post_url); })
         .attr("transform", "translate(-15," + margin.top + ")")
         .attr("x", function(d) {
             var w_svg_list = svg_list.style("width");
@@ -542,7 +530,8 @@ function update(slider1) {
             return d.freq >= freq;
         }))
         .charge(function (d) {
-            return -35 * Math.sqrt(d.freq)
+            //return -35 * Math.sqrt(d.freq);
+            return -freq * d.freq;
         });
 
 
@@ -763,10 +752,10 @@ function selectDataList(d) {
     var zz = 0;
     var Term = "";
     var Url = "";
-    console.log("node: " + selected_node + ", bar: " + selected_bar);
+    //console.log("node: " + selected_node + ", bar: " + selected_bar);
 
     if(selected_node != null && selected_bar != null) {
-        console.log("BOTH");
+        //console.log("BOTH");
 
         Term = selected_node.Term;
         for(var jj = 0; jj < d.length; jj++) {
@@ -790,7 +779,7 @@ function selectDataList(d) {
         for(var ii = 0; ii < array.length; ii++) {
             if(array[ii].klass_url == Url) {
                 resul[zz] = array[ii];
-                console.log("AAA");
+                //console.log("AAA");
                 zz++;
             }
         }
@@ -798,8 +787,8 @@ function selectDataList(d) {
 
     } else if(selected_node != null) {
 
-        console.log("NODE");
-        console.log(selected_node.Term);
+        //console.log("NODE");
+        //console.log(selected_node.Term);
         Term = selected_node.Term;
         for(var jj = 0; jj < d.length; jj++) {
             if(d[jj].Term == Term) {
@@ -812,8 +801,8 @@ function selectDataList(d) {
 
     } else if(selected_bar != null) {
 
-        console.log("BAR");
-        console.log(selected_bar);
+        //console.log("BAR");
+        //console.log(selected_bar);
         var vv = 0;
 
         switch(sort) {
@@ -835,7 +824,7 @@ function selectDataList(d) {
                     }
                 }
                 if(!exists) {
-                    console.log(d[hh]);
+                    //console.log(d[hh]);
                     array[vv] = d[hh];
                     vv++;
                 }
@@ -845,7 +834,7 @@ function selectDataList(d) {
 
 
     } else {
-        console.log("NTH");
+        //console.log("NTH");
 
     }
 
@@ -863,12 +852,12 @@ function selectDataBars(Term, d) {
     var array = [];
     var resul = [];
     var kk = 0;
+
+    // Get all the klass_urls where the Term appear (there will be duplicated urls)
     for (var jj = 0; jj < d.length; jj++) {
-        //array = d.filter(function(d) {
-        //    return d.Term = Term;
-        //});
 
         if (d[jj].Term == Term) {
+            //console.log(d[jj].klass_url);
             array[kk] = d[jj].klass_url;
             kk++;
         }
@@ -876,10 +865,16 @@ function selectDataBars(Term, d) {
     kk = 0;
     var ii = 0;
     var x = false;
+    //console.log(array.length);
+
+    // array contains a list of the Terms and the URL where they appear
+    // now we have to group those URLs (when more than one word appear in the same URL)
+
     for (jj = 0; jj < array.length; jj++) {
 
         switch(sort) {
             case "posts":
+                //console.log(num_posts.length);
                 for (kk = 0; kk < num_posts.length; kk++) {
                     if (array[jj] == num_posts[kk].URL) {
                         for(var xx = 0; xx < resul.length; xx++) {
@@ -896,6 +891,7 @@ function selectDataBars(Term, d) {
                 x = false;
                 break;
             case "post_length":
+                //console.log(avg_length.length);
                 for (kk = 0; kk < avg_length.length; kk++) {
                     if (array[jj] == avg_length[kk].url) {
                         for(var xx = 0; xx < resul.length; xx++) {
@@ -909,6 +905,30 @@ function selectDataBars(Term, d) {
                         }
                     }
                 }
+                x = false;
+                break;
+            case "num_photos":
+                //console.log(media.length);
+                // loop all the media file
+                for (kk = 0; kk < num_media.length; kk++) {
+                    // Check if it's the same url
+                    if (array[jj] == num_media[kk].url) {
+                        // Loop all the resul array
+                        for(var xx = 0; xx < resul.length; xx++) {
+                            // Check if it's already added
+                            if (resul[xx].url == num_media[kk].url) {
+                                x = true;
+                            }
+                        }
+                        // If it's not added, add it
+                        if(!x) {
+                            resul[ii] = num_media[kk];
+                            console.log(num_media[kk]);
+                            ii++;
+                        }
+                    }
+                }
+                //console.log(resul.length);
                 x = false;
                 break;
             default:
@@ -944,10 +964,7 @@ function selectDataBubbles(url, data) {
             });
 
             if(aux.length > 0) {
-
                 aux[0].freq = parseInt(aux[0].freq) + parseInt(data[jj].freq);
-
-                //console.log("before freq: " + aux[0].freq + ", add freq: " + data[jj].freq );
             } else {
 
                 array[kk] = data[jj];
@@ -957,6 +974,30 @@ function selectDataBubbles(url, data) {
         }
     }
 
+    return array;
+}
+
+function selectDataBubbles2(url, data) {
+    var array = [];
+    var kk = 0;
+    for(var jj = 0; jj < data.length; jj++) {
+        if(data[jj].post_url == url) {
+
+            var aux = array.filter(function(d) {
+                return d.Term == data[jj].Term;
+            });
+
+            if(aux.length > 0) {
+                aux[0].freq = parseInt(aux[0].freq) + parseInt(data[jj].freq);
+            } else {
+
+                array[kk] = data[jj];
+                kk++;
+
+            }
+        }
+    }
+    console.log(array);
     return array;
 }
 
@@ -1093,68 +1134,27 @@ function mouseout_bar() {
 }
 
 function mouseclick_node(z) {
-    //alert(z.Term);
-    //lock = lock ? false : true;
-    //lock = true;
-    //mouseover_node(z);
 
     var data = selectDataList(klass_data);
 
-    if(list_title) {
-        list_title.text(z.Term);
-    } else {
-        list_title = d3.select("#list_title")
-            .append("text")
-            .text(z.Term)
-            .style("font-weight", "bold")
-            .style("font-size", 20);
-    }
-
-    //bars = bars.data(data.sort(function(a,b) { return +b.num_posts - +a.num_posts; }))
-    //    .attr("width", function (d, i) {
-    //            var resul = d3.scale.linear()
-    //                //.domain([0, 0.4]);
-    //                .domain([0, 0.05]);
-    //            //switch (mode) {
-    //            //    case "posts":
-    //            //        return resul(d.num_posts);
-    //            //        break;
-    //            //    case "media":
-    //            //        return resul(d.freq);
-    //            //        break;
-    //            //    default :
-    //            //        return resul(d.freq);
-    //            //}
-    //            //return resul(d.freq);
-    //            return resul(d.num_posts);
-    //        });
-    //bars.exit().remove();
-
-    //bars.exit().remove();
+    //if(list_title) {
+    //    list_title.text(z.Term);
+    //} else {
+    //    list_title = d3.select("#list_title")
+    //        .append("text")
+    //        .text(z.Term)
+    //        .style("font-weight", "bold")
+    //        .style("font-size", 20);
+    //}
 
     svg_bars.remove();
     draw_list(data);
 
-    //draw_bubble_chart(graph);
+    console.log(z)
     posts_fil = selectDataBars(z.Term, klass_data);
 
-    //console.log(posts_fil.length);
-    //console.log(bars.filter(function(d, i) {
-    //    if(posts_fil.indexOf(d) > -1) {
-    //        return d;
-    //    }
-    //}));
-    //bars = bars
-    //    .filter(function(d) {
-    //    if(posts_fil.indexOf(d) > -1) {
-    //        return d;
-    //    }
-    //})
-    //    .transition();
-    //svg_bars.transition();
-    //bars.transition().duration(1000);
+    //console.log(posts_fil);
 
-    //console.log(z.Term);
     draw_bar_chart(posts_fil, sort);
 
     if(selected_bar != null) {
@@ -1165,11 +1165,10 @@ function mouseclick_node(z) {
                 case "posts":
                     return d.URL == selected_bar.URL;
                 default:
-                    return d.url == selected_bar.url;;
+                    return d.url == selected_bar.url;
             }
         });
-        //console.log("SELECTED: " + selected_bar.url);
-        //console.log("FOUND: " + bar_change);
+
         bar_change.attr("fill", bar_mouse_color);
 
     }
@@ -1207,8 +1206,6 @@ function mouseclick_bar(z) {
 
             break;
         case "num_photos":
-            //console.log(z);
-            //array = extractImages(z.id_post);
             array = selectDataBubbles(z.url, klass_data);
 
             document.getElementById("tittle_bubble").value = z.url;
@@ -1233,16 +1230,11 @@ function mouseclick_bar(z) {
     }
     span.appendChild( document.createTextNode("1") );
 
-    //switch (sort) {
-    //    case "posts":
-    //    case "post_length":
-    //    case "num_photos":
-    force.
-        nodes(array.filter(function (d) {
+    force.nodes(array.filter(function (d) {
             return d.freq >= freq;
         }))
             .charge(function (d) {
-                return -35 * Math.sqrt(d.freq)
+                return -20 * d.freq;
             });
 
     node = node.data(force.nodes())
@@ -1254,8 +1246,9 @@ function mouseclick_bar(z) {
         .attr("r", function (d) {
             return diam * Math.sqrt(d.freq);
         })
-        //.style("fill", node_color)
-        .style("fill", function(d) { return kind_to_color(d) })
+        .style("fill", function(d) {
+            return kind_to_color(d);
+        })
         .on("mouseover", function (d) {
             mouseover_node(d);
         })
@@ -1274,7 +1267,6 @@ function mouseclick_bar(z) {
 
     node_title = node.append("svg:title")
         .text(function(d) {
-            //console.log(d);
             var array = selectDataBars(d.Term, klass_data);
             return "Number of posts it appears: " + array.length;
         });
@@ -1316,7 +1308,6 @@ function mouseclick_bar(z) {
             click_node = true;
             mouseclick_node(d);
             d3.select(this)
-                //.style("fill", "red")
                 .attr("class", "selected_node");
         })
         .text(function (d) {
@@ -1325,7 +1316,6 @@ function mouseclick_bar(z) {
 
     label_title = label.append("svg:title")
         .text(function(d) {
-            //console.log(d);
             var array = selectDataBars(d.Term, klass_data);
             return "Number of posts it appears: " + array.length;
         });
@@ -1344,7 +1334,6 @@ function mouseclick_bar(z) {
 
         node.transition()
             .attr("r", function (d) {
-
                 return diam * Math.sqrt(d.freq);
             })
             .duration(1000)
@@ -1353,11 +1342,11 @@ function mouseclick_bar(z) {
         force.gravity(12 * 0.005);
 
     if(selected_node) {
-        console.log(selected_node);
+        //console.log(selected_node);
         var node_change = node.filter(function(d) {
             return d.Term == selected_node.Term;
         });
-        console.log("FOUND: " + node_change);
+        //console.log("FOUND: " + node_change);
         node_change.style("fill", node_selected_color);
 
 
@@ -1375,24 +1364,163 @@ function mouseclick_bar(z) {
 
     var data = selectDataList(klass_data);
     draw_list(data);
-            //break;
-    //}
 
+}
+
+function mouseclick_list(z) {
+
+    var array = selectDataBubbles2(z.post_url, klass_data);
+    freq = 1;
+    document.getElementById("slider1").value = freq;
+    span = document.getElementById('slider1-value');
+    while( span.firstChild ) {
+        span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode("1") );
+
+    force.nodes(array.filter(function (d) {
+        return d.freq >= freq;
+    }))
+        .charge(function (d) {
+            return -35 * d.freq;
+        });
+
+    node = node.data(force.nodes())
+        .style("fill", function(d) { return kind_to_color(d) });
+
+    nodeEnter = node.enter()
+        .append("circle")
+        .attr("class", "node_circle")
+        .attr("r", function (d) {
+            return diam * Math.sqrt(d.freq);
+        })
+        .style("fill", function(d) {
+            return kind_to_color(d);
+        })
+        .on("mouseover", function (d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function (d) {
+            mouseout_node(d);
+        })
+        .on("click", function (d) {
+            selected_node = d;
+            //lock = true;
+            lock = lock ? false : true;
+            click_node = true;
+            mouseclick_node(d);
+            d3.select(this)
+                .style("fill", node_selected_color);
+        });
+
+    node_title = node.append("svg:title")
+        .text(function(d) {
+            var array = selectDataBars(d.Term, klass_data);
+            return "Number of posts it appears: " + array.length;
+        });
+
+    node.exit()
+        .transition()
+        .attr("r", 0)
+        .duration(500)
+        .remove();
+
+    node.call(force.drag);
+
+    label = label.data(force.nodes())
+        .text(function (d) {
+            return d.Term;
+        });
+
+    label.enter()
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("class", "node_label")
+        .attr("font-family", "Verdana")
+        .attr("font-size", 12)
+        .style("fill", "#000000")
+        .on("mouseover", function (d) {
+            mouseover_node(d);
+        })
+        .on("mouseout", function (d) {
+            mouseout_node(d);
+        })
+        .on("click", function (d) {
+            //lock = true;
+            selected_node = d;
+            var node_change = node.filter(function(d) {
+                return d == selected_node;
+            });
+            node_change.style("fill", node_selected_color);
+            lock = lock ? false : true;
+            click_node = true;
+            mouseclick_node(d);
+            d3.select(this)
+                .attr("class", "selected_node");
+        })
+        .text(function (d) {
+            return d.Term;
+        });
+
+    label_title = label.append("svg:title")
+        .text(function(d) {
+            var array = selectDataBars(d.Term, klass_data);
+            return "Number of posts it appears: " + array.length;
+        });
+
+    label.exit()
+        .transition()
+        .duration(500)
+        .remove();
+
+    force.start();
+
+    graph_raw = array;
+    graph = graph_raw;
+
+    diam = 13;
+
+    node.transition()
+        .attr("r", function (d) {
+            return diam * Math.sqrt(d.freq);
+        })
+        .duration(1000)
+        .delay(500);
+
+    force.gravity(12 * 0.005);
+
+    if(selected_node) {
+        //console.log(selected_node);
+        var node_change = node.filter(function(d) {
+            return d.Term == selected_node.Term;
+        });
+        //console.log("FOUND: " + node_change);
+        node_change.style("fill", node_selected_color);
+
+
+        var label_change = label.filter(function(d) {
+            return d.Term == selected_node.Term;
+        });
+        var label_nochange = label.filter(function(d) {
+            return d.Term != selected_node.Term;
+        });
+        label_change.attr("font-size", 16)
+            .style("fill-opacity", 1);
+        label_nochange.style("fill-opacity", 0.2);
+
+    }
 
 }
 
 
-
 function extractTitlePost(post) {
-    var array = [];
-    array = post.split("/");
+    var array = post.split("/");
     var l = array.length;
 
     return array[l-2];
 }
 
 function extractTitleURL(url) {
-    //var array = [];
     var pos1;
     if(url.indexOf("www") == -1) {
         pos1 = url.indexOf("//") + 2;

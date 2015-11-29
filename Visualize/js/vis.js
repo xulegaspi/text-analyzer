@@ -32,7 +32,7 @@ var klass_data;  // Raw data loaded from freq_klass_final.json
 var klass_fil;
 var num_posts;
 var posts_fil;
-var num_media;
+var num_media;  // Data loaded from media_final.json
 var media_fil;
 var media;
 var sort;
@@ -41,6 +41,7 @@ var scale;
 
 var lock = false;
 var lock_bar = false;
+var lock_list = false;
 
 
 //d3.json("vis.php", function(error, graph) {

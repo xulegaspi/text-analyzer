@@ -204,7 +204,7 @@ html, body {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
-    /*font: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .axis-text {
