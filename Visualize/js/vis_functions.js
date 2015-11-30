@@ -116,11 +116,35 @@ function draw_bubble_chart(graph) {
             mouseout_node(d);
         })
         .on("click", function(d) {
+
+            if(selected_node != null && selected_node != d) {
+                var node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                d3.select(this)
+                    .attr("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            //console.log(selected_node);
-            lock = lock ? false : true;
-            //lock = true;
-            click_node = true;
             mouseclick_node(d);
                 d3.select(this)
                     .style("fill", node_selected_color);
@@ -152,14 +176,43 @@ function draw_bubble_chart(graph) {
             mouseout_node(d);
         })
         .on("click", function(d) {
+            var node_change;
+
+            if(selected_node != null && selected_node != d) {
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                node_change.style("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            var node_change = node.filter(function(d) {
+            mouseclick_node(d);
+            node_change = node.filter(function(d) {
                 return d == selected_node;
             });
             node_change.style("fill", node_selected_color);
-            lock = lock ? false : true;
-            click_node = true;
-            mouseclick_node(d);
         })
         .text(function (d) {
             return d.Term;
@@ -184,6 +237,13 @@ function draw_bar_chart(graph, mode) {
         .attr("width", "100%")
         .attr("height", graph.length * 20 + 50)
         .on("click", function() {
+            //if(selected_bar != null) {
+            //    var bar_change = bars.filter(function(d) {
+            //        return d == selected_bar;
+            //    });
+            //    bar_change.attr("fill", bar_color);
+            //}
+
             if(!click_bar) {
                 if(lock_bar) lock_bar = false;
                 var bar_change = bars.filter(function(d) {
@@ -285,16 +345,26 @@ function draw_bar_chart(graph, mode) {
             //mouseout_bar(d);
         })
         .on("click", function(d) {
-            if(selected_bar == d)
-                console.log(d);
+            //if(selected_bar == d)
+            //    console.log(d);
+            if(selected_bar != null && selected_bar != d) {
+                var bar_change = bars.filter(function(d) {
+                    return d == selected_bar;
+                });
+                bar_change.attr("fill", bar_color);
+                selected_bar = d;
+                lock_bar = true;
+                click_bar = true;
+                d3.select(this)
+                    .attr("fill", bar_mouse_color);
+            } else {
+                lock_bar = lock_bar ? false : true;
+                click_bar = true;
+            }
             selected_bar = d;
-            lock_bar = lock_bar ? false : true;
-            click_bar = true;
             mouseclick_bar(d);
             d3.select(this)
                 .attr("fill", bar_mouse_color);
-            //console.log(lock_bar + " " + click_bar + " bar_click");
-            //alert(d.URL);
         })
         .on("dblclick", function(d) {
             switch (sort) {
@@ -313,6 +383,7 @@ function draw_bar_chart(graph, mode) {
         .enter()
         .append("text")
         .attr("fill", bar_label_color)
+        .attr("class", "label")
         .attr("y", function (d, i) {
             return i * 20 + 14;
         })
@@ -332,13 +403,31 @@ function draw_bar_chart(graph, mode) {
             //mouseout_bar(d);
         })
         .on("click", function(d, i) {
+
+            if(selected_bar != null && selected_bar != d) {
+                var bar_change = bars.filter(function(d) {
+                    return d == selected_bar;
+                });
+                bar_change.attr("fill", bar_color);
+                selected_bar = d;
+                lock_bar = true;
+                click_bar = true;
+                var this_bar = bars.filter(function(d) {
+                    return d == selected_bar;
+                });
+                this_bar.attr("fill", bar_mouse_color);
+            } else {
+                lock_bar = lock_bar ? false : true;
+                click_bar = true;
+            }
             selected_bar = d;
-            //console.log(d);
-            lock_bar = lock_bar ? false : true;
-            click_bar = true;
+            var this_bar = bars.filter(function(d) {
+                return d == selected_bar;
+            });
+            this_bar.attr("fill", bar_mouse_color);
             mouseclick_bar(d);
             d3.select(this)
-                .attr("fill", bar_label_selected_color);
+                .attr("fill", bar_label_color);
         })
         .attr("transform", "translate(5," + margin.top + ")")
         .text(function (d) {
@@ -438,12 +527,22 @@ function draw_list(data) {
             return xscale2(d.freq) - 20;
         })
         .on("click", function(d) {
-            console.log(selected_list);
-
-            console.log(d);
+            if(selected_list != null && selected_list != d) {
+                console.log("hej");
+                var bar_list_change = bars_list.filter(function(d) {
+                    return d == selected_list;
+                });
+                bar_list_change.attr("fill", bar_list_color);
+                selected_list = d;
+                lock_list = true;
+                click_list = true;
+                d3.select(this)
+                    .attr("fill", bar_mouse_color);
+            } else {
+                lock_list = lock_list ? false : true;
+                click_list = true;
+            }
             selected_list = d;
-            lock_list = lock_list ? false : true;
-            click_list = true;
             d3.select(this)
                 .attr("fill", bar_mouse_color);
             mouseclick_list(d);
@@ -458,11 +557,38 @@ function draw_list(data) {
         .enter()
         .append("text")
         .attr("fill", label_list_color)
+        .attr("class", "label")
         .attr("y", function (d, i) {
             return i * 20 + 14;
         })
         .text(function (d) {
             return extractTitlePost(d.post_url);
+        })
+        .on("click", function(d, i) {
+            if(selected_list != null && selected_list != d) {
+                var bar_list_change = bars_list.filter(function(d) {
+                    return d == selected_list;
+                });
+                bar_list_change.attr("fill", bar_list_color);
+                selected_list = d;
+                lock_list = true;
+                click_list = true;
+                var this_list = bars_list.filter(function(d) {
+                    return d == selected_list;
+                });
+                this_list.attr("fill", bar_mouse_color);
+            } else {
+                lock_list = lock_list ? false : true;
+                click_list = true;
+            }
+            selected_list = d;
+            var this_list = bars_list.filter(function(d) {
+                return d == selected_list;
+            });
+            this_list.attr("fill", bar_mouse_color);
+            mouseclick_list(d);
+            d3.select(this)
+                .attr("fill", label_list_color);
         })
         .on("dblclick", function(d) { window.open(d.post_url); })
         .attr("transform", "translate(-15," + margin.top + ")")
@@ -703,21 +829,12 @@ function reset() {
     gravity = 40 * 0.005;
     remove();
     draw_bubble_chart(words_data);
-    //graph_raw = words_data;
-    //console.log(words_data);
     sort = "posts";
     graph_raw = words_data;
     draw_bar_chart(num_posts, sort);
     if(svg_list) svg_list.remove();
-    if(list_title) {
-        list_title.text(" ");
-    } else {
-        list_title = d3.select("#list_title")
-            .append("text")
-            .text(" ")
-            .style("font-weight", "bold")
-            .style("font-size", 20);
-    }}
+
+}
 
 /**
  * @name filterData
@@ -1150,7 +1267,7 @@ function mouseclick_node(z) {
     svg_bars.remove();
     draw_list(data);
 
-    console.log(z)
+    //console.log(z);
     posts_fil = selectDataBars(z.Term, klass_data);
 
     //console.log(posts_fil);
@@ -1256,10 +1373,34 @@ function mouseclick_bar(z) {
             mouseout_node(d);
         })
         .on("click", function (d) {
+            if(selected_node != null && selected_node != d) {
+                var node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                d3.select(this)
+                    .attr("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            //lock = true;
-            lock = lock ? false : true;
-            click_node = true;
             mouseclick_node(d);
             d3.select(this)
                 .style("fill", node_selected_color);
@@ -1298,17 +1439,43 @@ function mouseclick_bar(z) {
             mouseout_node(d);
         })
         .on("click", function (d) {
-            //lock = true;
+            var node_change;
+
+            if(selected_node != null && selected_node != d) {
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                node_change.style("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            var node_change = node.filter(function(d) {
+            mouseclick_node(d);
+            node_change = node.filter(function(d) {
                 return d == selected_node;
             });
             node_change.style("fill", node_selected_color);
-            lock = lock ? false : true;
-            click_node = true;
-            mouseclick_node(d);
-            d3.select(this)
-                .attr("class", "selected_node");
         })
         .text(function (d) {
             return d.Term;
@@ -1404,10 +1571,34 @@ function mouseclick_list(z) {
             mouseout_node(d);
         })
         .on("click", function (d) {
+            if(selected_node != null && selected_node != d) {
+                var node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                d3.select(this)
+                    .attr("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            //lock = true;
-            lock = lock ? false : true;
-            click_node = true;
             mouseclick_node(d);
             d3.select(this)
                 .style("fill", node_selected_color);
@@ -1446,17 +1637,43 @@ function mouseclick_list(z) {
             mouseout_node(d);
         })
         .on("click", function (d) {
-            //lock = true;
+            var node_change;
+
+            if(selected_node != null && selected_node != d) {
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                node_change.style("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
             selected_node = d;
-            var node_change = node.filter(function(d) {
+            mouseclick_node(d);
+            node_change = node.filter(function(d) {
                 return d == selected_node;
             });
             node_change.style("fill", node_selected_color);
-            lock = lock ? false : true;
-            click_node = true;
-            mouseclick_node(d);
-            d3.select(this)
-                .attr("class", "selected_node");
         })
         .text(function (d) {
             return d.Term;
@@ -1508,6 +1725,19 @@ function mouseclick_list(z) {
             .style("fill-opacity", 1);
         label_nochange.style("fill-opacity", 0.2);
 
+    }
+
+    if(selected_bar == null) {
+        //console.log(selected_list);
+        var bar_change = bars.filter(function(d) {
+            //console.log(d);
+            return selected_list.klass_url == d.URL;
+        });
+        bar_change.attr("fill", bar_mouse_color);
+        selected_bar = bar_change;
+        lock_bar = true;
+        click_bar = true;
+        //console.log(bar_change);
     }
 
 }

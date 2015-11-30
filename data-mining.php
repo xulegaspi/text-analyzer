@@ -6,7 +6,7 @@
  * Time: 19:26
  */
 
-$EXEC_TIME = 3600;  // 25 minutes
+$EXEC_TIME = 10000;  // 25 minutes
 
 require_once('/ext/words.php');
 require_once('/ext/Levenshtein_SQL.php');  // This must be included manually in the phpMyAdmin page, SQL section
