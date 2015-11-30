@@ -652,18 +652,19 @@ function update(slider1) {
 
     freq = slider1;
 
+
+
     force.nodes(graph_raw.filter(function(d) {
             return d.freq >= freq;
         }))
         .charge(function (d) {
             //return -35 * Math.sqrt(d.freq);
-            return -freq * d.freq;
+            //return -freq * d.freq;
+            return -4 * d.freq;
         });
 
 
-    //node = main.selectAll(".node_circle")
-    node = node
-        .data(force.nodes())
+    node = node.data(force.nodes())
         .style("fill", function(d) { return kind_to_color(d) });
 
     nodeEnter = node.enter()
@@ -682,9 +683,34 @@ function update(slider1) {
             mouseout_node(d);
         })
         .on("click", function(d) {
-            //lock = true;
-            lock = lock ? false : true;
-            click_node = true;
+            if(selected_node != null && selected_node != d) {
+                var node_change = node.filter(function(d) {
+                    return d == selected_node;
+                });
+                console.log(node_change);
+                node_change.style("fill", function(d) {
+                    return kind_to_color(d);
+                });
+                var label_change = label.filter(function(d) {
+                    return d == selected_node;
+                });
+                label_change.style("fill-opacity", 0.2)
+                    .attr("font-size", 12);
+                selected_node = d;
+                label.filter(function(d) {
+                    return d == selected_node;
+                }).style("fill-opacity", 1)
+                    .attr("font-size", 16);
+                lock = true;
+                click_node = true;
+                d3.select(this)
+                    .attr("fill", node_selected_color);
+            } else {
+                lock = lock ? false : true;
+                click_node = true;
+            }
+
+            selected_node = d;
             mouseclick_node(d);
             d3.select(this)
                 .style("fill", node_selected_color);
@@ -697,8 +723,8 @@ function update(slider1) {
             return "Number of posts it appears: " + array.length;
         });
 
-    node.transition()
-        .duration(500);
+    //node.transition()
+    //    .duration(500);
 
     node.exit()
         .transition()
@@ -706,12 +732,10 @@ function update(slider1) {
         .duration(500)
         .remove();
 
-    node.transition()
-        .attr("class", "node_circle");
+    //node.transition()
+    //    .attr("class", "node_circle");
 
     node.call(force.drag);
-
-    //label.remove();
 
     label = label.data(force.nodes());
 
@@ -760,22 +784,12 @@ function update(slider1) {
             return "Number of posts it appears: " + array.length;
         });
 
-    //label.transition()
-        //.duration(500);
-
     label.exit()
         .transition()
         .duration(500)
         .remove();
 
     force.start();
-
-    //graph = filterData(slider1, graph2);
-
-    //remove();
-    //draw();
-    //draw_bar_chart(posts_fil, sort);
-    //draw_bubble_chart(graph);
 
 }
 
