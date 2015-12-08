@@ -144,7 +144,7 @@ html, body {
     /*right: 25%;*/
     z-index: 1;
     border: 1px grey solid;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 #list {

@@ -39,6 +39,7 @@ var list_values;
 /**
  * @name remove
  * @description Erase the whole visualization
+ * Not used anymore, kept for debugging purposes
  */
 function remove() {
     svg_bubble.remove();
@@ -49,6 +50,7 @@ function remove() {
 /**
  * @name draw
  * @description Draws the whole visualization
+ * Not used anymore, kept for debugging purposes
  */
 function draw() {
     draw_bar_chart(graph);
@@ -58,6 +60,7 @@ function draw() {
 /**
  * @name draw_bubble_chart
  * @description Draws the Bubble Chart
+ * @param graph
  */
 function draw_bubble_chart(graph) {
 
@@ -80,12 +83,49 @@ function draw_bubble_chart(graph) {
         .attr("height", "100%")
         .on("click", function() {
             if(!click_node) {
+                //console.log(selected_bar);
+                if(selected_node != null && selected_bar == null) {
+                    svg_bars.remove();
+                    switch (sort) {
+                        case "posts":
+                            draw_bar_chart(num_posts, sort);
+                            break;
+                        case "post_length":
+                            draw_bar_chart(avg_length, sort);
+                            break;
+                        case "num_photos":
+                            draw_bar_chart(num_media, sort);
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (selected_node != null && selected_bar != null) {
+                    svg_bars.remove();
+                    switch (sort) {
+                        case "posts":
+                            draw_bar_chart(num_posts, sort);
+                            break;
+                        case "post_length":
+                            draw_bar_chart(avg_length, sort);
+                            break;
+                        case "num_photos":
+                            draw_bar_chart(num_media, sort);
+                            break;
+                        default:
+                            break;
+                    }
+                    bars.filter(function(d) {
+                        return d == selected_bar;
+                    }).attr("fill", bar_mouse_color);
+                }
                 if(lock) lock = false;
                 mouseout_node();
                 selected_node = null;
                 var data = selectDataList(klass_data);
                 draw_list(data);
+
             } else {
+                //console.log("B");
                 click_node = false;
             }
         });
@@ -230,6 +270,8 @@ function draw_bubble_chart(graph) {
 /**
  * @name draw_bar_chart
  * @description Draws the Bar Chart
+ * @param graph
+ * @param mode
  */
 function draw_bar_chart(graph, mode) {
 
@@ -237,18 +279,12 @@ function draw_bar_chart(graph, mode) {
         .attr("width", "100%")
         .attr("height", graph.length * 20 + 50)
         .on("click", function() {
-            //if(selected_bar != null) {
-            //    var bar_change = bars.filter(function(d) {
-            //        return d == selected_bar;
-            //    });
-            //    bar_change.attr("fill", bar_color);
-            //}
-
             if(!click_bar) {
                 if(lock_bar) lock_bar = false;
                 var bar_change = bars.filter(function(d) {
                     return d == selected_bar;
                 });
+                console.log(bar_change);
                 bar_change.attr("fill", bar_color);
                 selected_bar = null;
                 var data = selectDataList(klass_data);
@@ -285,6 +321,7 @@ function draw_bar_chart(graph, mode) {
                 .range([0, w_svg - 15]);
             break;
         case "num_photos":
+            var graph = selectDataImages(graph);
             max = d3.max(graph, function(d) { return +d.freq_image; });
             //console.log(max);
             bars = svg_bars.selectAll("rect")
@@ -528,7 +565,6 @@ function draw_list(data) {
         })
         .on("click", function(d) {
             if(selected_list != null && selected_list != d) {
-                console.log("hej");
                 var bar_list_change = bars_list.filter(function(d) {
                     return d == selected_list;
                 });
@@ -687,7 +723,7 @@ function update(slider1) {
                 var node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -797,6 +833,7 @@ function update(slider1) {
  * @name change_gravity
  * @description Updates the bubble chart applying the new gravity property
  * @param slider2
+ * Not used anymore, kept for improvement purposes
  */
 function change_gravity(slider2) {
     d3.select("#slider2-value").text(slider2);
@@ -821,7 +858,7 @@ function change_diam(slider3) {
 
 function reset() {
 
-    freq = 20;
+    freq = 23;
 
     document.getElementById("slider1").value = freq;
     var span = document.getElementById('slider1-value');
@@ -841,6 +878,9 @@ function reset() {
 
     diam = 3.5;
     gravity = 40 * 0.005;
+    selected_bar = null;
+    selected_node = null;
+    selected_list = null;
     remove();
     draw_bubble_chart(words_data);
     sort = "posts";
@@ -932,8 +972,6 @@ function selectDataList(d) {
 
     } else if(selected_bar != null) {
 
-        //console.log("BAR");
-        //console.log(selected_bar);
         var vv = 0;
 
         switch(sort) {
@@ -942,6 +980,7 @@ function selectDataList(d) {
                 break;
             default :
                 Url = selected_bar.url;
+                //console.log(Url);
                 break;
         }
 
@@ -1054,7 +1093,7 @@ function selectDataBars(Term, d) {
                         // If it's not added, add it
                         if(!x) {
                             resul[ii] = num_media[kk];
-                            console.log(num_media[kk]);
+                            //console.log(num_media[kk]);
                             ii++;
                         }
                     }
@@ -1084,21 +1123,75 @@ function selectDataBars(Term, d) {
     return resul;
 }
 
+function selectDataImages(data) {
+    var length_data = data.length;
+    var kk = 0;
+    var jj = 0;
+    var ii = 0;
+    var array = [];
+    for(kk=0; kk<length_data; kk++) {
+        var found = false;
+        for(jj=0; jj<array.length; jj++) {
+
+
+            if(data[kk].url == array[jj].url) {
+
+                console.log("SUM: " + array[jj].freq_image + " + " + data[kk].freq_image);
+                found = jj;
+                array[jj].freq_image = parseInt(array[jj].freq_image) + parseInt(data[kk].freq_image);
+
+
+            }
+        }
+        if(!found) {
+            console.log("ADD NEW: " + data[kk]);
+            array[ii] = data[kk];
+            ii++;
+        }
+
+    }
+    console.log(array);
+    return array;
+}
+
+/**
+ * @name selectDataBubbles
+ * @description Filters the bubbles that will be shown depending on the selected URL in the bar chart
+ * @param url
+ * @param data
+ * @returns {Array}
+ */
 function selectDataBubbles(url, data) {
     var array = [];
     var kk = 0;
+    var aux = [];
+
+    console.log(data.filter(function(d) {
+        return d.Term == "jitech";
+    }));
+
+    // Loop to read the klass_data file (data)
     for(var jj = 0; jj < data.length; jj++) {
         if(data[jj].klass_url == url) {
-
-            var aux = array.filter(function(d) {
+            //if(aux) {
+            //    console.log(aux);
+            //}
+            aux = array.filter(function(d) {
+                //console.log("A:");
+                //console.log(d);
                 return d.Term == data[jj].Term;
             });
-
+            //console.log(aux);
             if(aux.length > 0) {
+                //if(kk == 1) {
+                    //console.log(aux[0].freq);
+                //}
                 aux[0].freq = parseInt(aux[0].freq) + parseInt(data[jj].freq);
             } else {
-
+                //console.log("B:");
+                //console.log(data[jj]);
                 array[kk] = data[jj];
+                //console.log(data[jj]);
                 kk++;
 
             }
@@ -1128,7 +1221,7 @@ function selectDataBubbles2(url, data) {
             }
         }
     }
-    console.log(array);
+    //console.log(array);
     return array;
 }
 
@@ -1180,11 +1273,7 @@ function slider_handlers() {
     // Dropdown list
     d3.select("select").on("change", function(d) {
         sort = this.value;
-        //console.log(sort);
-        //if(posts_fil) {
-        //    graph = posts_fil;
-        //} else {
-            switch (sort) {
+        switch (sort) {
                 case "posts":
                     graph = num_posts;
                     //console.log(graph);
@@ -1204,9 +1293,48 @@ function slider_handlers() {
                 default :
                     return resul(d.URL);
             }
-        //}
         svg_bars.remove();
-        draw_bar_chart(graph, sort);
+
+        if(selected_node != null) {
+
+            //console.log(selected_node);
+            graph = selectDataBars(selected_node.Term, klass_data);
+            draw_bar_chart(graph, sort);
+
+        } else {
+
+            draw_bar_chart(graph, sort);
+
+        }
+
+        if(selected_list != null) {
+
+            //console.log(selected_list);
+            var bar_change = bars.filter(function(d) {
+                //console.log(d);
+                switch(sort) {
+                    case "posts":
+                        return selected_list.klass_url == d.URL;
+                    default:
+                        return selected_list.klass_url == d.url;
+
+                }
+                //return selected_list.klass_url == d.URL;
+            });
+            bar_change.attr("fill", bar_mouse_color);
+            //selected_bar = bar_change;
+
+            var aux = null;
+            bar_change.text(function(d) {
+                aux = d;
+            });
+            selected_bar = aux;
+            console.log(aux);
+            lock_bar = true;
+            click_bar = true;
+        }
+
+
     })
 }
 
@@ -1391,7 +1519,7 @@ function mouseclick_bar(z) {
                 var node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -1459,7 +1587,7 @@ function mouseclick_bar(z) {
                 node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -1589,7 +1717,7 @@ function mouseclick_list(z) {
                 var node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -1657,7 +1785,7 @@ function mouseclick_list(z) {
                 node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -1745,7 +1873,13 @@ function mouseclick_list(z) {
         //console.log(selected_list);
         var bar_change = bars.filter(function(d) {
             //console.log(d);
-            return selected_list.klass_url == d.URL;
+            switch(sort) {
+                case "posts":
+                    return selected_list.klass_url == d.URL;
+                default:
+                    return selected_list.klass_url == d.url;
+
+            }
         });
         bar_change.attr("fill", bar_mouse_color);
         selected_bar = bar_change;

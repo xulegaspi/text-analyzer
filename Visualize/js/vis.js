@@ -8,7 +8,7 @@ var gravity = 40 * 0.005;
 var diam = 3.5;
 var freq = 23;
 
-var path = "data/";
+var path = "data/2015_12_08/";
 
 var force;       // Force layout for the Bubble Chart
 var svg_bubble;  // Bubble Chart SVG
@@ -90,8 +90,6 @@ d3.json(path + "media_final.json", function(error, data) {
     num_media = data;
     media_fil = num_media;
 
-    //draw_bar_chart(num_media, "media");
-    //console.log(data);
 });
 
 d3.json(path + "media.json", function(error, data) {
