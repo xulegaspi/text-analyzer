@@ -157,6 +157,7 @@ function draw_bubble_chart(graph) {
         })
         .on("click", function(d) {
 
+            console.log(d);
             if(selected_node != null && selected_node != d) {
                 var node_change = node.filter(function(d) {
                     return d == selected_node;
@@ -194,7 +195,7 @@ function draw_bubble_chart(graph) {
         .text(function(d) {
             //console.log(d);
             var array = selectDataBars(d.Term, klass_data);
-           return "Number of posts it appears: " + array.length;
+           return "Number of posts it appears: " + array.length + ", FREQ: " + d.freq;
         });
 
     node.call(force.drag);
@@ -688,14 +689,13 @@ function update(slider1) {
     freq = slider1;
 
 
-
     force.nodes(graph_raw.filter(function(d) {
             return d.freq >= freq;
         }))
         .charge(function (d) {
-            //return -35 * Math.sqrt(d.freq);
+            return -40 * Math.sqrt(d.freq);
             //return -freq * d.freq;
-            return -4 * d.freq;
+            //return -20 * d.freq;
         });
 
 
@@ -755,11 +755,11 @@ function update(slider1) {
         .text(function(d) {
             //console.log(d);
             var array = selectDataBars(d.Term, klass_data);
-            return "Number of posts it appears: " + array.length;
+            return "Number of posts it appears: " + array.length + ", FREQ: " + d.freq;
         });
 
-    //node.transition()
-    //    .duration(500);
+    node.transition()
+        .duration(500);
 
     node.exit()
         .transition()
