@@ -382,8 +382,7 @@ function draw_bar_chart(graph, mode) {
             //mouseout_bar(d);
         })
         .on("click", function(d) {
-            //if(selected_bar == d)
-            //    console.log(d);
+            console.log(d);
             if(selected_bar != null && selected_bar != d) {
                 var bar_change = bars.filter(function(d) {
                     return d == selected_bar;
@@ -1163,42 +1162,62 @@ function selectDataImages(data) {
  */
 function selectDataBubbles(url, data) {
     var array = [];
+    var hist = [];
+    var final = [];
     var kk = 0;
-    var aux = [];
 
-    console.log(data.filter(function(d) {
-        return d.Term == "jitech";
-    }));
+    array = data.filter(function(d) {
+        return d.klass_url == url;
+    });
 
-    // Loop to read the klass_data file (data)
-    for(var jj = 0; jj < data.length; jj++) {
-        if(data[jj].klass_url == url) {
-            //if(aux) {
-            //    console.log(aux);
-            //}
-            aux = array.filter(function(d) {
-                //console.log("A:");
-                //console.log(d);
-                return d.Term == data[jj].Term;
-            });
-            //console.log(aux);
-            if(aux.length > 0) {
-                //if(kk == 1) {
-                    //console.log(aux[0].freq);
-                //}
-                aux[0].freq = parseInt(aux[0].freq) + parseInt(data[jj].freq);
-            } else {
-                //console.log("B:");
-                //console.log(data[jj]);
-                array[kk] = data[jj];
-                //console.log(data[jj]);
-                kk++;
+    array.map(function(a) {
+       if(a.Term in hist) {
+           hist[a.Term] += parseInt(a.freq);
+       } else {
+           hist[a.Term] = parseInt(a.freq);
+       }
+    });
 
-            }
+    //console.log(hist);
+
+    for (var k in hist){
+        if (hist.hasOwnProperty(k)) {
+            var aux = {};
+            aux.Term = k;
+            aux.freq = hist[k];
+            final.push(aux);
+            //console.log("Key is " + k + ", value is " + hist[k]);
         }
     }
 
-    return array;
+    //console.log(final);
+
+
+    //// Loop to read the klass_data file (data)
+    //for(var jj = 0; jj < data.length; jj++) {
+    //
+    //    if(data[jj].klass_url == url) {
+    //
+    //        aux = array.filter(function(d) {
+    //            //console.log(d);
+    //            return d.Term == data[jj].Term;
+    //        });
+    //        //console.log(aux);
+    //        if(aux.length > 0) {
+    //
+    //            //aux[0].freq = parseInt(aux[0].freq) + parseInt(data[jj].freq);
+    //        } else {
+    //            array.push(data[jj]);
+    //
+    //            //console.log(data[jj]);
+    //            //array[kk] = copy_data[jj];
+    //            //kk++;
+    //
+    //        }
+    //    }
+    //}
+
+    return final;
 }
 
 function selectDataBubbles2(url, data) {
@@ -1334,6 +1353,14 @@ function slider_handlers() {
             click_bar = true;
         }
 
+        if(selected_bar != null) {
+            var new_bar = bars.filter(function(d) {
+                return d.Id == selected_bar.Id;
+            });
+
+            new_bar.attr("fill", bar_mouse_color);
+            selected_bar = new_bar[0][0]["__data__"];
+        }
 
     })
 }
