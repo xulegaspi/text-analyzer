@@ -192,6 +192,26 @@ html, body {
     margin-top: 10%;
 }
 
+#image-carousel {
+    width: 52%;
+    height: 18%;
+    position: fixed;
+    top: 70%;
+    left: 22%;
+    margin-top: 52px;
+    /*top: 10%;*/
+    /*transform: translate(-50%, -50%);*/
+    text-align: center;
+    /*right: 25%;*/
+    z-index: 1;
+    border: 1px grey solid;
+    /*overflow: auto;*/
+}
+
+.img {
+    height: 15%;
+}
+
 .label {
     font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

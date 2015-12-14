@@ -157,12 +157,12 @@ function draw_bubble_chart(graph) {
         })
         .on("click", function(d) {
 
-            console.log(d);
+            //console.log(d);
             if(selected_node != null && selected_node != d) {
                 var node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -223,7 +223,7 @@ function draw_bubble_chart(graph) {
                 node_change = node.filter(function(d) {
                     return d == selected_node;
                 });
-                console.log(node_change);
+                //console.log(node_change);
                 node_change.style("fill", function(d) {
                     return kind_to_color(d);
                 });
@@ -276,16 +276,18 @@ function draw_bubble_chart(graph) {
  */
 function draw_bar_chart(graph, mode) {
 
+    //window.onload = function() {
+
     svg_bars = d3.select("#bar_chart").append("svg")
         .attr("width", "100%")
         .attr("height", graph.length * 20 + 50)
-        .on("click", function() {
-            if(!click_bar) {
-                if(lock_bar) lock_bar = false;
-                var bar_change = bars.filter(function(d) {
+        .on("click", function () {
+            if (!click_bar) {
+                if (lock_bar) lock_bar = false;
+                var bar_change = bars.filter(function (d) {
                     return d == selected_bar;
                 });
-                console.log(bar_change);
+                //console.log(bar_change);
                 bar_change.attr("fill", bar_color);
                 selected_bar = null;
                 var data = selectDataList(klass_data);
@@ -301,41 +303,70 @@ function draw_bar_chart(graph, mode) {
     w_svg = w_svg.substr(0, w_svg.length - 2);
     var max;
 
-    switch(mode) {
+
+    switch (mode) {
         case "posts":
-            max = d3.max(graph, function(d) { return +d.num_posts; });
+            max = d3.max(graph, function (d) {
+                return +d.num_posts;
+            });
             //console.log(max);
+            bars_data = graph.sort(function (a, b) {
+                return +b.num_posts - +a.num_posts;
+            });
             bars = svg_bars.selectAll("rect")
-                .data(graph.sort(function(a,b) { return +b.num_posts - +a.num_posts; }));
+                .data(graph.sort(function (a, b) {
+                    return +b.num_posts - +a.num_posts;
+                }));
             //console.log(graph);
             scale = d3.scale.linear()
                 .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "post_length":
-            max = d3.max(graph, function(d) { return +d.avg_length; });
+            max = d3.max(graph, function (d) {
+                return +d.avg_length;
+            });
             //console.log(max);
+            bars_data = graph.sort(function (a, b) {
+                return +b.avg_length - +a.avg_length;
+            });
             bars = svg_bars.selectAll("rect")
-                .data(graph.sort(function(a,b) { return +b.avg_length - +a.avg_length; }));
+                .data(graph.sort(function (a, b) {
+                    return +b.avg_length - +a.avg_length;
+                }));
             scale = d3.scale.linear()
                 .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "num_photos":
             var graph = selectDataImages(graph);
-            max = d3.max(graph, function(d) { return +d.freq_image; });
+            max = d3.max(graph, function (d) {
+                return +d.freq_image;
+            });
             //console.log(max);
+            bars_data = graph.sort(function (a, b) {
+                return +b.freq_image - +a.freq_image;
+            });
             bars = svg_bars.selectAll("rect")
-                .data(graph.sort(function(a,b) { return +b.freq_image - +a.freq_image; }));
+                .data(graph.sort(function (a, b) {
+                    return +b.freq_image - +a.freq_image;
+                }));
             scale = d3.scale.linear()
                 .domain([0, max])
                 .range([0, w_svg - 15]);
             break;
         case "num_videos":
-            max = d3.max(graph, function(d) { return +d.freq_video; });
+            max = d3.max(graph, function (d) {
+                return +d.freq_video;
+            });
             //console.log(max);
+            bars_data = graph.sort(function (a, b) {
+                return +b.freq_video - +a.freq_video;
+            });
             bars = svg_bars.selectAll("rect")
-                .data(graph.sort(function(a,b) { return +b.freq_video - +a.freq_video; }));
+                .data(graph.sort(function (a, b) {
+                    return +b.freq_video - +a.freq_video;
+                }));
             scale = d3.scale.linear()
                 .domain([0, max])
                 .range([0, w_svg - 15]);
@@ -368,24 +399,24 @@ function draw_bar_chart(graph, mode) {
                     return scale(d.freq);
             }
         })
-        .on("mouseover", function() {
-            if(!lock_bar) {
+        .on("mouseover", function () {
+            if (!lock_bar) {
                 d3.select(this)
                     .attr("fill", bar_mouse_color);
             }// COLOUR
             //mouseover_bar(d);
         })
-        .on("mouseout", function() {
-            if(!lock_bar) {
+        .on("mouseout", function () {
+            if (!lock_bar) {
                 d3.select(this)
                     .attr("fill", bar_color);
             }// COLOUR
             //mouseout_bar(d);
         })
-        .on("click", function(d) {
-            console.log(d);
-            if(selected_bar != null && selected_bar != d) {
-                var bar_change = bars.filter(function(d) {
+        .on("click", function (d) {
+            //console.log(d);
+            if (selected_bar != null && selected_bar != d) {
+                var bar_change = bars.filter(function (d) {
                     return d == selected_bar;
                 });
                 bar_change.attr("fill", bar_color);
@@ -403,7 +434,7 @@ function draw_bar_chart(graph, mode) {
             d3.select(this)
                 .attr("fill", bar_mouse_color);
         })
-        .on("dblclick", function(d) {
+        .on("dblclick", function (d) {
             switch (sort) {
                 case "posts":
                     window.open(d.URL);
@@ -425,31 +456,31 @@ function draw_bar_chart(graph, mode) {
             return i * 20 + 14;
         })
         .attr("x", 5)
-        .on("mouseover", function() {
-            if(!lock_bar) {
+        .on("mouseover", function () {
+            if (!lock_bar) {
                 d3.select(this)
                     .attr("fill", bar_label_mouse_color);
                 //mouseover_bar(d);
             }
         })
-        .on("mouseout", function() {
-            if(!lock_bar) {
+        .on("mouseout", function () {
+            if (!lock_bar) {
                 d3.select(this)
                     .attr("fill", bar_label_color);
             }
             //mouseout_bar(d);
         })
-        .on("click", function(d, i) {
+        .on("click", function (d, i) {
 
-            if(selected_bar != null && selected_bar != d) {
-                var bar_change = bars.filter(function(d) {
+            if (selected_bar != null && selected_bar != d) {
+                var bar_change = bars.filter(function (d) {
                     return d == selected_bar;
                 });
                 bar_change.attr("fill", bar_color);
                 selected_bar = d;
                 lock_bar = true;
                 click_bar = true;
-                var this_bar = bars.filter(function(d) {
+                var this_bar = bars.filter(function (d) {
                     return d == selected_bar;
                 });
                 this_bar.attr("fill", bar_mouse_color);
@@ -458,7 +489,7 @@ function draw_bar_chart(graph, mode) {
                 click_bar = true;
             }
             selected_bar = d;
-            var this_bar = bars.filter(function(d) {
+            var this_bar = bars.filter(function (d) {
                 return d == selected_bar;
             });
             this_bar.attr("fill", bar_mouse_color);
@@ -498,6 +529,7 @@ function draw_bar_chart(graph, mode) {
         .attr("transform", "translate(5," + margin.top + ")")
         .call(xAxis);
 
+    //}
 
 }
 
@@ -1135,7 +1167,7 @@ function selectDataImages(data) {
 
             if(data[kk].url == array[jj].url) {
 
-                console.log("SUM: " + array[jj].freq_image + " + " + data[kk].freq_image);
+                //console.log("SUM: " + array[jj].freq_image + " + " + data[kk].freq_image);
                 found = jj;
                 array[jj].freq_image = parseInt(array[jj].freq_image) + parseInt(data[kk].freq_image);
 
@@ -1143,13 +1175,13 @@ function selectDataImages(data) {
             }
         }
         if(!found) {
-            console.log("ADD NEW: " + data[kk]);
+            //console.log("ADD NEW: " + data[kk]);
             array[ii] = data[kk];
             ii++;
         }
 
     }
-    console.log(array);
+    //console.log(array);
     return array;
 }
 
@@ -1295,6 +1327,8 @@ function slider_handlers() {
         switch (sort) {
                 case "posts":
                     graph = num_posts;
+
+                    remove_carousel();
                     //console.log(graph);
                     break;
                 case "post_length":
@@ -1303,6 +1337,12 @@ function slider_handlers() {
                     break;
                 case "num_photos":
                     graph = num_media;
+
+                    bubble_div = d3.select('#bubble_chart');
+
+                    //d3.select('#bubble_chart')
+                    append_carousel();
+
                     //console.log(graph);
                     break;
                 case "num_videos":
@@ -1348,7 +1388,7 @@ function slider_handlers() {
                 aux = d;
             });
             selected_bar = aux;
-            console.log(aux);
+            //console.log(aux);
             lock_bar = true;
             click_bar = true;
         }
@@ -1433,6 +1473,18 @@ function mouseclick_node(z) {
     //        .style("font-size", 20);
     //}
 
+    //bars = bars.data(bars_data.filter(function(d) {
+    //    console.log(z);
+    //    return d.Term == z.Term;
+    //}));
+    ////console.log(bars);
+    //
+    //bars.exit()
+    //    .transition()
+    //    .attr("width", 0)
+    //    .attr("y", 0)
+    //    .remove();
+
     svg_bars.remove();
     draw_list(data);
 
@@ -1440,6 +1492,22 @@ function mouseclick_node(z) {
     posts_fil = selectDataBars(z.Term, klass_data);
 
     //console.log(posts_fil);
+
+    //bars = bars.data(bars_data.filter(function(d) {
+    //    for(var xx = 0; xx < posts_fil.length; xx++) {
+    //        if(posts_fil[xx] == d) {
+    //            return d;
+    //        }
+    //    }
+    //    //console.log(d);
+    //    //return d == posts_fil;
+    //}));
+
+    //bars.exit()
+    //    .transition()
+    //    .attr("width", 0)
+    //    .attr("y", 0)
+    //    .remove();
 
     draw_bar_chart(posts_fil, sort);
 
@@ -1918,6 +1986,72 @@ function mouseclick_list(z) {
 }
 
 
+function append_carousel() {
+    bubble_div
+        .transition()
+        //.delay(0)
+        .duration(1000)
+        .style('height', '70%');
+
+    svg_bubble.transition()
+        .attr("height", "107%")
+        .style("margin-top", "-5%");
+
+    image_div = d3.select('#main')
+        .append('div')
+        //.transition()
+        //.delay(1500)
+        //.duration(5000)
+        .attr("class", "container")
+        .attr("id", "image-carousel");
+
+    var carousel = d3.select("#image-carousel");
+
+    var photos = allImages();
+    console.log(photos);
+
+    for(var jj = 0; jj < photos.length; jj++) {
+        carousel.append('img')
+            .attr("src", photos[jj])
+            //.attr("height", "85px")
+            .style('margin', '0px 3px 0px 3px')
+            //.on('dbclick', window.open(photos[jj]))
+            .attr("class", "img");
+    }
+
+    $('#image-carousel').slick({
+        lazyLoad: 'ondemand',
+        infinite: true,
+        slidesToShow: 8,
+        slidesToScroll: 3
+    });
+
+    var stHeight = $('#image-carousel').height();
+    $('.slick-slide').css('height',stHeight - 55 + 'px' );
+
+}
+
+function remove_carousel() {
+    if(bubble_div) {
+        bubble_div
+            .transition()
+            .delay(500)
+            .duration(1000)
+            .style("height", "88%");
+
+        svg_bubble.transition()
+            .attr("height", "100%")
+            .style("margin-top", "0%");
+    }
+
+    if(image_div) {
+        image_div.transition()
+            .delay(0)
+            .duration(500)
+            .remove();
+    }
+}
+
 function extractTitlePost(post) {
     var array = post.split("/");
     var l = array.length;
@@ -1973,5 +2107,15 @@ function extractImages(post_id) {
         }
     }
 
+    return array;
+}
+
+function allImages() {
+    var array = [];
+    for(var kk = 0; kk < media.length; kk++) {
+        if(media[kk].Type == "IMAGE") {
+            array.push(media[kk].Media_URL);
+        }
+    }
     return array;
 }

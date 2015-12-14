@@ -25,6 +25,10 @@ var bars_list;
 var label;       // Labels of the Bubbles
 var label_bars;
 var label_list;
+var image_div;
+var bubble_div;
+var carousel;
+
 var graph;       // Data loaded and filtered from the Keywords and their Frequencies
 var graph_raw;
 var words_data;  // Raw data loaded from total_freq.json
@@ -42,6 +46,8 @@ var scale;
 var lock = false;
 var lock_bar = false;
 var lock_list = false;
+
+var bars_data;
 
 
 //d3.json("vis.php", function(error, graph) {
