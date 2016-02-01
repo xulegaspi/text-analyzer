@@ -3,7 +3,10 @@
  */
 
 var node_color = "#FFE47A";
-var bar_color = "#6c7b93";
+//var bar_color = "#6c7b93";
+//var bar_color = "#b3d9ff";
+//var bar_color = "#91b7dd";
+var bar_color = "#81a7cd";
 var node_selected_color = "#80b3ff";
 var node_mouse_color = "#90DAFF";
 
@@ -13,7 +16,7 @@ var node_high_color = "#ffa31a";
 var node_label_color = "#000000";
 var bar_mouse_color = "#1C68FF";
 var bar_selected_color = "";
-var bar_label_color = "#FFFFE3";
+var bar_label_color = "#000000";
 var bar_label_mouse_color = "#B38F00";
 var bar_label_selected_color = "yellow";
 var bar_list_color = "#b3d9ff";
@@ -34,6 +37,8 @@ var selected_list;
 var bubble_values;
 var bar_values;
 var list_values;
+
+var reminder = false;
 
 
 /**
@@ -124,6 +129,34 @@ function draw_bubble_chart(graph) {
                 var data = selectDataList(klass_data);
                 draw_list(data);
 
+                if(selected_bar == null && selected_list == null) {
+
+                    if(document.getElementById("slider1").value != 23) {
+                        if (!reminder)
+                            reminder_popup();
+                    }
+                    diam = 3.5;
+                    gravity = 40 * 0.005;
+                    freq = 23;
+                    document.getElementById("slider1").value = freq;
+                    var span = document.getElementById('slider1-value');
+                    while (span.firstChild) {
+                        span.removeChild(span.firstChild);
+                    }
+                    span.appendChild(document.createTextNode(freq));
+                    document.getElementById("tittle_bubble").value = "Overall";
+                    span = document.getElementById('tittle_bubble');
+                    while (span.firstChild) {
+                        span.removeChild(span.firstChild);
+                    }
+                    span.appendChild(document.createTextNode("Overall"));
+                    svg_bubble.remove();
+                    draw_bubble_chart(words_data);
+                    graph_raw = words_data;
+
+
+                }
+
             } else {
                 //console.log("B");
                 click_node = false;
@@ -138,58 +171,7 @@ function draw_bubble_chart(graph) {
     node = main.selectAll(".node_circle")
         .data(force.nodes());
 
-    nodeEnter = node.enter()
-        .append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
-        })
-        .style("fill", function(d) {
-            return kind_to_color(d)
-        })
-        .on("mouseover", function(d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function(d) {
-            d3.select(this)
-                .attr("class", "mouse_node");
-            mouseout_node(d);
-        })
-        .on("click", function(d) {
-
-            //console.log(d);
-            if(selected_node != null && selected_node != d) {
-                var node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                d3.select(this)
-                    .attr("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-                d3.select(this)
-                    .style("fill", node_selected_color);
-        });
+    nodeEnter = fNodeEnter();
 
     node_title = node.append("svg:title")
         .text(function(d) {
@@ -203,61 +185,7 @@ function draw_bubble_chart(graph) {
     label = main.selectAll(".node_label")
         .data(force.nodes());
 
-    label.enter()
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("class", "node_label")
-        .attr("font-family", "Verdana")
-        .attr("font-size", 12)
-        .style("fill", node_label_color)
-        .on("mouseover", function(d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function(d) {
-            mouseout_node(d);
-        })
-        .on("click", function(d) {
-            var node_change;
-
-            if(selected_node != null && selected_node != d) {
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                node_change.style("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            node_change = node.filter(function(d) {
-                return d == selected_node;
-            });
-            node_change.style("fill", node_selected_color);
-        })
-        .text(function (d) {
-            return d.Term;
-        });
+    fLabelEnter();
 
     label_title = label.append("svg:title")
         .text(function(d) {
@@ -292,6 +220,32 @@ function draw_bar_chart(graph, mode) {
                 selected_bar = null;
                 var data = selectDataList(klass_data);
                 draw_list(data);
+
+                if(selected_node == null) {
+                    if(document.getElementById("slider1").value != 23) {
+                        if (!reminder)
+                            reminder_popup();
+                    }
+                    diam = 3.5;
+                    gravity = 40 * 0.005;
+                    freq = 23;
+                    document.getElementById("slider1").value = freq;
+                    var span = document.getElementById('slider1-value');
+                    while (span.firstChild) {
+                        span.removeChild(span.firstChild);
+                    }
+                    span.appendChild(document.createTextNode(freq));
+                    document.getElementById("tittle_bubble").value = "Overall";
+                    span = document.getElementById('tittle_bubble');
+                    while (span.firstChild) {
+                        span.removeChild(span.firstChild);
+                    }
+                    span.appendChild(document.createTextNode("Overall"));
+                    svg_bubble.remove();
+                    draw_bubble_chart(words_data);
+                    graph_raw = words_data;
+
+                }
             } else {
                 click_bar = false;
             }
@@ -302,7 +256,6 @@ function draw_bar_chart(graph, mode) {
     var w_svg = svg_bars.style("width");
     w_svg = w_svg.substr(0, w_svg.length - 2);
     var max;
-
 
     switch (mode) {
         case "posts":
@@ -375,76 +328,7 @@ function draw_bar_chart(graph, mode) {
             return resul(d.freq);
     }
 
-    bars.enter()
-        .append("rect")
-        .attr("height", 18)
-        .attr("y", function (d, i) {
-            return i * 20;
-        })
-        .attr("width", function (d, i) {
-            switch (mode) {
-                case "posts":
-                    return scale(d.num_posts);
-                    break;
-                case "post_length":
-                    return scale(d.avg_length);
-                    break;
-                case "num_photos":
-                    return scale(d.freq_image);
-                    break;
-                case "num_videos":
-                    return scale(d.freq_video);
-                    break;
-                default :
-                    return scale(d.freq);
-            }
-        })
-        .on("mouseover", function () {
-            if (!lock_bar) {
-                d3.select(this)
-                    .attr("fill", bar_mouse_color);
-            }// COLOUR
-            //mouseover_bar(d);
-        })
-        .on("mouseout", function () {
-            if (!lock_bar) {
-                d3.select(this)
-                    .attr("fill", bar_color);
-            }// COLOUR
-            //mouseout_bar(d);
-        })
-        .on("click", function (d) {
-            //console.log(d);
-            if (selected_bar != null && selected_bar != d) {
-                var bar_change = bars.filter(function (d) {
-                    return d == selected_bar;
-                });
-                bar_change.attr("fill", bar_color);
-                selected_bar = d;
-                lock_bar = true;
-                click_bar = true;
-                d3.select(this)
-                    .attr("fill", bar_mouse_color);
-            } else {
-                lock_bar = lock_bar ? false : true;
-                click_bar = true;
-            }
-            selected_bar = d;
-            mouseclick_bar(d);
-            d3.select(this)
-                .attr("fill", bar_mouse_color);
-        })
-        .on("dblclick", function (d) {
-            switch (sort) {
-                case "posts":
-                    window.open(d.URL);
-                    break;
-                default :
-                    window.open(d.url);
-            }
-        })
-        .attr("transform", "translate(5," + margin.top + ")")
-        .attr("fill", bar_color);  // COLOUR
+    fBarsEnter(mode);
 
     label_bars = svg_bars.selectAll("text")
         .data(graph)
@@ -529,8 +413,6 @@ function draw_bar_chart(graph, mode) {
         .attr("transform", "translate(5," + margin.top + ")")
         .call(xAxis);
 
-    //}
-
 }
 
 /**
@@ -557,6 +439,12 @@ function draw_list(data) {
                 });
                 list_change.attr("fill", bar_list_color);
                 selected_list = null;
+
+                console.log(selected_bar);
+                if(selected_bar != null) {
+
+                }
+                //mouseclick_bar(selected_bar);
             } else {
                 click_list = false;
             }
@@ -582,43 +470,7 @@ function draw_list(data) {
         .domain([0, max])
         .range([20, w_svg_list - 15]);
 
-    bars_list.enter()
-        .append("rect")
-        .attr("height", 18)
-        .attr("y", function (d, i) {
-            return i * 20;
-        })
-        .attr("x", function(d) {
-            return w_svg_list - xscale2(d.freq) + 20;
-            //return 0;
-        })
-        .attr("width", function (d, i) {
-            return xscale2(d.freq) - 20;
-        })
-        .on("click", function(d) {
-            if(selected_list != null && selected_list != d) {
-                var bar_list_change = bars_list.filter(function(d) {
-                    return d == selected_list;
-                });
-                bar_list_change.attr("fill", bar_list_color);
-                selected_list = d;
-                lock_list = true;
-                click_list = true;
-                d3.select(this)
-                    .attr("fill", bar_mouse_color);
-            } else {
-                lock_list = lock_list ? false : true;
-                click_list = true;
-            }
-            selected_list = d;
-            d3.select(this)
-                .attr("fill", bar_mouse_color);
-            mouseclick_list(d);
-
-        })
-        .on("dblclick", function(d) { window.open(d.post_url); })
-        .attr("transform", "translate(-15," + margin.top + ")")
-        .attr("fill", bar_list_color);  // COLOUR
+    fBarListEnter(w_svg_list, xscale2);
 
     label_list = svg_list.selectAll("text")
         .data(data)
@@ -734,54 +586,7 @@ function update(slider1) {
     node = node.data(force.nodes())
         .style("fill", function(d) { return kind_to_color(d) });
 
-    nodeEnter = node.enter()
-        .append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
-        })
-        .style("fill", function(d) {
-            return kind_to_color(d)
-        })
-        .on("mouseover", function(d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function(d) {
-            mouseout_node(d);
-        })
-        .on("click", function(d) {
-            if(selected_node != null && selected_node != d) {
-                var node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                d3.select(this)
-                    .attr("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            d3.select(this)
-                .style("fill", node_selected_color);
-        });
+    nodeEnter = fNodeEnter();
 
     node_title = node.append("svg:title")
         .text(function(d) {
@@ -832,7 +637,10 @@ function update(slider1) {
             var node_change = node.filter(function(d) {
                 return d == selected_node;
             });
-            node_change.style("fill", node_selected_color);
+            node_change
+                .style("stroke", node_selected_color)
+                .style("stroke-width", 5);
+                //.style("fill", node_selected_color);
             lock = lock ? false : true;
             click_node = true;
             mouseclick_node(d);
@@ -912,12 +720,16 @@ function reset() {
     selected_bar = null;
     selected_node = null;
     selected_list = null;
+
+    lock_bar = false;
     remove();
     draw_bubble_chart(words_data);
     sort = "posts";
     graph_raw = words_data;
     draw_bar_chart(num_posts, sort);
     if(svg_list) svg_list.remove();
+
+    //alert("Selected bar: " + selected_bar + "\nSelected node: " + selected_node + "\nSelected list: " + selected_list);
 
 }
 
@@ -1070,7 +882,6 @@ function selectDataBars(Term, d) {
 
     // array contains a list of the Terms and the URL where they appear
     // now we have to group those URLs (when more than one word appear in the same URL)
-
     for (jj = 0; jj < array.length; jj++) {
 
         switch(sort) {
@@ -1318,7 +1129,12 @@ function slider_handlers() {
 
     // Reset Button
     d3.select("#reset").on("click", function () {
+        if(document.getElementById("slider1").value != 23) {
+            if (!reminder)
+                reminder_popup();
+        }
         reset();
+
     });
 
     // Dropdown list
@@ -1420,8 +1236,9 @@ function mouseover_node(z) {
         })
             //.attr("class", "node_circle_select")
             .style("stroke-width", 3)
-            //.style("fill", function(d) { return kind_to_color(d) });
-            .style("fill", node_color);  // COLOUR
+            .style("stroke", node_selected_color)
+            .style("fill", function(d) { return kind_to_color(d) });
+            //.style("fill", node_color);  // COLOUR
 
         label.filter(function (d) {
             return !neighbors[d.index]
@@ -1442,7 +1259,7 @@ function mouseout_node(z) {
     if(!lock) {
         node
             //.attr("class", "node_circle")
-            .style("stroke-width", 1)
+            .style("stroke-width", 0)
             .style("fill", function(d) { return kind_to_color(d) });
             //.style("fill", node_color);  // COLOUR
         label
@@ -1463,28 +1280,6 @@ function mouseclick_node(z) {
 
     var data = selectDataList(klass_data);
 
-    //if(list_title) {
-    //    list_title.text(z.Term);
-    //} else {
-    //    list_title = d3.select("#list_title")
-    //        .append("text")
-    //        .text(z.Term)
-    //        .style("font-weight", "bold")
-    //        .style("font-size", 20);
-    //}
-
-    //bars = bars.data(bars_data.filter(function(d) {
-    //    console.log(z);
-    //    return d.Term == z.Term;
-    //}));
-    ////console.log(bars);
-    //
-    //bars.exit()
-    //    .transition()
-    //    .attr("width", 0)
-    //    .attr("y", 0)
-    //    .remove();
-
     svg_bars.remove();
     draw_list(data);
 
@@ -1492,23 +1287,6 @@ function mouseclick_node(z) {
     posts_fil = selectDataBars(z.Term, klass_data);
 
     //console.log(posts_fil);
-
-    //bars = bars.data(bars_data.filter(function(d) {
-    //    for(var xx = 0; xx < posts_fil.length; xx++) {
-    //        if(posts_fil[xx] == d) {
-    //            return d;
-    //        }
-    //    }
-    //    //console.log(d);
-    //    //return d == posts_fil;
-    //}));
-
-    //bars.exit()
-    //    .transition()
-    //    .attr("width", 0)
-    //    .attr("y", 0)
-    //    .remove();
-
     draw_bar_chart(posts_fil, sort);
 
     if(selected_bar != null) {
@@ -1576,6 +1354,12 @@ function mouseclick_bar(z) {
             break;
     }
 
+    if(document.getElementById("slider1").value > 1) {
+        //alert(reminder);
+        if(!reminder)
+            reminder_popup();
+        //alert("The minimum frequency of the words that are shown is changed to 1.");
+    }
     freq = 1;
     document.getElementById("slider1").value = freq;
     span = document.getElementById('slider1-value');
@@ -1594,54 +1378,7 @@ function mouseclick_bar(z) {
     node = node.data(force.nodes())
         .style("fill", function(d) { return kind_to_color(d) });
 
-    nodeEnter = node.enter()
-        .append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
-        })
-        .style("fill", function(d) {
-            return kind_to_color(d);
-        })
-        .on("mouseover", function (d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function (d) {
-            mouseout_node(d);
-        })
-        .on("click", function (d) {
-            if(selected_node != null && selected_node != d) {
-                var node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                d3.select(this)
-                    .attr("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            d3.select(this)
-                .style("fill", node_selected_color);
-        });
+    nodeEnter = fNodeEnter();
 
     node_title = node.append("svg:title")
         .text(function(d) {
@@ -1649,11 +1386,7 @@ function mouseclick_bar(z) {
             return "Number of posts it appears: " + array.length;
         });
 
-    node.exit()
-        .transition()
-        .attr("r", 0)
-        .duration(500)
-        .remove();
+    fNodeExit();
 
     node.call(force.drag);
 
@@ -1662,61 +1395,7 @@ function mouseclick_bar(z) {
             return d.Term;
         });
 
-    label.enter()
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("class", "node_label")
-        .attr("font-family", "Verdana")
-        .attr("font-size", 12)
-        .style("fill", "#000000")
-        .on("mouseover", function (d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function (d) {
-            mouseout_node(d);
-        })
-        .on("click", function (d) {
-            var node_change;
-
-            if(selected_node != null && selected_node != d) {
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                node_change.style("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            node_change = node.filter(function(d) {
-                return d == selected_node;
-            });
-            node_change.style("fill", node_selected_color);
-        })
-        .text(function (d) {
-            return d.Term;
-        });
+    fLabelEnter();
 
     label_title = label.append("svg:title")
         .text(function(d) {
@@ -1724,208 +1403,7 @@ function mouseclick_bar(z) {
             return "Number of posts it appears: " + array.length;
         });
 
-        label.exit()
-            .transition()
-            .duration(500)
-            .remove();
-
-        force.start();
-
-        graph_raw = array;
-        graph = graph_raw;
-
-        diam = 13;
-
-        node.transition()
-            .attr("r", function (d) {
-                return diam * Math.sqrt(d.freq);
-            })
-            .duration(1000)
-            .delay(500);
-
-        force.gravity(12 * 0.005);
-
-    if(selected_node) {
-        //console.log(selected_node);
-        var node_change = node.filter(function(d) {
-            return d.Term == selected_node.Term;
-        });
-        //console.log("FOUND: " + node_change);
-        node_change.style("fill", node_selected_color);
-
-
-        var label_change = label.filter(function(d) {
-            return d.Term == selected_node.Term;
-        });
-        var label_nochange = label.filter(function(d) {
-            return d.Term != selected_node.Term;
-        });
-        label_change.attr("font-size", 16)
-            .style("fill-opacity", 1);
-        label_nochange.style("fill-opacity", 0.2);
-
-    }
-
-    var data = selectDataList(klass_data);
-    draw_list(data);
-
-}
-
-function mouseclick_list(z) {
-
-    var array = selectDataBubbles2(z.post_url, klass_data);
-    freq = 1;
-    document.getElementById("slider1").value = freq;
-    span = document.getElementById('slider1-value');
-    while( span.firstChild ) {
-        span.removeChild( span.firstChild );
-    }
-    span.appendChild( document.createTextNode("1") );
-
-    force.nodes(array.filter(function (d) {
-        return d.freq >= freq;
-    }))
-        .charge(function (d) {
-            return -35 * d.freq;
-        });
-
-    node = node.data(force.nodes())
-        .style("fill", function(d) { return kind_to_color(d) });
-
-    nodeEnter = node.enter()
-        .append("circle")
-        .attr("class", "node_circle")
-        .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
-        })
-        .style("fill", function(d) {
-            return kind_to_color(d);
-        })
-        .on("mouseover", function (d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function (d) {
-            mouseout_node(d);
-        })
-        .on("click", function (d) {
-            if(selected_node != null && selected_node != d) {
-                var node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                d3.select(this)
-                    .attr("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            d3.select(this)
-                .style("fill", node_selected_color);
-        });
-
-    node_title = node.append("svg:title")
-        .text(function(d) {
-            var array = selectDataBars(d.Term, klass_data);
-            return "Number of posts it appears: " + array.length;
-        });
-
-    node.exit()
-        .transition()
-        .attr("r", 0)
-        .duration(500)
-        .remove();
-
-    node.call(force.drag);
-
-    label = label.data(force.nodes())
-        .text(function (d) {
-            return d.Term;
-        });
-
-    label.enter()
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("class", "node_label")
-        .attr("font-family", "Verdana")
-        .attr("font-size", 12)
-        .style("fill", "#000000")
-        .on("mouseover", function (d) {
-            mouseover_node(d);
-        })
-        .on("mouseout", function (d) {
-            mouseout_node(d);
-        })
-        .on("click", function (d) {
-            var node_change;
-
-            if(selected_node != null && selected_node != d) {
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                //console.log(node_change);
-                node_change.style("fill", function(d) {
-                    return kind_to_color(d);
-                });
-                var label_change = label.filter(function(d) {
-                    return d == selected_node;
-                });
-                label_change.style("fill-opacity", 0.2)
-                    .attr("font-size", 12);
-                selected_node = d;
-                label.filter(function(d) {
-                    return d == selected_node;
-                }).style("fill-opacity", 1)
-                    .attr("font-size", 16);
-                lock = true;
-                click_node = true;
-                node_change = node.filter(function(d) {
-                    return d == selected_node;
-                });
-                node_change.style("fill", node_selected_color);
-            } else {
-                lock = lock ? false : true;
-                click_node = true;
-            }
-
-            selected_node = d;
-            mouseclick_node(d);
-            node_change = node.filter(function(d) {
-                return d == selected_node;
-            });
-            node_change.style("fill", node_selected_color);
-        })
-        .text(function (d) {
-            return d.Term;
-        });
-
-    label_title = label.append("svg:title")
-        .text(function(d) {
-            var array = selectDataBars(d.Term, klass_data);
-            return "Number of posts it appears: " + array.length;
-        });
-
-    label.exit()
-        .transition()
-        .duration(500)
-        .remove();
+    fLabelExit();
 
     force.start();
 
@@ -1949,7 +1427,109 @@ function mouseclick_list(z) {
             return d.Term == selected_node.Term;
         });
         //console.log("FOUND: " + node_change);
-        node_change.style("fill", node_selected_color);
+        node_change
+            .style("stroke", node_selected_color)
+            .style("stroke-width", 5);
+            //.style("fill", node_selected_color);
+
+
+        var label_change = label.filter(function(d) {
+            return d.Term == selected_node.Term;
+        });
+        var label_nochange = label.filter(function(d) {
+            return d.Term != selected_node.Term;
+        });
+        label_change.attr("font-size", 16)
+            .style("fill-opacity", 1);
+        label_nochange.style("fill-opacity", 0.2);
+
+    }
+
+    var data = selectDataList(klass_data);
+    draw_list(data);
+
+}
+
+function mouseclick_list(z) {
+
+    var array = selectDataBubbles2(z.post_url, klass_data);
+    if(document.getElementById("slider1").value > 1) {
+        //alert(reminder);
+        if(!reminder)
+            reminder_popup();
+        //alert("The minimum frequency of the words that are shown is changed to 1.");
+    }
+    freq = 1;
+    document.getElementById("slider1").value = freq;
+    span = document.getElementById('slider1-value');
+    while( span.firstChild ) {
+        span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode("1") );
+
+    force.nodes(array.filter(function (d) {
+        return d.freq >= freq;
+    }))
+        .charge(function (d) {
+            return -35 * d.freq;
+        });
+
+    node = node.data(force.nodes())
+        .style("fill", function(d) { return kind_to_color(d) });
+
+    nodeEnter = fNodeEnter();
+
+    node_title = node.append("svg:title")
+        .text(function(d) {
+            var array = selectDataBars(d.Term, klass_data);
+            return "Number of posts it appears: " + array.length;
+        });
+
+    fNodeExit();
+
+    node.call(force.drag);
+
+    label = label.data(force.nodes())
+        .text(function (d) {
+            return d.Term;
+        });
+
+    fLabelEnter();
+
+    label_title = label.append("svg:title")
+        .text(function(d) {
+            var array = selectDataBars(d.Term, klass_data);
+            return "Number of posts it appears: " + array.length;
+        });
+
+    fLabelExit();
+
+    force.start();
+
+    graph_raw = array;
+    graph = graph_raw;
+
+    diam = 13;
+
+    node.transition()
+        .attr("r", function (d) {
+            return diam * Math.sqrt(d.freq);
+        })
+        .duration(1000)
+        .delay(500);
+
+    force.gravity(12 * 0.005);
+
+    if(selected_node) {
+        //console.log(selected_node);
+        var node_change = node.filter(function(d) {
+            return d.Term == selected_node.Term;
+        });
+        //console.log("FOUND: " + node_change);
+        node_change
+            .style("stroke", node_selected_color)
+            .style("stroke-width", 5);
+            //.style("fill", node_selected_color);
 
 
         var label_change = label.filter(function(d) {
@@ -1980,8 +1560,8 @@ function mouseclick_list(z) {
         selected_bar = bar_change;
         lock_bar = true;
         click_bar = true;
-        //console.log(bar_change);
-    }
+        console.log(bar_change);
+    } //
 
 }
 
@@ -2015,19 +1595,32 @@ function append_carousel() {
             .attr("src", photos[jj])
             //.attr("height", "85px")
             .style('margin', '0px 3px 0px 3px')
+            .on("click", function(d) {
+                d3.select(this)
+                    .style("stroke", node_selected_color)
+                    .style("stroke-width", 5);
+            })
             //.on('dbclick', window.open(photos[jj]))
             .attr("class", "img");
     }
 
     $('#image-carousel').slick({
+        //arrows: false,
+        //dots: true,
+        centerMode: true,
         lazyLoad: 'ondemand',
         infinite: true,
-        slidesToShow: 8,
+        slidesToShow: 7,
         slidesToScroll: 3
     });
+    //carousel();
 
     var stHeight = $('#image-carousel').height();
-    $('.slick-slide').css('height',stHeight - 55 + 'px' );
+    $('.slick-slide')
+        .css('height',stHeight - 55 + 'px' )
+        .on("click", function() {
+            context_menu();
+        });
 
 }
 
@@ -2111,11 +1704,50 @@ function extractImages(post_id) {
 }
 
 function allImages() {
+    var count = 0;
     var array = [];
     for(var kk = 0; kk < media.length; kk++) {
         if(media[kk].Type == "IMAGE") {
             array.push(media[kk].Media_URL);
+            count++;
+            if(count > 15) return array;
         }
     }
     return array;
+}
+
+function reminder_popup() {
+    //if(reminder) {
+        $(function () {
+            $("#dialog").dialog({
+                create: function (e, ui) {
+                    var pane = $(this).dialog("widget").find(".ui-dialog-buttonpane")
+                    $("<label class='shut-up' ><input  type='checkbox'/> Remember my selection</label>").prependTo(pane)
+                },
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog('close');
+                        //callback(true);
+                    }
+                }
+            });
+        });
+    //}
+    $(document).on("change", ".shut-up input", function () {
+        //alert("shut up! " + this.checked);
+        reminder = true;
+        //if(this.checked() == true) {
+        //    reminder = true;
+        //}
+    })
+}
+
+function context_menu() {
+    var tooltip = d3.select(this)
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .text("a simple tooltip");
+    return tooltip.style("visibility", "visible");
 }
