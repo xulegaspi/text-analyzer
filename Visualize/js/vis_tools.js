@@ -263,16 +263,20 @@ function fBarListEnter(w_svg_list, xscale2) {
             return xscale2(d.freq) - 20;
         })
         .on("mouseover", function(d) {
-            console.log(d);
-            fHighlightBar(d);
-            //mouseover_list(d);
-            d3.select(this)
-                .attr("fill", bar_mouse_color);
+            if(!click_list && selected_list == null) {
+                //console.log(d);
+                fHighlightBar(d);
+                //mouseover_list(d);
+                d3.select(this)
+                    .attr("fill", bar_mouse_color);
+            }
         })
         .on("mouseout", function(d) {
-            d3.select(this)
-                .attr("fill", bar_list_color);
-            fPlayDownBar(d);
+            if(!click_list && selected_list == null) {
+                d3.select(this)
+                    .attr("fill", bar_list_color);
+                fPlayDownBar(d);
+            }
         })
         .on("click", function(d) {
             if(selected_list != null && selected_list != d) {
@@ -293,6 +297,7 @@ function fBarListEnter(w_svg_list, xscale2) {
             d3.select(this)
                 .attr("fill", bar_mouse_color);
             mouseclick_list(d);
+            click_list = true;
 
         })
         .on("dblclick", function(d) { window.open(d.post_url); })
@@ -562,8 +567,8 @@ function fHighlightBar(selected_list) {
     });
     bar_change.attr("fill", bar_mouse_color);
     selected_bar = bar_change;
-    lock_bar = true;
-    click_bar = true;
+    //lock_bar = true;
+    //click_bar = true;
     console.log(bar_change);
 }
 
@@ -581,7 +586,7 @@ function fPlayDownBar(selected_list) {
     });
     bar_change.attr("fill", bar_color);
     selected_bar = null;
-    lock_bar = false;
-    click_bar = false;
+    //lock_bar = false;
+    //click_bar = false;
     console.log(bar_change);
 }
