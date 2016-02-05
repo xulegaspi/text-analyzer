@@ -262,6 +262,18 @@ function fBarListEnter(w_svg_list, xscale2) {
         .attr("width", function (d, i) {
             return xscale2(d.freq) - 20;
         })
+        .on("mouseover", function(d) {
+            console.log(d);
+            fHighlightBar(d);
+            //mouseover_list(d);
+            d3.select(this)
+                .attr("fill", bar_mouse_color);
+        })
+        .on("mouseout", function(d) {
+            d3.select(this)
+                .attr("fill", bar_list_color);
+            fPlayDownBar(d);
+        })
         .on("click", function(d) {
             if(selected_list != null && selected_list != d) {
                 var bar_list_change = bars_list.filter(function(d) {
@@ -534,4 +546,42 @@ function fExclusionArray() {
     console.log("Exclussion Array:");
     console.log(array);
     return array;
+}
+
+function fHighlightBar(selected_list) {
+    //console.log(selected_list);
+    var bar_change = bars.filter(function(d) {
+        //console.log(d);
+        switch(sort) {
+            case "posts":
+                return selected_list.klass_url == d.URL;
+            default:
+                return selected_list.klass_url == d.url;
+
+        }
+    });
+    bar_change.attr("fill", bar_mouse_color);
+    selected_bar = bar_change;
+    lock_bar = true;
+    click_bar = true;
+    console.log(bar_change);
+}
+
+function fPlayDownBar(selected_list) {
+    //console.log(selected_list);
+    var bar_change = bars.filter(function(d) {
+        //console.log(d);
+        switch(sort) {
+            case "posts":
+                return selected_list.klass_url == d.URL;
+            default:
+                return selected_list.klass_url == d.url;
+
+        }
+    });
+    bar_change.attr("fill", bar_color);
+    selected_bar = null;
+    lock_bar = false;
+    click_bar = false;
+    console.log(bar_change);
 }

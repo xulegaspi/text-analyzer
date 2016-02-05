@@ -1463,6 +1463,10 @@ function mouseclick_bar(z) {
 
 }
 
+//function mouseover_list(z) {
+//    fHighlightBar(z);
+//}
+
 function mouseclick_list(z) {
 
     var array = selectDataBubbles2(z.post_url, klass_data);
@@ -1559,21 +1563,23 @@ function mouseclick_list(z) {
 
     if(selected_bar == null) {
         //console.log(selected_list);
-        var bar_change = bars.filter(function(d) {
-            //console.log(d);
-            switch(sort) {
-                case "posts":
-                    return selected_list.klass_url == d.URL;
-                default:
-                    return selected_list.klass_url == d.url;
+        //var bar_change = bars.filter(function(d) {
+        //    //console.log(d);
+        //    switch(sort) {
+        //        case "posts":
+        //            return selected_list.klass_url == d.URL;
+        //        default:
+        //            return selected_list.klass_url == d.url;
+        //
+        //    }
+        //});
+        //bar_change.attr("fill", bar_mouse_color);
+        //selected_bar = bar_change;
+        //lock_bar = true;
+        //click_bar = true;
+        //console.log(bar_change);
+        fHighlightBar();
 
-            }
-        });
-        bar_change.attr("fill", bar_mouse_color);
-        selected_bar = bar_change;
-        lock_bar = true;
-        click_bar = true;
-        console.log(bar_change);
     } //
 
 }
