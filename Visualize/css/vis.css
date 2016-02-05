@@ -95,6 +95,13 @@ html, body {
     z-index: 3;
 }
 
+#slider1 {
+    width: 60%;
+    position: absolute;
+    top: 2px;
+    left: 100px;
+}
+
 /*#slider_gravity {*/
     /*width: 33%;*/
     /*position: absolute;*/

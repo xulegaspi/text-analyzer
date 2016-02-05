@@ -8,6 +8,7 @@ var node_color = "#FFE47A";
 //var bar_color = "#91b7dd";
 var bar_color = "#81a7cd";
 var node_selected_color = "#80b3ff";
+var node_excluded_color = "#cc0000";
 var node_mouse_color = "#90DAFF";
 
 var node_low_color = "#ffebcc";
@@ -31,8 +32,11 @@ var click_bar = false;
 var click_list = false;
 
 var selected_node;
+//var excluded_node;
 var selected_bar;
 var selected_list;
+var nodesArray = [];
+var excludedNodes = [];
 
 var bubble_values;
 var bar_values;
@@ -126,8 +130,14 @@ function draw_bubble_chart(graph) {
                 if(lock) lock = false;
                 mouseout_node();
                 selected_node = null;
+                if(!d3.event.shiftKey && !d3.event.ctrlKey) {
+                    nodesArray = [];
+                    excludedNodes = [];
+                }
                 var data = selectDataList(klass_data);
                 draw_list(data);
+
+                //console.log(klass_data);
 
                 if(selected_bar == null && selected_list == null) {
 
@@ -1265,7 +1275,6 @@ function mouseout_node(z) {
         label
             .attr("font-size", 12)
             .style("fill-opacity", 1);
-
     }
 }
 
@@ -1278,13 +1287,17 @@ function mouseout_bar() {
 
 function mouseclick_node(z) {
 
-    var data = selectDataList(klass_data);
+    //var data = selectDataList(klass_data);
+    //console.log(data);
+    var data = fSelectDataList();
 
     svg_bars.remove();
     draw_list(data);
 
     //console.log(z);
-    posts_fil = selectDataBars(z.Term, klass_data);
+    //posts_fil = selectDataBars(z.Term, klass_data);
+
+    posts_fil = fSelectDataBars();
 
     //console.log(posts_fil);
     draw_bar_chart(posts_fil, sort);
