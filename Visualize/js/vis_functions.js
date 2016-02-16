@@ -238,6 +238,7 @@ function draw_bar_chart(graph, mode) {
                 bars.attr("fill", bar_color);
 
                 selected_bar = null;
+                barsArray = [];
                 var data = selectDataList(klass_data);
                 draw_list(data);
 
@@ -1439,8 +1440,13 @@ function mouseclick_bar(z) {
 
     }
 
-    var data = selectDataList(klass_data);
-    draw_list(data);
+    console.log(barsArray.length);
+    if(barsArray.length == 1) {
+        var data = selectDataList(klass_data);
+        draw_list(data);
+    } else {
+        svg_list.remove();
+    }
 
 }
 
