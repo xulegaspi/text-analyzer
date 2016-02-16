@@ -141,8 +141,13 @@ function draw_bubble_chart(graph) {
                     nodesArray = [];
                     excludedNodes = [];
                 }
-                var data = selectDataList(klass_data);
-                draw_list(data);
+                if(barsArray.length == 1) {
+                    var data = selectDataList(klass_data);
+                    draw_list(data);
+                } else {
+                    if(svg_list)
+                        svg_list.remove();
+                }
 
                 //console.log(klass_data);
 
