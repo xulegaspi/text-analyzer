@@ -7,7 +7,12 @@ function fNodeEnter() {
         .append("circle")
         .attr("class", "node_circle")
         .attr("r", function (d) {
-            return diam * Math.sqrt(d.freq);
+            //if(freq_aux != null) {
+            //    console.log("here");
+            //    return diam * Math.sqrt(d.freq) / (freq_aux * 2);
+            //} else {
+                return diam * Math.sqrt(d.freq);
+            //}
         })
         .style("fill", function(d) {
             return kind_to_color(d);
@@ -230,24 +235,68 @@ function fBarsEnter(mode) {
         })
         .on("click", function (d) {
             //console.log(d);
-            if (selected_bar != null && selected_bar != d) {
-                var bar_change = bars.filter(function (d) {
-                    return d == selected_bar;
-                });
-                bar_change.attr("fill", bar_color);
-                selected_bar = d;
-                lock_bar = true;
-                click_bar = true;
-                d3.select(this)
-                    .attr("fill", bar_mouse_color);
-            } else {
-                lock_bar = lock_bar ? false : true;
-                click_bar = true;
+            //if (selected_bar != null && selected_bar != d) {
+            //    var bar_change = bars.filter(function (d) {
+            //        return d == selected_bar;
+            //    });
+            //    bar_change.attr("fill", bar_color);
+            //    selected_bar = d;
+            //    lock_bar = true;
+            //    click_bar = true;
+            //    d3.select(this)
+            //        .attr("fill", bar_mouse_color);
+            //} else {
+            //    lock_bar = lock_bar ? false : true;
+            //    click_bar = true;
+            //}
+
+            var auxSecondClick = false;
+            //console.log(this);
+            if(!d3.event.shiftKey && !d3.event.ctrlKey) {
+                barsArray = [];
+                excludedBars = [];
+                barsArray.push(d);
             }
+            if(d3.event.shiftKey) {
+                var index = barsArray.indexOf(d);
+                if(index == -1) {
+                    barsArray.push(d);
+                } else {
+                    barsArray.splice(index, 1);
+                    //console.log("UUUU");
+                    auxSecondClick = true;
+                    d3.select(this)
+                        .attr("fill", bar_color);
+                    // TODO fUnselectThis()
+                }
+                //console.log(barsArray);
+            }
+            if(d3.event.ctrlKey) {
+                var indexD = excludedBars.indexOf(d);
+                if(indexD == -1)
+                    excludedBars.push(d);
+                //console.log(excludedNodes);
+            }
+
+            if(d3.event.ctrlKey) {
+                //fExcludeNode(d, this);
+                //d3.select(this)
+                //    .style("stroke", node_excluded_color)
+                //    .style("stroke-width", 5);
+            } else {
+                //if(!auxSecondClick)
+                fSelectBar(d, this);
+            }
+
+            if(!d3.event.shiftKey && !d3.event.ctrlKey)
+                fUnselectBars(d);
+
             selected_bar = d;
             mouseclick_bar(d);
-            d3.select(this)
-                .attr("fill", bar_mouse_color);
+            console.log(barsArray);
+            fColourBars();
+            //d3.select(this)
+            //    .attr("fill", bar_mouse_color);
         })
         .on("dblclick", function (d) {
             switch (sort) {
@@ -463,6 +512,112 @@ function fExcludeNode(d, thisNode) {
         lock = lock ? false : true;
         click_node = true;
     }
+}
+
+function fUnselectBars(d) {
+    var neighbors = {};
+    neighbors[d.index] = true;
+
+    bars.filter(function(d) {
+        return !neighbors[d.index];
+    })
+        .attr("fill", bar_color);
+}
+
+function fSelectBar(d, thisBar) {
+    if (selected_bar != null && selected_bar != d) {
+        var bar_change = bars.filter(function (d) {
+            return d == selected_bar;
+        });
+        bar_change.attr("fill", bar_color);
+        selected_bar = d;
+        lock_bar = true;
+        click_bar = true;
+        d3.select(thisBar)
+            .attr("fill", bar_mouse_color);
+    } else {
+        lock_bar = lock_bar ? false : true;
+        click_bar = true;
+    }
+}
+
+function fSelectDataNodes() {
+    var exclusion = [];
+    var data = klass_data;
+    var hist = [];
+    var hist_aux = [];
+    var array = [];
+    var array_aux = [];
+    var resul = [];
+    var kk = 0;
+
+    for(var zz = 0; zz < barsArray.length; zz++) {
+
+        array_aux = data.filter(function (d) {
+            if (sort == "posts") {
+                return d.klass_url == barsArray[zz].URL;
+            } else {
+                return d.klass_url == barsArray[zz].url;
+            }
+        });
+
+        array_aux.map(function (a) {
+            if (a.Term in hist_aux) {
+                hist_aux[a.Term] += parseInt(a.freq);
+            } else {
+                hist_aux[a.Term] = parseInt(a.freq);
+            }
+        });
+
+        //console.log(hist);
+
+        for (var k in hist_aux) {
+            if(k in hist) {
+                hist[k] += parseInt(hist_aux[k]);
+            } else {
+                hist[k] = parseInt(hist_aux[k]);
+            }
+        }
+
+        for (var k in hist){
+            if (hist.hasOwnProperty(k)) {
+                var aux = {};
+                aux.Term = k;
+                aux.freq = hist[k];
+                resul.push(aux);
+                //console.log("Key is " + k + ", value is " + hist[k]);
+            }
+        }
+
+    }
+
+    console.log(resul.length);
+    return resul;
+
+        //array_aux = [];
+        //// Check in all the klass_data where the Term match
+        //for (var jj = 0; jj < klass_data.length; jj++) {
+        //    if (klass_data[jj].Term == nodesArray[zz].Term) {
+        //        //Check if it's excluded
+        //        if(exclusion != "[]" && exclusion.indexOf(klass_data[jj].klass_url) == -1) {
+        //            // Check if the URL also include previous selections so that it includes all the selected words
+        //            if (zz > 0) {
+        //                var indexAux = array[zz - 1].indexOf(klass_data[jj].klass_url);
+        //                // TODO: exclude if in other array
+        //
+        //                if (indexAux != -1) {
+        //                    //console.log(array[zz-1][indexAux] + " --> " + klass_data[jj].klass_url);
+        //                    array_aux.push(klass_data[jj].klass_url);
+        //                }
+        //            } else { // If no previous selections, just add the URL
+        //                array_aux.push(klass_data[jj].klass_url);
+        //            }
+        //        }
+        //    }
+        //}
+        ////console.log(array_aux);
+        //array.push(array_aux);
+    //}
 }
 
 function fSelectDataBars() {
@@ -685,4 +840,15 @@ function fPlayDownBar(selected_list) {
     });
     if(selected_bar == null)
         bar_change.attr("fill", bar_color);
+}
+
+function fColourBars() {
+    bars.attr("fill", bar_color);
+
+    for(var xx = 0; xx < barsArray.length; xx++) {
+        bars.filter(function(d) {
+            return d == barsArray[xx];
+        })
+            .attr("fill", bar_mouse_color);
+    }
 }

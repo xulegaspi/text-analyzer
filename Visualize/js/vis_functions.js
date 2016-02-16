@@ -37,10 +37,14 @@ var selected_bar;
 var selected_list;
 var nodesArray = [];
 var excludedNodes = [];
+var barsArray = [];
+var excludedBars = [];
 
 var bubble_values;
 var bar_values;
 var list_values;
+
+var freq_aux;
 
 var reminder = false;
 
@@ -90,6 +94,9 @@ function draw_bubble_chart(graph) {
     svg_bubble = d3.select("#bubble_chart").append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
+        .call(d3.behavior.zoom().on("zoom", function () {
+            main.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+        }))
         .on("click", function() {
             if(!click_node) {
                 //console.log(selected_bar);
@@ -222,11 +229,14 @@ function draw_bar_chart(graph, mode) {
         .on("click", function () {
             if (!click_bar) {
                 if (lock_bar) lock_bar = false;
-                var bar_change = bars.filter(function (d) {
-                    return d == selected_bar;
-                });
-                //console.log(bar_change);
-                bar_change.attr("fill", bar_color);
+                //var bar_change = bars.filter(function (d) {
+                //    return d == selected_bar;
+                //});
+                ////console.log(bar_change);
+                //bar_change.attr("fill", bar_color);
+
+                bars.attr("fill", bar_color);
+
                 selected_bar = null;
                 var data = selectDataList(klass_data);
                 draw_list(data);
@@ -980,11 +990,11 @@ function selectDataBubbles(url, data) {
     });
 
     array.map(function(a) {
-       if(a.Term in hist) {
-           hist[a.Term] += parseInt(a.freq);
-       } else {
-           hist[a.Term] = parseInt(a.freq);
-       }
+        if(a.Term in hist) {
+            hist[a.Term] += parseInt(a.freq);
+        } else {
+            hist[a.Term] = parseInt(a.freq);
+        }
     });
 
     //console.log(hist);
@@ -1281,61 +1291,68 @@ function mouseclick_bar(z) {
     var array;
     var span;
 
-    switch(sort) {
-        case "posts":
-            //console.log(z.URL);
-            array = selectDataBubbles(z.URL, klass_data);
+    array = fSelectDataNodes();
 
-            document.getElementById("tittle_bubble").value = z.URL;
-            span = document.getElementById('tittle_bubble');
-            while( span.firstChild ) {
-                span.removeChild( span.firstChild );
-            }
-            span.appendChild( document.createTextNode(z.URL) );
+    //switch(sort) {
+    //    case "posts":
+    //        //console.log(z.URL);
+    //        //array = selectDataBubbles(z.URL, klass_data);
+    //        array = fSelectDataNodes();
+    //
+    //        document.getElementById("tittle_bubble").value = z.URL;
+    //        span = document.getElementById('tittle_bubble');
+    //        while( span.firstChild ) {
+    //            span.removeChild( span.firstChild );
+    //        }
+    //        span.appendChild( document.createTextNode(z.URL) );
+    //
+    //        break;
+    //    case "post_length":
+    //        //console.log(z.url);
+    //        array = selectDataBubbles(z.url, klass_data);
+    //
+    //        document.getElementById("tittle_bubble").value = z.url;
+    //        span = document.getElementById('tittle_bubble');
+    //        while( span.firstChild ) {
+    //            span.removeChild( span.firstChild );
+    //        }
+    //        span.appendChild( document.createTextNode(z.url) );
+    //
+    //        break;
+    //    case "num_photos":
+    //        array = selectDataBubbles(z.url, klass_data);
+    //
+    //        document.getElementById("tittle_bubble").value = z.url;
+    //        span = document.getElementById('tittle_bubble');
+    //        while( span.firstChild ) {
+    //            span.removeChild( span.firstChild );
+    //        }
+    //        span.appendChild( document.createTextNode(z.url) );
+    //        break;
+    //    case "num_videos":
+    //        break;
+    //    default:
+    //        array = selectDataBubbles(z.URL, klass_data);
+    //        break;
+    //}
 
-            break;
-        case "post_length":
-            //console.log(z.url);
-            array = selectDataBubbles(z.url, klass_data);
 
-            document.getElementById("tittle_bubble").value = z.url;
-            span = document.getElementById('tittle_bubble');
-            while( span.firstChild ) {
-                span.removeChild( span.firstChild );
-            }
-            span.appendChild( document.createTextNode(z.url) );
+    var newFreq = Math.ceil(array.length/300);
+    freq_aux = newFreq;
 
-            break;
-        case "num_photos":
-            array = selectDataBubbles(z.url, klass_data);
-
-            document.getElementById("tittle_bubble").value = z.url;
-            span = document.getElementById('tittle_bubble');
-            while( span.firstChild ) {
-                span.removeChild( span.firstChild );
-            }
-            span.appendChild( document.createTextNode(z.url) );
-            break;
-        case "num_videos":
-            break;
-        default:
-            array = selectDataBubbles(z.URL, klass_data);
-            break;
-    }
-
-    if(document.getElementById("slider1").value > 1) {
+    if(document.getElementById("slider1").value != newFreq) {
         //alert(reminder);
         if(!reminder)
             reminder_popup();
         //alert("The minimum frequency of the words that are shown is changed to 1.");
     }
-    freq = 1;
+    freq = newFreq;
     document.getElementById("slider1").value = freq;
     span = document.getElementById('slider1-value');
     while( span.firstChild ) {
         span.removeChild( span.firstChild );
     }
-    span.appendChild( document.createTextNode("1") );
+    span.appendChild( document.createTextNode(freq) );
 
     force.nodes(array.filter(function (d) {
             return d.freq >= freq;
@@ -1345,6 +1362,14 @@ function mouseclick_bar(z) {
             });
 
     node = node.data(force.nodes())
+        .attr("r", function (d) {
+            if(freq_aux != null) {
+                console.log("here");
+                return diam * Math.sqrt(d.freq) / (freq_aux * 2);
+            } else {
+                return diam * Math.sqrt(d.freq);
+            }
+        })
         .style("fill", function(d) { return kind_to_color(d) });
 
     nodeEnter = fNodeEnter();
