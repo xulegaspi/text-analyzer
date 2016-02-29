@@ -283,7 +283,7 @@ html, body {
     font-size: 14px;
     min-width: 150px;
     border: 1px solid #d4d4d4;
-    z-index:1200;
+    z-index: 1200;
 }
 
 .context-menu ul {
@@ -300,4 +300,13 @@ html, body {
 .context-menu ul li:hover {
     background-color: #4677f8;
     color: #fefefe;
+}
+
+#search_box {
+    width: 20%;
+    position: fixed;
+    text-align: center;
+    left: 43%;
+    margin-top: 0.8%;
+    z-index: 5;
 }

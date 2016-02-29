@@ -466,6 +466,9 @@ function fUnselectNodes(d) {
 }
 
 function fSelectNode(d, thisNode) {
+    console.log("hhhhhh");
+    console.log(d);
+    console.log(thisNode);
     if(selected_node != null && selected_node != d) {
         var node_change = node.filter(function(d) {
             return d == selected_node;
@@ -851,4 +854,41 @@ function fColourBars() {
         })
             .attr("fill", bar_mouse_color);
     }
+}
+
+function fSearchBox(key) {
+    console.log(key.value);
+}
+
+function getSearchableArray() {
+    var resul = [];
+    console.log(words_data.length);
+    for(var xx = 0; xx < words_data.length; xx++) {
+        //console.log(words_data[xx].Term);
+        resul.push(words_data[xx].Term);
+    }
+    console.log(resul);
+    return resul;
+}
+
+function fHighlightNode(word) {
+    console.log(word);
+    var node_change = node.filter(function(d) {
+        return d.Term == word;
+    });
+
+
+    var data_change = node_change.data();
+    console.log(data_change[0]);
+    selected_node = data_change[0];
+
+    var circle = node_change[0];
+    console.log(circle[0]);
+
+    fSelectNode(data_change[0], circle[0]);
+    d3.select(circle[0])
+        .style("stroke", node_selected_color)
+        .style("stroke-width", 5);
+
+
 }

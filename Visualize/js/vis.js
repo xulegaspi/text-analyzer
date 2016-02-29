@@ -32,6 +32,7 @@ var carousel;
 var graph;       // Data loaded and filtered from the Keywords and their Frequencies
 var graph_raw;
 var words_data;  // Raw data loaded from total_freq.json
+var searchable_words;
 var klass_data;  // Raw data loaded from freq_klass_final.json
 var klass_fil;
 var num_posts;
@@ -57,6 +58,16 @@ d3.json(path + "total_freq.json", function(error, graph2) {
     //console.log(graph2);
 
     words_data = graph2;
+    console.log(words_data);
+    searchable_words = getSearchableArray();
+    $("#search_input").autocomplete({
+        source: searchable_words,
+        select: function(event, ui) {
+            //console.log(event);
+            //console.log(ui.item.value);
+            fHighlightNode(ui.item.value);
+        }
+    });
     graph_raw = words_data;
 
     slider_handlers(words_data);
