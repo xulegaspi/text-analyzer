@@ -881,11 +881,13 @@ function fHighlightNode(word) {
     var data_change = node_change.data();
     console.log(data_change[0]);
     selected_node = data_change[0];
+    nodesArray.push(data_change[0]);
 
     var circle = node_change[0];
     console.log(circle[0]);
 
     fSelectNode(data_change[0], circle[0]);
+    mouseclick_node(selected_node);
     d3.select(circle[0])
         .style("stroke", node_selected_color)
         .style("stroke-width", 5);

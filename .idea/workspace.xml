@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2373947d-9665-4c0a-9bb6-24b5e8ffbaa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Visualize/js/search_box.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/css/vis.css" afterPath="$PROJECT_DIR$/Visualize/css/vis.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/index.html" afterPath="$PROJECT_DIR$/Visualize/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/js/vis.js" afterPath="$PROJECT_DIR$/Visualize/js/vis.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize/js/vis_tools.js" afterPath="$PROJECT_DIR$/Visualize/js/vis_tools.js" />
     </list>
     <ignored path="TextAnalyzer.iws" />
@@ -80,8 +72,8 @@
           <file leaf-file-name="vis_functions.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Visualize/js/vis_functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.485491">
-                  <caret line="1413" column="0" selection-start-line="1413" selection-start-column="0" selection-end-line="1413" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.51227677">
+                  <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                     <element signature="e#72#100#0" expanded="false" />
@@ -364,7 +356,7 @@
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Visualize/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-24.846153">
+                <state vertical-scroll-proportion="0.0">
                   <caret line="68" column="41" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
                   <folding />
                 </state>
@@ -587,18 +579,16 @@
           <file leaf-file-name="vis_tools.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Visualize/js/vis_tools.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.79129463">
-                  <caret line="888" column="8" selection-start-line="888" selection-start-column="4" selection-end-line="890" selection-end-column="34" />
+                <state vertical-scroll-proportion="0.3549107">
+                  <caret line="866" column="43" selection-start-line="866" selection-start-column="43" selection-end-line="866" selection-end-column="43" />
                   <folding>
                     <element signature="n#!!doc;n#fNodeEnter#0" expanded="false" />
-                    <element signature="n#!!block;n#fNodeEnter#0" expanded="false" />
                     <element signature="e#197#440#0" expanded="false" />
                     <element signature="e#211#235#0" expanded="false" />
                     <element signature="e#477#525#0" expanded="false" />
                     <element signature="e#565#607#0" expanded="false" />
                     <element signature="e#646#687#0" expanded="false" />
                     <element signature="e#728#807#0" expanded="false" />
-                    <element signature="e#843#2469#0" expanded="false" />
                     <element signature="e#974#1094#0" expanded="false" />
                     <element signature="e#1129#1621#0" expanded="false" />
                     <element signature="e#1214#1273#0" expanded="false" />
@@ -680,9 +670,15 @@
                     <element signature="e#14563#14606#0" expanded="false" />
                     <element signature="e#14674#14716#0" expanded="false" />
                     <element signature="e#14785#14826#0" expanded="false" />
+                    <element signature="n#!!block;n#fSelectNode#0" expanded="false" />
+                    <element signature="e#15025#15519#0" expanded="false" />
+                    <element signature="e#15077#15127#0" expanded="false" />
                     <element signature="e#15190#15240#0" expanded="false" />
+                    <element signature="e#15525#15595#0" expanded="false" />
                     <element signature="n#!!block;n#fExcludeNode#0" expanded="false" />
                     <element signature="e#15641#15662#0" expanded="false" />
+                    <element signature="e#15801#16295#0" expanded="false" />
+                    <element signature="e#15853#15903#0" expanded="false" />
                     <element signature="e#15966#16016#0" expanded="false" />
                     <element signature="e#16301#16371#0" expanded="false" />
                     <element signature="n#!!block;n#fUnselectBars#0" expanded="false" />
@@ -724,14 +720,6 @@
                     <element signature="e#22113#22240#0" expanded="false" />
                     <element signature="e#22392#22590#0" expanded="false" />
                     <element signature="e#22451#22576#0" expanded="false" />
-                    <element signature="n#!!block;n#fSelectDataList#0" expanded="false" />
-                    <element signature="e#23010#23881#0" expanded="false" />
-                    <element signature="e#23116#23811#0" expanded="false" />
-                    <element signature="e#23178#23801#0" expanded="false" />
-                    <element signature="e#23271#23787#0" expanded="false" />
-                    <element signature="e#23305#23618#0" expanded="false" />
-                    <element signature="e#23439#23596#0" expanded="false" />
-                    <element signature="e#23624#23769#0" expanded="false" />
                     <element signature="e#24121#24241#0" expanded="false" />
                     <element signature="e#24178#24235#0" expanded="false" />
                     <element signature="e#24325#24931#0" expanded="false" />
@@ -752,8 +740,6 @@
                     <element signature="n#!!block;n#fColourBars#0" expanded="false" />
                     <element signature="e#26555#26690#0" expanded="false" />
                     <element signature="e#26589#26639#0" expanded="false" />
-                    <element signature="n#!!block;n#fSearchBox#0" expanded="false" />
-                    <element signature="n#!!block;n#getSearchableArray#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -1670,7 +1656,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.846153">
+        <state vertical-scroll-proportion="0.0">
           <caret line="68" column="41" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
           <folding />
         </state>
@@ -1969,18 +1955,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualize/js/vis_tools.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79129463">
-          <caret line="888" column="8" selection-start-line="888" selection-start-column="4" selection-end-line="890" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.3549107">
+          <caret line="866" column="43" selection-start-line="866" selection-start-column="43" selection-end-line="866" selection-end-column="43" />
           <folding>
             <element signature="n#!!doc;n#fNodeEnter#0" expanded="false" />
-            <element signature="n#!!block;n#fNodeEnter#0" expanded="false" />
             <element signature="e#197#440#0" expanded="false" />
             <element signature="e#211#235#0" expanded="false" />
             <element signature="e#477#525#0" expanded="false" />
             <element signature="e#565#607#0" expanded="false" />
             <element signature="e#646#687#0" expanded="false" />
             <element signature="e#728#807#0" expanded="false" />
-            <element signature="e#843#2469#0" expanded="false" />
             <element signature="e#974#1094#0" expanded="false" />
             <element signature="e#1129#1621#0" expanded="false" />
             <element signature="e#1214#1273#0" expanded="false" />
@@ -2062,9 +2046,15 @@
             <element signature="e#14563#14606#0" expanded="false" />
             <element signature="e#14674#14716#0" expanded="false" />
             <element signature="e#14785#14826#0" expanded="false" />
+            <element signature="n#!!block;n#fSelectNode#0" expanded="false" />
+            <element signature="e#15025#15519#0" expanded="false" />
+            <element signature="e#15077#15127#0" expanded="false" />
             <element signature="e#15190#15240#0" expanded="false" />
+            <element signature="e#15525#15595#0" expanded="false" />
             <element signature="n#!!block;n#fExcludeNode#0" expanded="false" />
             <element signature="e#15641#15662#0" expanded="false" />
+            <element signature="e#15801#16295#0" expanded="false" />
+            <element signature="e#15853#15903#0" expanded="false" />
             <element signature="e#15966#16016#0" expanded="false" />
             <element signature="e#16301#16371#0" expanded="false" />
             <element signature="n#!!block;n#fUnselectBars#0" expanded="false" />
@@ -2106,14 +2096,6 @@
             <element signature="e#22113#22240#0" expanded="false" />
             <element signature="e#22392#22590#0" expanded="false" />
             <element signature="e#22451#22576#0" expanded="false" />
-            <element signature="n#!!block;n#fSelectDataList#0" expanded="false" />
-            <element signature="e#23010#23881#0" expanded="false" />
-            <element signature="e#23116#23811#0" expanded="false" />
-            <element signature="e#23178#23801#0" expanded="false" />
-            <element signature="e#23271#23787#0" expanded="false" />
-            <element signature="e#23305#23618#0" expanded="false" />
-            <element signature="e#23439#23596#0" expanded="false" />
-            <element signature="e#23624#23769#0" expanded="false" />
             <element signature="e#24121#24241#0" expanded="false" />
             <element signature="e#24178#24235#0" expanded="false" />
             <element signature="e#24325#24931#0" expanded="false" />
@@ -2134,8 +2116,6 @@
             <element signature="n#!!block;n#fColourBars#0" expanded="false" />
             <element signature="e#26555#26690#0" expanded="false" />
             <element signature="e#26589#26639#0" expanded="false" />
-            <element signature="n#!!block;n#fSearchBox#0" expanded="false" />
-            <element signature="n#!!block;n#getSearchableArray#0" expanded="false" />
           </folding>
         </state>
       </provider>
